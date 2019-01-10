@@ -8,11 +8,11 @@
 - Printer
 - Order
 - Document
-- Order Document
+- Order Document (Junction)
 - Vendor Review
 - Offer Spec
-- SpecCriteriaPrintingMedium
-- SpecCriteriaDocType
+- SpecCriteriaPrintingMedium (Junction)
+- SpecCriteriaDocType (Junction)
 
 ---
 
@@ -162,7 +162,7 @@ Account can have multiple documents
 
 ---
 
-## Order Document
+## Order Document (Junction Table)
 
 ### Fields
 
@@ -208,7 +208,7 @@ Can have many spec criteria printing mediums, document types etc
 
 ---
 
-## Spec Criteria Printing Medium
+## Spec Criteria Printing Medium (Junction)
 
 ### Fields
 
@@ -223,7 +223,7 @@ Connected to one printing medium
 
 ---
 
-## Spec Criteria Document Type
+## Spec Criteria Document Type (Junction)
 
 ### Fields
 
