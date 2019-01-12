@@ -69,8 +69,8 @@ class PrintingOffer(models.Model):
 class OfferSpec(models.Model):
     printing_offer = models.ForeignKey(PrintingOffer, on_delete = models.CASCADE)
     description = models.TextField()
-    printing_mediums = models.ManyToManyField(PrintingMedium, null = True)
-    document_types = models.ManyToManyField(DocumentType, null = True)
+    printing_mediums = models.ManyToManyField(PrintingMedium, blank = True)
+    document_types = models.ManyToManyField(DocumentType, blank = True)
 
 # Order that has been placed on a specific offer
 class Order(models.Model):
