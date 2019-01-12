@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'corsheaders',
     'inkybase.apps.InkybaseConfig',
+    'rest_framework',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,3 +126,15 @@ STATIC_URL = '/static/'
 # Custom User Model
 MEDIA_URL = '/media/'
 MEDIA_ROOT = ""
+
+# Rest Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+# CORS Config
+CORS_ORIGIN_ALLOW_ALL = True
