@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, Vendor, OfferSpec
+from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,4 +56,4 @@ class VendorReviewSerializer(serializers.ModelSerializer):
 class OfferSpecSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfferSpec
-        fields = ('id', 'printing_offer', 'description', 'printing_medium', 'document_types')
+        fields = ('id', 'printing_offer', 'description', 'printing_mediums', 'document_types')
