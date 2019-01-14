@@ -23,3 +23,75 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     serializer_class = AccountSerializer
     queryset = Account.objects.all()
+
+class FavoriteVendorViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
+class PrintingOfferViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
+class PrintingMediumViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
+class DocumentTypeViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
+class PrinterViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
+class OrderViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
+class DocumentViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
+class VendorReviewViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+class OfferSpecViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
