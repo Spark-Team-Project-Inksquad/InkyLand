@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from inkybase.models import Account
+from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, Vendor, OfferSpec
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,51 +9,51 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class FavoriteVendorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = FavoriteVendor
+        fields = ('id', 'owner', 'vendor')
 
 
 class PrintingOfferSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = PrintingOffer
+        fields = ('id', 'owner', 'printerName', 'printer', 'minPrice', 'maxPrice', 'note')
 
 
 class PrintingMediumSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = PrintingMedium
+        fields = ('id', 'name', 'description')
 
 
 class DocumentTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = DocumentType
+        fields = ('id', 'name', 'extension', 'info', 'printing_medium')
 
 class PrinterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = Printer
+        fields = ('id', 'name', 'description')
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = Order
+        fields = ('id', 'address', 'orderer', 'documents', 'lat', 'lon', 'pickup', 'shipping', 'printing_offer')
 
 
 class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = Document
+        fields = ('id', 'owner', 'document_type', 'uploaded_file')
 
 
 class VendorReviewSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = VendorReview
+        fields = ('id', 'author', 'reviewed_vendor', 'score')
 
 class OfferSpecSerializer(serializers.ModelSerializer):
     class Meta:
-        model = A_Model
-        fields = ()
+        model = OfferSpec
+        fields = ('id', 'printing_offer', 'description', 'printing_medium', 'document_types')
