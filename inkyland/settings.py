@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'corsheaders',
     'inkybase.apps.InkybaseConfig',
+    'inkyapi.apps.InkyapiConfig',
     'rest_framework',
     'django.contrib.auth',
     'django.contrib.contenttypes',

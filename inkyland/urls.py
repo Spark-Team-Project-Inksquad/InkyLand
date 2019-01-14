@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('inkyapi.urls'))
 ]
 
 from .settings import MEDIA_URL, MEDIA_ROOT, DEBUG
