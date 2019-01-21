@@ -14,9 +14,11 @@ router.register(r'document-types', views.DocumentTypeViewSet)
 
 router.register(r'printers', views.PrinterViewSet)
 router.register(r'orders', views.OrderViewSet)
-router.register(r'document-views', views.DocumentViewSet)
+router.register(r'document', views.DocumentViewSet)
 router.register(r'vendor-reviews', views.VendorReviewViewSet)
 router.register(r'offer-specs', views.OfferSpecViewSet)
+
+
 
 urlpatterns = [
     path('', include(router.urls)),

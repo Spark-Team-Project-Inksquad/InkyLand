@@ -19,7 +19,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('inkyapi.urls'))
+    path('api/', include('inkyapi.urls')),
+    path('api/rest-auth/', include('rest_auth.urls')),
+    path('api/rest-auth/registration/', include('rest_auth.registration.urls'))
 ]
 
 from .settings import MEDIA_URL, MEDIA_ROOT, DEBUG

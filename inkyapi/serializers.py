@@ -33,7 +33,7 @@ class DocumentTypeSerializer(serializers.ModelSerializer):
 class PrinterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Printer
-        fields = ('id', 'name', 'description')
+        fields = ('id', 'name', 'manufacturer', 'upc')
 
 
 class OrderSerializer(serializers.ModelSerializer):

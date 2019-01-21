@@ -4,6 +4,7 @@ from django.http import HttpResponse
 
 # Rest framework
 from rest_framework import viewsets
+from rest_framework import permissions
 from rest_framework.response import Response
 
 # Models + Serializers
@@ -24,6 +25,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     serializer_class = AccountSerializer
     queryset = Account.objects.all()
+
 
 class FavoriteVendorViewSet(viewsets.ModelViewSet):
     '''
