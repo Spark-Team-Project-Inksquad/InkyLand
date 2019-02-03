@@ -1,3 +1,30 @@
-<p>
-  register-page works!
-</p>
+<div class = "container-fluid">
+
+  <form class = "register-form" (ngSubmit) = "register()" #loginForm="ngForm">
+
+    <!-- Userfield field -->
+    <div class = "form-group">
+      <label for = "usernameInput">Username:</label>
+      <input [(ngModel)] = 'model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
+    </div>
+
+    <!-- Password field -->
+    <div class = "form-group">
+        <label for = "passwordInput">Password:</label>
+        <input [(ngModel)] = 'model.password' id = "passwordInput" class = "form-control" name = "password" type = "password">
+    </div>
+
+    <!-- Password field -->
+    <div class = "form-group">
+        <label for = "passwordConfirmInput">Confirm Password:</label>
+        <input [(ngModel)] = 'model.confirmpassword' id = "passwordConfirmInput" class = "form-control" name = "password_confirm" type = "password">
+    </div>
+
+
+
+    <!-- Submit Button -->
+    <button type = "submit" class = "btn btn-primary">Register</button>
+  </form>
+  <p>Have an account? <a href = "/login">Log In</a></p>
+
+</div>

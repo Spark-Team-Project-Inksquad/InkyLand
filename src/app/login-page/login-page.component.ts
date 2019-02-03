@@ -24,7 +24,7 @@ export class LoginPageComponent implements OnInit {
     this.api
       .signIn(this.model.username, this.model.password)
       .subscribe(token => {
-        console.log("Your token " + token);
+        console.log("Your user token " + token);
       });
   }
 }

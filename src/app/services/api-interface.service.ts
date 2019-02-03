@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
 
 // RxJs
-import { map, catchError } from "rxjs/operators";
+import { map, share, catchError } from "rxjs/operators";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -22,7 +22,8 @@ export class ApiInterfaceService {
         username: username,
         password: password
       })
-      .pipe(map(tokenJson => tokenJson["key"]));
+      .pipe(map(tokenJson => tokenJson["key"]))
+      .pipe(share());
 
     signInObservable.subscribe({
       next: token => {
@@ -40,9 +41,38 @@ export class ApiInterfaceService {
     return signInObservable;
   }
 
-  // sign Out
+  // TODO sign Out
 
-  // register
+  // TODO register
+  public registerUser(
+    username: string,
+    password: string,
+    password_confirm: string
+  ) {
+    let signInObservable: Observable<string> = this.http
+      .post(this.endpoint + "/api/rest-auth/registration/", {
+        username: username,
+        password1: password,
+        password2: password_confirm
+      })
+      .pipe(map(tokenJson => tokenJson["key"]))
+      .pipe(share());
+
+    signInObservable.subscribe({
+      next: token => {
+        console.log("Register Success!:" + token);
+      },
+      error: err => {
+        console.error("Unable to log in");
+        console.error("Password may be too simple!");
+      },
+      complete: () => {
+        console.log("registration request complete");
+      }
+    });
+
+    return signInObservable;
+  }
 
   // STUB accounts
 }
