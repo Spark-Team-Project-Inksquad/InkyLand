@@ -41,9 +41,65 @@ export class ApiInterfaceService {
     return signInObservable;
   }
 
-  // TODO sign Out
+  //Views the user
+  public viewUser(
+    userToken:string
+  ) {
 
-  // TODO register
+      const httpOptions = {
+        headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
+      }
+
+      let viewUserObservable: Observable<object> = this.http
+        .get(this.endpoint + "/api/rest-auth/user",  httpOptions)
+        .pipe(share());
+
+      viewUserObservable.subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: err => {
+          console.log("Error unable to retrieve user info");
+        },
+        complete: () => {
+          console.log("Request complete");
+        }
+      })
+
+      return viewUserObservable;
+  }
+
+  // signs the user out
+  // NOTE test this
+  public signOutUser(
+    authToken:string
+  ){
+    const httpOptions = {
+      headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
+    }
+
+    let signOutObservable: Observable<object> = this.http
+      .post(this.endpoint + "/api/rest-auth/logout/", {}, httpOptions)
+      .pipe(share());
+
+
+    signOutObservable.subscribe({
+      next: res => {
+        console.log("Logout Success!");
+      },
+      error: err => {
+        console.error("Unable to log out");
+      },
+      complete: () => {
+        console.log("logout request complete");
+      }
+    });
+
+    return signInObservable;
+
+  }
+
+  // registers the user
   public registerUser(
     username: string,
     password: string,
@@ -75,4 +131,30 @@ export class ApiInterfaceService {
   }
 
   // STUB accounts
+
+  //Retrieves the User Account
+  getUserAccount(userToken:string) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
+    }
+
+    let getUserAccountObservable:Observable<object> = undefined;
+
+    getUserAccountObservable.subscribe({
+      next: account => {
+        console.log("Retrieved Account");
+        console.log(account)
+      },
+      error: err => {
+        console.error("Unable to retrieve account");
+      },
+      complete: () => {
+        console.log("retrieval request complete");
+      }
+    });
+
+    return getUserAccountObservable;
+
+  }
+
 }
