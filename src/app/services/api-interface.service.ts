@@ -72,7 +72,7 @@ export class ApiInterfaceService {
   // signs the user out
   // NOTE test this
   public signOutUser(
-    authToken:string
+    userToken:string
   ){
     const httpOptions = {
       headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
@@ -95,7 +95,7 @@ export class ApiInterfaceService {
       }
     });
 
-    return signInObservable;
+    return signOutObservable;
 
   }
 
@@ -138,7 +138,9 @@ export class ApiInterfaceService {
       headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
     }
 
-    let getUserAccountObservable:Observable<object> = undefined;
+    let getUserAccountObservable:Observable<object> = this.http
+      .get(this.endpoint + "/api/accounts/get_auth_user_profile",  httpOptions)
+      .pipe(share());
 
     getUserAccountObservable.subscribe({
       next: account => {
