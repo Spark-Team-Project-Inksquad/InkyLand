@@ -7,6 +7,8 @@ import { ApiInterfaceService } from "../services/api-interface.service";
 // Token lib
 import {TokenStorageService} from "../services/token-storage.service";
 
+// Routing
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: "app-login-page",
@@ -20,7 +22,7 @@ export class LoginPageComponent implements OnInit {
     password: ""
   };
 
-  constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService) {}
+  constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {}
 
@@ -31,7 +33,7 @@ export class LoginPageComponent implements OnInit {
         console.log("Your user token " + token);
         this.tokenStore.setToken(token).subscribe((token) => {
           //REDIRECT to profile
-          
+          this.router.navigate(['/profile']);
         })
       });
   }
