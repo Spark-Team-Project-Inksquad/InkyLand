@@ -4,6 +4,10 @@ import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiInterfaceService } from "../services/api-interface.service";
 
+// Token lib
+import {TokenStorageService} from "../services/token-storage.service";
+
+
 @Component({
   selector: "app-login-page",
   templateUrl: "./login-page.component.html",
@@ -16,7 +20,7 @@ export class LoginPageComponent implements OnInit {
     password: ""
   };
 
-  constructor(private api: ApiInterfaceService) {}
+  constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService) {}
 
   ngOnInit() {}
 
@@ -25,10 +29,12 @@ export class LoginPageComponent implements OnInit {
       .signIn(this.model.username, this.model.password)
       .subscribe(token => {
         console.log("Your user token " + token);
-        this.api.viewUser(token).subscribe((user) => {
-          console.log("USER");
-          console.log(user);
+        this.tokenStore.setToken(token).subscribe((token) => {
+          //REDIRECT to profile
+          
         })
       });
   }
+
+
 }
