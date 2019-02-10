@@ -1,3 +1,9 @@
-<p>
-  profile-page works!
-</p>
+<div class = "container-fluid profile-page">
+  <div *ngIf = "profile">
+    <p>Username: {{profile.username}}</p>
+    <p>Phone: {{profile.phone_number}}</p>
+    <p>Bio: {{profile.bio}}</p>
+  </div>
+
+  <button class = "btn btn-primary">Edit</button>
+</div>

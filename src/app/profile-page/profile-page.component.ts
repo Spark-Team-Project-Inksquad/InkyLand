@@ -15,7 +15,9 @@ import {TokenStorageService} from "../services/token-storage.service";
 })
 export class ProfilePageComponent implements OnInit {
 
-  public tempUserToken:string = "156277228c8b414d858578ee35f247adad9aa28a";
+  public userToken:string = "156277228c8b414d858578ee35f247adad9aa28a";
+  public profile:any = null;
+
 
   constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService) {
     console.log("loaded profile page");
@@ -24,16 +26,18 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit() {
     //gets the user token
     console.log("TOKEN");
-    this.tokenStore.setToken("abcedefd").subscribe((data) => {
-      console.log(data);
-    })
+    this.tokenStore.getToken().subscribe((data) => {
+      this.userToken = data;
+      this.getAccount();
+    });
 
-    //this.getAccount();
   }
 
   //retrieves the account from the backend server
   getAccount() {
-    //this.api.getUserAccount(this.tempUserToken);
+    this.api.getUserAccount(this.userToken).subscribe((profile) => {
+      this.profile = profile;
+    })
   }
 
 }
