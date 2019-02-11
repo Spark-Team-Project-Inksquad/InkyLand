@@ -1,18 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 //storage
-import localForage from "localforage";
-
+import * as localForage from "localforage";
 
 // RxJs
 import { map, share, catchError } from "rxjs/operators";
 import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TokenStorageService {
-
   private tokenStore: any;
 
   constructor() {
@@ -22,47 +20,41 @@ export class TokenStorageService {
   }
 
   getToken() {
-
-    return new Observable((observer) => {
-      this.tokenStore.getItem('token', function (err, value) {
+    return new Observable(observer => {
+      this.tokenStore.getItem("token", function(err, value) {
         if (err) {
           observer.error("Could not get token");
         }
 
-        observer.next(value);
+        observer.next(<string>value);
         observer.complete();
-      })
+      });
     });
-
   }
 
-  setToken(token:string) {
-
-    return new Observable((observer) => {
-      this.tokenStore.setItem('token', token, function (err, value) {
+  setToken(token: string) {
+    return new Observable(observer => {
+      this.tokenStore.setItem("token", token, function(err, value) {
         if (err) {
-          observer.error("Could not set Token")
+          observer.error("Could not set Token");
         }
 
-        observer.next(value);
+        observer.next(<string>value);
         observer.complete();
-      })
-    })
-
+      });
+    });
   }
 
   clearToken() {
-    return new Observable((observer) => {
-      this.tokenStore.setItem("token", null, function (err, value) {
+    return new Observable(observer => {
+      this.tokenStore.setItem("token", null, function(err, value) {
         if (err) {
           observer.error("Could not complete token");
         }
 
-        observer.next(value);
+        observer.next(<string>value);
         observer.complete();
-      })
-    })
+      });
+    });
   }
-
-
 }

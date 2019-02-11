@@ -42,46 +42,40 @@ export class ApiInterfaceService {
   }
 
   //Views the user
-  public viewUser(
-    userToken:string
-  ) {
+  public viewUser(userToken: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
 
-      const httpOptions = {
-        headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
+    let viewUserObservable: Observable<object> = this.http
+      .get(this.endpoint + "/api/rest-auth/user", httpOptions)
+      .pipe(share());
+
+    viewUserObservable.subscribe({
+      next: res => {
+        console.log(res);
+      },
+      error: err => {
+        console.log("Error unable to retrieve user info");
+      },
+      complete: () => {
+        console.log("Request complete");
       }
+    });
 
-      let viewUserObservable: Observable<object> = this.http
-        .get(this.endpoint + "/api/rest-auth/user",  httpOptions)
-        .pipe(share());
-
-      viewUserObservable.subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: err => {
-          console.log("Error unable to retrieve user info");
-        },
-        complete: () => {
-          console.log("Request complete");
-        }
-      })
-
-      return viewUserObservable;
+    return viewUserObservable;
   }
 
   // signs the user out
   // NOTE test this
-  public signOutUser(
-    userToken:string
-  ){
+  public signOutUser(userToken: string) {
     const httpOptions = {
-      headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
-    }
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
 
     let signOutObservable: Observable<object> = this.http
       .post(this.endpoint + "/api/rest-auth/logout/", {}, httpOptions)
       .pipe(share());
-
 
     signOutObservable.subscribe({
       next: res => {
@@ -96,7 +90,6 @@ export class ApiInterfaceService {
     });
 
     return signOutObservable;
-
   }
 
   // registers the user
@@ -133,30 +126,28 @@ export class ApiInterfaceService {
   // STUB accounts
 
   //Retrieves the User Account
-  getUserAccount(userToken:string) {
+  getProfile(userToken: string) {
     const httpOptions = {
-      headers: new HttpHeaders({'Authorization': 'Token ' + userToken})
-    }
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
 
-    let getUserAccountObservable:Observable<object> = this.http
-      .get(this.endpoint + "/api/accounts/get_auth_user_profile",  httpOptions)
+    let getProfileObservable: Observable<object> = this.http
+      .get(this.endpoint + "/api/profiles/logged_in_profile", httpOptions)
       .pipe(share());
 
-    getUserAccountObservable.subscribe({
-      next: account => {
-        console.log("Retrieved Account");
-        console.log(account)
+    getProfileObservable.subscribe({
+      next: profile => {
+        console.log("Retrieved Profile");
+        console.log(profile);
       },
       error: err => {
-        console.error("Unable to retrieve account");
+        console.error("Unable to retrieve profile");
       },
       complete: () => {
         console.log("retrieval request complete");
       }
     });
 
-    return getUserAccountObservable;
-
+    return getProfileObservable;
   }
-
 }
