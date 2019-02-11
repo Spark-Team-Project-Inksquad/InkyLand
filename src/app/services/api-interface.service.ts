@@ -150,4 +150,30 @@ export class ApiInterfaceService {
 
     return getProfileObservable;
   }
+
+  //Retrieves the User Account
+  updateProfile(userToken: string, newProfile:any) {
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    let updateProfileObservable: Observable<object> = this.http
+      .put(this.endpoint + "/api/profiles/" + newProfile.id + "/", newProfile, httpOptions)
+      .pipe(share());
+
+    updateProfileObservable.subscribe({
+      next: updatedProfile => {
+        console.log("Updated Profile");
+        console.log(updatedProfile);
+      },
+      error: err => {
+        console.error("Unable to update profile");
+      },
+      complete: () => {
+        console.log("update request complete");
+      }
+    });
+
+    return updateProfileObservable;
+  }
 }

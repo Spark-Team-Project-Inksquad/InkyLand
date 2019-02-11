@@ -1,31 +1,24 @@
 <div class ="container-fluid">
-  <form class = "edit-profile-form" (ngSubmit) = "updateProfile()" #editProfileForm = "ngForm">
-
-    <!-- EX
-    <div class = "form-group">
-      <label for = "usernameInput">Username:</label>
-      <input [(ngModel)] = 'model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
-    </div>
-  -->
+  <form *ngIf = "profile" class = "edit-profile-form" (ngSubmit) = "updateProfile()" #editProfileForm = "ngForm">
 
     <!-- Username -->
     <div class = "form-group">
       <label for = "username-input">Username:</label>
-      <input class = "form-control" type = "text" name = "username" id = "username-input"/>
+      <input [(ngModel)] = "profile.user.username" class = "form-control" type = "text" name = "username" id = "username-input"/>
     </div>
 
     <!-- Email -->
 
     <div class = "form-group">
       <label for = "email-input">Email:</label>
-      <input class = "form-control" type = "text" name = "email" id = "email-input"/>
+      <input [(ngModel)] = "profile.user.email" class = "form-control" type = "text" name = "email" id = "email-input"/>
     </div>
 
     <!-- First Name -->
 
     <div class = "form-group">
       <label for = "first-name-input">First Name:</label>
-      <input class = "form-control" type = "text" name = "first_name" id = "first-name-input"/>
+      <input [(ngModel)] = "profile.user.first_name" class = "form-control" type = "text" name = "first_name" id = "first-name-input"/>
     </div>
 
     <!-- Last Name -->
@@ -33,29 +26,29 @@
 
     <div class = "form-group">
       <label for = "last-name-input">Last Name:</label>
-      <input class = "form-control" type = "text" name = "last_name" id = "last-name-input"/>
+      <input [(ngModel)] = "profile.user.last_name" class = "form-control" type = "text" name = "last_name" id = "last-name-input"/>
     </div>
 
     <!-- Phone Number -->
 
     <div class = "form-group">
       <label for = "phone-number-input">Phone Number:</label>
-      <input class = "form-control" type = "text" name = "phone-number" id = "phone-number-input"/>
+      <input [(ngModel)] = "profile.phone_number" class = "form-control" type = "text" name = "phone-number" id = "phone-number-input"/>
     </div>
 
     <!-- Bio -->
 
     <div class = "form-group">
       <label for = "username-input">Bio:</label>
-      <textarea class = "form-control" type = "text" name = "bio" id = "bio-input"></textarea>
+      <textarea [(ngModel)] = "profile.bio" class = "form-control" type = "text" name = "bio" id = "bio-input"></textarea>
     </div>
 
     <!-- Vendor? -->
 
     <div class = "form-check">
       <!-- checkbox -->
-      <input class="form-check-input" type = "checkbox" name = "username" id = "username-input"/>
-      <label class="form-check-label"for = "username-input">Vendor:</label>
+      <input [(ngModel)] = "profile.isVendor" class="form-check-input" type = "checkbox" name = "vendor-input" id = "vendor-input"/>
+      <label class="form-check-label" for = "vendor-input">Vendor:</label>
     </div>
 
     <!-- Submit Button -->
