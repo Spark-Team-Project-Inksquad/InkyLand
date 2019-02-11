@@ -4,6 +4,7 @@
     <p>Phone: {{profile.phone_number}}</p>
     <p>Bio: {{profile.bio}}</p>
   </div>
-
-  <button class = "btn btn-primary">Edit</button>
+  <a class ="btn btn-primary" [routerLink]="['/edit-profile']">
+    Edit
+  </a>
 </div>

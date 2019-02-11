@@ -1,0 +1,65 @@
+<div class ="container-fluid">
+  <form class = "edit-profile-form" (ngSubmit) = "updateProfile()" #editProfileForm = "ngForm">
+
+    <!-- EX
+    <div class = "form-group">
+      <label for = "usernameInput">Username:</label>
+      <input [(ngModel)] = 'model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
+    </div>
+  -->
+
+    <!-- Username -->
+    <div class = "form-group">
+      <label for = "username-input">Username:</label>
+      <input class = "form-control" type = "text" name = "username" id = "username-input"/>
+    </div>
+
+    <!-- Email -->
+
+    <div class = "form-group">
+      <label for = "email-input">Email:</label>
+      <input class = "form-control" type = "text" name = "email" id = "email-input"/>
+    </div>
+
+    <!-- First Name -->
+
+    <div class = "form-group">
+      <label for = "first-name-input">First Name:</label>
+      <input class = "form-control" type = "text" name = "first_name" id = "first-name-input"/>
+    </div>
+
+    <!-- Last Name -->
+
+
+    <div class = "form-group">
+      <label for = "last-name-input">Last Name:</label>
+      <input class = "form-control" type = "text" name = "last_name" id = "last-name-input"/>
+    </div>
+
+    <!-- Phone Number -->
+
+    <div class = "form-group">
+      <label for = "phone-number-input">Phone Number:</label>
+      <input class = "form-control" type = "text" name = "phone-number" id = "phone-number-input"/>
+    </div>
+
+    <!-- Bio -->
+
+    <div class = "form-group">
+      <label for = "username-input">Bio:</label>
+      <textarea class = "form-control" type = "text" name = "bio" id = "bio-input"></textarea>
+    </div>
+
+    <!-- Vendor? -->
+
+    <div class = "form-check">
+      <!-- checkbox -->
+      <input class="form-check-input" type = "checkbox" name = "username" id = "username-input"/>
+      <label class="form-check-label"for = "username-input">Vendor:</label>
+    </div>
+
+    <!-- Submit Button -->
+    <button class = "btn btn-primary" type = "submit" clsas = "btn btn-success">Update</button>
+
+  </form>
+</div>

@@ -11,6 +11,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     NavigationComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    EditProfilePageComponent
   ],
   imports: [
     BrowserModule,

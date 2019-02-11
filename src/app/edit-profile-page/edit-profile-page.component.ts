@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 // Api lib
 import { HttpClient } from "@angular/common/http";
@@ -7,21 +7,19 @@ import { ApiInterfaceService } from "../services/api-interface.service";
 // Token lib
 import { TokenStorageService } from "../services/token-storage.service";
 
-@Component({
-  selector: "app-profile-page",
-  templateUrl: "./profile-page.component.html",
-  styleUrls: ["./profile-page.component.sass"],
-  providers: [ApiInterfaceService, HttpClient, TokenStorageService]
-})
-export class ProfilePageComponent implements OnInit {
-  public userToken: string;
-  public profile: any = null;
 
-  constructor(
-    private api: ApiInterfaceService,
-    private tokenStore: TokenStorageService
-  ) {
-    console.log("loaded profile page");
+@Component({
+  selector: 'app-edit-profile-page',
+  templateUrl: './edit-profile-page.component.html',
+  styleUrls: ['./edit-profile-page.component.sass']
+})
+export class EditProfilePageComponent implements OnInit {
+
+  public profile: any = null;
+  public userToken: string;
+
+  constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService) {
+
   }
 
   ngOnInit() {
@@ -36,10 +34,11 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  //retrieves the account from the backend server
   getProfile() {
     this.api.getProfile(this.userToken).subscribe(profile => {
       this.profile = profile;
-    });
+      console.log(this.profile);
+    })
   }
+
 }
