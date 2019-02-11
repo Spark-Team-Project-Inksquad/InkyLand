@@ -13,6 +13,30 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields = ('id', 'user', 'phone_number', 'bio', 'isVendor')
 
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Account
+        fields = ('id', 'user', 'phone_number', 'bio', 'isVendor')
+
+    # Updates the Profile
+    def update(self, instance, validated_data):
+        user_data = validated_data.pop('user')
+
+        for (key, value) in user_data.items():
+            if (key == "username" and instance.user.username == value):
+                continue
+
+            setattr(instance.user, key, value)
+
+        for (key, value) in validated_data.items():
+            setattr(instance, key, value)
+
+        instance.user.save()
+        instance.save()
+        return instance
+
 class FavoriteVendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = FavoriteVendor

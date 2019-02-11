@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+#Exceptions
+from django.core.exceptions import ObjectDoesNotExist
+
+# Signals
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here.
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, unique = True)
@@ -14,6 +21,18 @@ class Account(models.Model):
 
     def __str__(self):
         return self.user.username + " Account"
+
+# Create an Account if a user is created
+@receiver(post_save, sender=User)
+def on_user_save(sender, instance, **kwargs):
+    try:
+        print (instance)
+        auth_account = Account.objects.get(user = instance)
+    except ObjectDoesNotExist as e:
+        print ("No account exists. One will be created")
+        new_account = Account(user = instance)
+        new_account.save()
+        print ("USER ACCOUNT CREATED")
 
 # Favorite Vendors of a user
 class FavoriteVendor(models.Model):
