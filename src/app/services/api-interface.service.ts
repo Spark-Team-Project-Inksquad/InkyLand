@@ -41,30 +41,6 @@ export class ApiInterfaceService {
     return signInObservable;
   }
 
-  //Views the user
-  public viewUser(userToken: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-
-    let viewUserObservable: Observable<object> = this.http
-      .get(this.endpoint + "/api/rest-auth/user", httpOptions)
-      .pipe(share());
-
-    viewUserObservable.subscribe({
-      next: res => {
-        console.log(res);
-      },
-      error: err => {
-        console.log("Error unable to retrieve user info");
-      },
-      complete: () => {
-        console.log("Request complete");
-      }
-    });
-
-    return viewUserObservable;
-  }
 
   // signs the user out
   // NOTE test this
@@ -88,8 +64,32 @@ export class ApiInterfaceService {
         console.log("logout request complete");
       }
     });
-
     return signOutObservable;
+  }
+
+  //Views the user
+  public viewUser(userToken: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    let viewUserObservable: Observable<object> = this.http
+      .get(this.endpoint + "/api/rest-auth/user", httpOptions)
+      .pipe(share());
+
+    viewUserObservable.subscribe({
+      next: res => {
+        console.log(res);
+      },
+      error: err => {
+        console.log("Error unable to retrieve user info");
+      },
+      complete: () => {
+        console.log("Request complete");
+      }
+    });
+
+    return viewUserObservable;
   }
 
   // registers the user
