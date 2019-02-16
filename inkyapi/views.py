@@ -12,7 +12,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 # Models + Serializers
-from .serializers import ProfileSerializer,UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
+from .serializers import ProfileSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
 from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 from django.contrib.auth.models import User
 
@@ -122,6 +122,29 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
     serializer_class = PrintingOfferSerializer
     queryset = PrintingOffer.objects.all()
 
+    # List of all printing offers, but more detailed
+    @action(detail = False, methods= ['get'])
+    def detailed_list(self, request):
+        serializer = PrintingOfferDetailedSerializer(self.queryset, many = True)
+        return Response(serializer.data)
+
+    # Single detailed printing offer
+    @action(detail = True, methods = ['get'])
+    def detailed(self, request, pk = None):
+        printing_offer = self.get_object()
+        serializer = PrintingOfferDetailedSerializer(printing_offer, many = False)
+        return Response(serializer.data)
+
+
+class OfferSpecViewSet(viewsets.ModelViewSet):
+    '''
+    Viewsets for viewing and editing account instances
+    '''
+
+    serializer_class = OfferSpecSerializer
+    queryset = OfferSpec.objects.all()
+
+
 class PrintingMediumViewSet(viewsets.ModelViewSet):
     '''
     Viewsets for viewing and editing account instances
@@ -170,10 +193,3 @@ class VendorReviewViewSet(viewsets.ModelViewSet):
 
     serializer_class = VendorReviewSerializer
     queryset = VendorReview.objects.all()
-class OfferSpecViewSet(viewsets.ModelViewSet):
-    '''
-    Viewsets for viewing and editing account instances
-    '''
-
-    serializer_class = OfferSpecSerializer
-    queryset = OfferSpec.objects.all()

@@ -42,17 +42,31 @@ class FavoriteVendorSerializer(serializers.ModelSerializer):
         model = FavoriteVendor
         fields = ('id', 'owner', 'vendor')
 
+class PrinterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Printer
+        fields = ('id', 'name', 'manufacturer', 'upc')
+
+class PrintingMediumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrintingMedium
+        fields = ('id', 'name', 'description')
 
 class PrintingOfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrintingOffer
         fields = ('id', 'owner', 'printerName', 'printer', 'minPrice', 'maxPrice', 'note')
 
+class PrintingOfferDetailedSerializer(serializers.ModelSerializer):
+    printer = PrinterSerializer()
 
-class PrintingMediumSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PrintingMedium
-        fields = ('id', 'name', 'description')
+    class Meta(PrintingOfferSerializer.Meta):
+        pass
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['specs'] = OfferSpecDetailedSerializer(OfferSpec.objects.all().filter(printing_offer = instance.id),many = True).data
+        return ret
 
 
 class DocumentTypeSerializer(serializers.ModelSerializer):
@@ -60,10 +74,6 @@ class DocumentTypeSerializer(serializers.ModelSerializer):
         model = DocumentType
         fields = ('id', 'name', 'extension', 'info', 'printing_medium')
 
-class PrinterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Printer
-        fields = ('id', 'name', 'manufacturer', 'upc')
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -87,3 +97,11 @@ class OfferSpecSerializer(serializers.ModelSerializer):
     class Meta:
         model = OfferSpec
         fields = ('id', 'printing_offer', 'description', 'printing_mediums', 'document_types')
+
+class OfferSpecDetailedSerializer(serializers.ModelSerializer):
+    printing_mediums = PrintingMediumSerializer(many = True)
+    document_types = DocumentTypeSerializer(many = True)
+
+
+    class Meta(OfferSpecSerializer.Meta):
+        pass
