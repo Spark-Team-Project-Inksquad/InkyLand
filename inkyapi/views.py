@@ -123,18 +123,34 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
     queryset = PrintingOffer.objects.all()
 
     # List of all printing offers, but more detailed
+    # NOTE could potential optimize
     @action(detail = False, methods= ['get'])
     def detailed_list(self, request):
         serializer = PrintingOfferDetailedSerializer(self.queryset, many = True)
         return Response(serializer.data)
 
     # Single detailed printing offer
+    # NOTE could potential optimize
     @action(detail = True, methods = ['get'])
     def detailed(self, request, pk = None):
         printing_offer = self.get_object()
         serializer = PrintingOfferDetailedSerializer(printing_offer, many = False)
         return Response(serializer.data)
 
+    @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
+    def get_auth_printing_offers(self, request):
+        auth_user = request.user
+        printing_offers = PrintingOffer.objects.all().filter(owner = auth_user.account)
+        serializer = PrintingOfferSerializer(printing_offers, many = True)
+        return Response(serializer.data)
+
+    # NOTE could potential optimize
+    @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
+    def get_auth_detailed_printing_offers(self, request):
+        auth_user = request.user
+        printing_offers = PrintingOffer.objects.all().filter(owner = auth_user.account)
+        serializer = PrintingOfferDetailedSerializer(printing_offers, many = True)
+        return Response(serializer.data)
 
 class OfferSpecViewSet(viewsets.ModelViewSet):
     '''
