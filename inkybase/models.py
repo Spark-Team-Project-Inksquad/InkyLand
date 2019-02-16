@@ -52,6 +52,9 @@ class Printer(models.Model):
     manufacturer = models.CharField(max_length = 200)
     upc = models.CharField(max_length = 12)
 
+    def __str__(self):
+        return self.name
+
 # medium of printing (2D, 3D, etc)
 class PrintingMedium(models.Model):
     name = models.CharField(max_length = 100)
