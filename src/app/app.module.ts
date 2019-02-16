@@ -12,6 +12,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.component';
+import { OfferPageComponent } from './offer-page/offer-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.
     LoginPageComponent,
     RegisterPageComponent,
     ProfilePageComponent,
-    EditProfilePageComponent
+    EditProfilePageComponent,
+    OfferPageComponent
   ],
   imports: [
     BrowserModule,

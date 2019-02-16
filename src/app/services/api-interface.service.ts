@@ -227,7 +227,7 @@ export class ApiInterfaceService {
     //request urls
     let request_path: string = "/api/printing-offers/" + offer_id + "/";
     let detailed_request_path: string =
-      "/api/printing-offers/" + offer_id + "/detailed_list/";
+      "/api/printing-offers/" + offer_id + "/detailed/";
     let utilized_request_path: string = request_path;
 
     //if the user requests for it to be more detailed then yeah we get them the more detailed info

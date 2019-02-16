@@ -1,0 +1,19 @@
+<div *ngIf = "printing_offer" class = "container-fluid offer-page">
+
+  <h1>{{printing_offer.printerName}}</h1>
+
+  <div class = "offer">
+    <p>Printer: {{printing_offer.printer.name}}
+    <p>Price range: From ${{printing_offer.minPrice}} to ${{printing_offer.maxPrice}}
+
+    <p>Special Information: {{printing_offer.note}}</p>
+  </div>
+
+  <!-- TODO Display Offer Specs -->
+
+  <!-- TODO delete button -->
+  <!-- TODO edit button -->
+
+  <!-- Make this look better -->
+
+</div>
