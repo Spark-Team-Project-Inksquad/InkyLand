@@ -16,6 +16,7 @@ import { TokenStorageService } from "../services/token-storage.service";
 export class ProfilePageComponent implements OnInit {
   public userToken: string;
   public profile: any = null;
+  public offers: any[] = [];
 
   constructor(
     private api: ApiInterfaceService,
@@ -32,6 +33,7 @@ export class ProfilePageComponent implements OnInit {
       if (data !== null) {
         this.userToken = token;
         this.getProfile();
+        this.getAuthOffers();
       }
     });
   }
@@ -40,6 +42,14 @@ export class ProfilePageComponent implements OnInit {
   getProfile() {
     this.api.getProfile(this.userToken).subscribe(profile => {
       this.profile = profile;
+    });
+  }
+
+  //retrieves all the offers of this specific user
+  getAuthOffers() {
+    this.api.getPrintingOffersForUser(this.userToken, true).subscribe(data => {
+      console.log(data);
+      this.offers = <any[]>data;
     });
   }
 }

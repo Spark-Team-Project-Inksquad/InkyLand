@@ -41,9 +41,7 @@ export class ApiInterfaceService {
     return signInObservable;
   }
 
-
   // signs the user out
-  // NOTE test this
   public signOutUser(userToken: string) {
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
@@ -152,13 +150,17 @@ export class ApiInterfaceService {
   }
 
   //Retrieves the User Account
-  updateProfile(userToken: string, newProfile:any) {
+  updateProfile(userToken: string, newProfile: any) {
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
     };
 
     let updateProfileObservable: Observable<object> = this.http
-      .put(this.endpoint + "/api/profiles/" + newProfile.id + "/", newProfile, httpOptions)
+      .put(
+        this.endpoint + "/api/profiles/" + newProfile.id + "/",
+        newProfile,
+        httpOptions
+      )
       .pipe(share());
 
     updateProfileObservable.subscribe({
@@ -176,4 +178,70 @@ export class ApiInterfaceService {
 
     return updateProfileObservable;
   }
+
+  // Printing Offer CRUD TODO
+
+  //request all the printing offers
+  getPrintingOffers(detailed: boolean = false) {
+    let request_path: string = "/api/printing-offers/";
+    let detailed_request_path: string = "/api/printing-offers/detailed_list/";
+    let utilized_request_path: string = request_path;
+
+    //if the user requests for it to be more detailed then yeah we get them the more detailed info
+    if (detailed == true) {
+      utilized_request_path = detailed_request_path;
+    }
+
+    //make the request
+    let getPrintingOffers: Observable<object> = this.http
+      .get(this.endpoint + utilized_request_path)
+      .pipe(share());
+
+    return getPrintingOffers;
+  }
+
+  getPrintingOffersForUser(userToken: string, detailed: boolean = false) {
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    let request_path: string = "/api/printing-offers/get_auth_printing_offers/";
+    let detailed_request_path: string =
+      "/api/printing-offers/get_auth_detailed_printing_offers/";
+    let utilized_request_path: string = request_path;
+
+    //if the user requests for it to be more detailed then yeah we get them the more detailed info
+    if (detailed == true) {
+      utilized_request_path = detailed_request_path;
+    }
+
+    let getPrintingAuthOffers: Observable<object> = this.http
+      .get(this.endpoint + utilized_request_path, httpOptions)
+      .pipe(share());
+
+    return getPrintingAuthOffers;
+  }
+
+  //request a specific printing offer
+  getPrintingOffer(offer_id: number, detailed: boolean = false) {
+    //request urls
+    let request_path: string = "/api/printing-offers/" + offer_id + "/";
+    let detailed_request_path: string =
+      "/api/printing-offers/" + offer_id + "/detailed_list/";
+    let utilized_request_path: string = request_path;
+
+    //if the user requests for it to be more detailed then yeah we get them the more detailed info
+    if (detailed == true) {
+      utilized_request_path = detailed_request_path;
+    }
+
+    //make the request
+    let getPrintingOffer: Observable<object> = this.http
+      .get(this.endpoint + utilized_request_path)
+      .pipe(share());
+
+    return getPrintingOffer;
+  }
+
+  // Printing Offer Spec CRUD TODO
 }

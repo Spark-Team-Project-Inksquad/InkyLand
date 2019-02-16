@@ -1,10 +1,23 @@
-<div class = "container-fluid profile-page">
-  <div *ngIf = "profile">
+<div *ngIf = "profile" class = "container-fluid profile-page">
+  <h1> Hello {{profile.user.username}}</h1>
+  <div class = "profile-details">
     <p>Username: {{profile.user.username}}</p>
     <p>Phone: {{profile.phone_number}}</p>
     <p>Bio: {{profile.bio}}</p>
+
+    <a class ="btn btn-primary" [routerLink]="['/edit-profile']">
+      Edit
+    </a>
   </div>
-  <a class ="btn btn-primary" [routerLink]="['/edit-profile']">
-    Edit
-  </a>
+
+  <br>
+  <div class = "offers">
+    <h1>Your Offers</h1>
+
+    <!-- Load in the offers here -->
+
+    
+  </div>
+
+
 </div>
