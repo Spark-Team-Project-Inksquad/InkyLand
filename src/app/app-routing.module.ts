@@ -7,6 +7,7 @@ import { RegisterPageComponent } from "./register-page/register-page.component";
 import { ProfilePageComponent } from "./profile-page/profile-page.component";
 import { EditProfilePageComponent } from "./edit-profile-page/edit-profile-page.component";
 import { OfferPageComponent } from "./offer-page/offer-page.component";
+import { CreatePrintingOfferPageComponent } from "./create-printing-offer-page/create-printing-offer-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -14,6 +15,19 @@ const routes: Routes = [
   { path: "register", component: RegisterPageComponent },
   { path: "profile", component: ProfilePageComponent },
   { path: "edit-profile", component: EditProfilePageComponent },
+  {
+    path: "printing-offer/create",
+    component: CreatePrintingOfferPageComponent,
+    mode: "create",
+    pathMatch: "full"
+  },
+  {
+    path: "printing-offer/edit/:id",
+    component: CreatePrintingOfferPageComponent,
+    data: {
+      mode: "edit"
+    }
+  },
   { path: "printing-offer/:id", component: OfferPageComponent }
 ];
 

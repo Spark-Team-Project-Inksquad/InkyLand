@@ -7,6 +7,9 @@ import { ApiInterfaceService } from "../services/api-interface.service";
 // Token lib
 import { TokenStorageService } from "../services/token-storage.service";
 
+//routing
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
+
 @Component({
   selector: "app-profile-page",
   templateUrl: "./profile-page.component.html",
@@ -20,7 +23,9 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private api: ApiInterfaceService,
-    private tokenStore: TokenStorageService
+    private tokenStore: TokenStorageService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     console.log("loaded profile page");
   }
@@ -53,10 +58,9 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  //TODO creates a printing offer
-  //STUB
+  //creates a printing offer
   createPrintingOffer() {
-    //TODO redirect to the printing offer creation page
-    // with the creation mode enabled
+    //redirect to the printing offer creation page
+    this.router.navigate(["/printing-offer/create"]);
   }
 }

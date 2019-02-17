@@ -273,4 +273,14 @@ export class ApiInterfaceService {
   ) {}
 
   // Printing Offer Spec CRUD TODO
+
+  //Printers
+
+  //TODO retrieves all printer options
+  getPrinters() {
+    //STUB code
+    // request path config
+    // GET Request observable
+    // return observable
+  }
 }
