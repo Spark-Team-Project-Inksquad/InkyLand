@@ -274,7 +274,7 @@ export class ApiInterfaceService {
     let request_path: string = "/api/printing-offers/";
 
     // make api request method[POST]
-    let createPrintingOfferObservable: Observable<object> = this.http
+    let createPrintingOfferObservable: Observable<any> = this.http
       .post(this.endpoint + request_path, printing_offer_payload, httpOptions)
       .pipe(share());
 
@@ -299,7 +299,7 @@ export class ApiInterfaceService {
 
     // GET Request observable
     //retrieves list of printers from the server
-    let getPrintersObservable: Observable<object[]> = this.http
+    let getPrintersObservable: Observable<any> = this.http
       .get(this.endpoint + request_path)
       .pipe(share());
 

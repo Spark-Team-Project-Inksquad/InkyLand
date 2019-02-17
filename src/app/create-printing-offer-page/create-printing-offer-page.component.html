@@ -7,6 +7,13 @@
   <!-- The Creation Form -->
   <form class = "create-printing-offer-form" (ngSubmit) = "createPrintingOffer()" #createOfferForm = "ngForm">
 
+    <!-- Printer Name -->
+    <div class = "form-group">
+        <label for = "printer-name-input">Printer Name: </label>
+        <input [(ngModel)] = "model.printerName" type = "text" class = "form-control" id = "printer-name-input" name = "printer-name" />
+    </div>
+
+
     <!-- Printer -->
     <div class = "form-group">
       <label for = "printer-input">Printer: </label>

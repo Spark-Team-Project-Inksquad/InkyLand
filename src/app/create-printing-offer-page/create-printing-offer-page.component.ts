@@ -27,7 +27,9 @@ export class CreatePrintingOfferPageComponent implements OnInit {
   **/
 
   private userToken: string = "";
+  private profile: any = null;
   public model: object = {
+    printerName: "",
     printer: null,
     minPrice: 0.0,
     maxPrice: 0.0,
@@ -47,25 +49,38 @@ export class CreatePrintingOfferPageComponent implements OnInit {
     //get the printer options
     this.getPrinters();
 
-    //retrieve the userToken
-    this.retrieveUserToken();
+    //retrieve the userToken + profile
+    this.retrieveUserTokenAndProfile();
   }
 
   /**
-  TODO on form submit
   creates the printing offer
   **/
   createPrintingOffer() {
+    //modify the model so that it has an owner
+    this.model["owner"] = this.profile.id;
+
     // make the api creation request
-    // redirect to the profile page once completed
+    this.api.createPrintingOffer(this.userToken, this.model).subscribe(data => {
+      console.log(data);
+      alert("printing offer successfully created!");
+    });
   }
 
-  //retrieves and holds on to user token for creation use
-  retrieveUserToken() {
+  //retrieves and holds on to user token and profile for creation use
+  retrieveUserTokenAndProfile() {
+    //retrieve the user token
     this.tokenStore.getToken().subscribe(data => {
-      let token = data as string;
+      let token: string = data as string;
+
       if (data !== null) {
+        //save user token
         this.userToken = token;
+
+        //retrieve the profile
+        this.api.getProfile(this.userToken).subscribe(profile => {
+          this.profile = profile;
+        });
       }
     });
   }
