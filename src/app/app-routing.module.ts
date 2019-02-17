@@ -18,7 +18,9 @@ const routes: Routes = [
   {
     path: "printing-offer/create",
     component: CreatePrintingOfferPageComponent,
-    mode: "create",
+    data: {
+      mode: "create"
+    },
     pathMatch: "full"
   },
   {
