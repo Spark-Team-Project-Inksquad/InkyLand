@@ -122,6 +122,25 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
     serializer_class = PrintingOfferSerializer
     queryset = PrintingOffer.objects.all()
 
+    # TODO limit to only offers that the logged in user can access
+    @permission_classes((IsAuthenticated, ))
+    def destroy(self, request, pk = None):
+        printing_offer = self.get_object()
+        auth_user = request.user
+
+        # Checks if the user is logged in correctly
+        # If not shoot an error
+        if (str(auth_user) == "AnonymousUser"):
+            return Response({'status': 'must be logged in!'})
+
+        # Checks if the selected printing offer is part of the logged in users account
+        if (printing_offer.owner == auth_user.account):
+            # If so, destroy the offer
+            printing_offer.delete()
+            return Response({'status': 'deleted', 'message': 'Offer Deleted'})
+
+        return Response({'status': 'WIP'})
+
     # List of all printing offers, but more detailed
     # NOTE could potential optimize
     @action(detail = False, methods= ['get'])
@@ -151,6 +170,8 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
         printing_offers = PrintingOffer.objects.all().filter(owner = auth_user.account)
         serializer = PrintingOfferDetailedSerializer(printing_offers, many = True)
         return Response(serializer.data)
+
+
 
 class OfferSpecViewSet(viewsets.ModelViewSet):
     '''
