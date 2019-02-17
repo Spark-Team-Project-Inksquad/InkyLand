@@ -282,11 +282,18 @@ export class ApiInterfaceService {
     return createPrintingOfferObservable;
   }
 
+  //TODO updates a printing offer
   updatePrintingOffer(
     userToken: string,
     printing_offer_id: number,
     printing_offer_payload: any
-  ) {}
+  ) {
+    // http auth headers config
+    // request path config
+    //PUT Request observable
+    //update the printing offer
+    //return the update observable
+  }
 
   // Printing Offer Spec CRUD TODO
 
