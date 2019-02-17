@@ -10,27 +10,30 @@
     <!-- Printer -->
     <div class = "form-group">
       <label for = "printer-input">Printer: </label>
-      <select class = "form-control" name = "printers" id = "printer-input">
+      <select [(ngModel)] = "model.printer" class = "form-control" name = "printers" id = "printer-input">
         <!-- Render the option list -->
+        <option *ngFor = "let printer of printers;" value = "{{printer.id}}">
+          {{printer.name}}
+        </option>
       </select>
     </div>
 
     <!-- Min Price -->
     <div class = "form-group">
         <label for = "min-price-input">Min Price: </label>
-        <input type = "number" class = "form-control" id = "min-price-input" name = "min-price" />
+        <input [(ngModel)] = "model.minPrice" type = "number" class = "form-control" id = "min-price-input" name = "min-price" />
     </div>
 
     <!-- Max Price -->
     <div class = "form-group">
         <label for = "max-price-input">Max Price: </label>
-        <input type = "number" class = "form-control" id = "max-price-input" name = "max-price" />
+        <input [(ngModel)] = "model.maxPrice" type = "number" class = "form-control" id = "max-price-input" name = "max-price" />
     </div>
 
     <!-- Note -->
     <div class = "form-group">
         <label for = "note-input">Note: </label>
-        <textarea class = "form-control" id = "note-input" name = "note"></textarea>
+        <textarea [(ngModel)] = "model.note" class = "form-control" id = "note-input" name = "note"></textarea>
     </div>
 
     <!-- Submission Button -->

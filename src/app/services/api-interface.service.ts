@@ -263,8 +263,24 @@ export class ApiInterfaceService {
     return deletePrintingOfferObservable;
   }
 
-  //TODO creates a printing offer
-  createPrintingOffer(userToken: string, printing_offer_payload: any) {}
+  //creates a printing offer
+  createPrintingOffer(userToken: string, printing_offer_payload: any) {
+    //create http headers for auth
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //configure request path
+    let request_path: string = "/api/printing-offers/";
+
+    // make api request method[POST]
+    let createPrintingOfferObservable: Observable<object> = this.http
+      .post(this.endpoint + request_path, printing_offer_payload, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return createPrintingOfferObservable;
+  }
 
   updatePrintingOffer(
     userToken: string,

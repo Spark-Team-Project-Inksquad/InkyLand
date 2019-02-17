@@ -26,21 +26,59 @@ export class CreatePrintingOfferPageComponent implements OnInit {
       "note": "Aight"
   **/
 
-  //NOTE need to retrieve printer options
+  private userToken: string = "";
   public model: object = {
     printer: null,
     minPrice: 0.0,
     maxPrice: 0.0,
     note: ""
   };
+  public printers: object[] = [];
 
-  constructor() {}
+  //TODO if user is not logged in redirect to the login page
+  constructor(
+    private api: ApiInterfaceService,
+    private tokenStore: TokenStorageService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    //get the printer options
+    this.getPrinters();
+
+    //retrieve the userToken
+    this.retrieveUserToken();
+  }
 
   /**
   TODO on form submit
-  create the printing offer
+  creates the printing offer
   **/
-  createPrintingOffer() {}
+  createPrintingOffer() {
+    // make the api creation request
+    // redirect to the profile page once completed
+  }
+
+  //retrieves and holds on to user token for creation use
+  retrieveUserToken() {
+    this.tokenStore.getToken().subscribe(data => {
+      let token = data as string;
+      if (data !== null) {
+        this.userToken = token;
+      }
+    });
+  }
+
+  /**
+  retrieves all the printers and saves it to the
+  printers variable for a list of options for the creation/update form
+  **/
+
+  getPrinters() {
+    this.api.getPrinters().subscribe(data => {
+      this.printers = data;
+      console.log(this.printers);
+    });
+  }
 }
