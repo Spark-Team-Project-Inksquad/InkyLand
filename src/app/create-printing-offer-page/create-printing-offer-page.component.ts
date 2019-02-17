@@ -28,6 +28,7 @@ export class CreatePrintingOfferPageComponent implements OnInit {
 
   private userToken: string = "";
   private profile: any = null;
+  private offer_id: number = null;
   public model: object = {
     printerName: "",
     printer: null,
@@ -51,7 +52,21 @@ export class CreatePrintingOfferPageComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.mode = data.mode;
 
-      //TODO check whether or not a model must be preloaded in
+      //if it is edit mode retrieve the specific printing offer information to load in
+      if (this.mode == "edit") {
+        this.offer_id = parseInt(this.route.snapshot.paramMap.get("id"));
+
+        //load in profile into model
+        this.api.getPrintingOffer(this.offer_id, true).subscribe(data => {
+          this.model = {
+            printerName: data.printerName,
+            printer: data.printer.id,
+            minPrice: data.minPrice,
+            maxPrice: data.maxPrice,
+            note: data.note
+          };
+        });
+      }
     });
 
     //get the printer options
@@ -64,15 +79,35 @@ export class CreatePrintingOfferPageComponent implements OnInit {
   /**
   creates the printing offer
   **/
-  createPrintingOffer() {
+  createOrUpdatePrintingOffer() {
     //modify the model so that it has an owner
     this.model["owner"] = this.profile.id;
 
-    // make the api creation request
-    this.api.createPrintingOffer(this.userToken, this.model).subscribe(data => {
-      console.log(data);
-      alert("printing offer successfully created!");
-    });
+    //check if edit or create
+
+    if (this.mode == "create") {
+      // make the api offer creation request
+      this.api
+        .createPrintingOffer(this.userToken, this.model)
+        .subscribe(data => {
+          console.log(data);
+          alert("printing offer successfully created!");
+
+          //redirect back
+          this.router.navigate(["/profile"]);
+        });
+    } else if (this.mode == "edit") {
+      //make the api update request
+      this.api
+        .updatePrintingOffer(this.userToken, this.offer_id, this.model)
+        .subscribe(data => {
+          console.log(data);
+          alert("printing offer successfully updated!");
+
+          //redirect back
+          this.router.navigate(["/printing-offer/" + this.offer_id + "/"]);
+        });
+    }
   }
 
   //retrieves and holds on to user token and profile for creation use

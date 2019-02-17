@@ -3,11 +3,11 @@
   <h1>{{printing_offer.printerName}}</h1>
 
   <div *ngIf = "write_access" class = "authenticated-actions">
-    <!-- TODO delete button -->
+    <!-- delete button -->
     <button (click) = "deletePrintingOffer()" class = "btn btn-danger">Delete</button>
 
-    <!-- TODO edit button -->
-    <button class = "btn btn-info">Edit</button>
+    <!-- edit button -->
+    <button (click) = "editPrintingOffer()" class = "btn btn-info">Edit</button>
   </div>
   <br>
   <div class = "offer">

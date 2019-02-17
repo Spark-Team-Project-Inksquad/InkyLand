@@ -5,7 +5,7 @@
 
   <!-- NOTE changes if editting mode enabled -->
   <!-- The Creation Form -->
-  <form class = "create-printing-offer-form" (ngSubmit) = "createPrintingOffer()" #createOfferForm = "ngForm">
+  <form class = "create-printing-offer-form" (ngSubmit) = "createOrUpdatePrintingOffer()" #createOfferForm = "ngForm">
 
     <!-- Printer Name -->
     <div class = "form-group">
@@ -45,7 +45,10 @@
 
     <!-- Submission Button -->
     <!-- NOTE may change for edit mode -->
-    <button class = "btn btn-primary" type = "submit" class = "btn btn-success">Create</button>
+
+    <button *ngIf = "mode == 'create'" class = "btn btn-primary" type = "submit" class = "btn btn-success">Create</button>
+    <button *ngIf = "mode == 'edit'" class = "btn btn-primary" type = "submit" class = "btn btn-success">Update</button>
+
 
   </form>
 

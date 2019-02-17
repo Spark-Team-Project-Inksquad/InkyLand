@@ -131,10 +131,9 @@ export class OfferPageComponent implements OnInit {
     });
   }
 
-  //STUB TODO
-  // allows one to edit the printing offer
+  // redirects to edit form for the printing offer
   editPrintingOffer() {
-    //TODO redirect to the printing offer creation form.
-    //with the creation mode enabled
+    //redirect to the printing offer creation form.
+    this.router.navigate(["printing-offer/edit/" + this.offer_id]);
   }
 }
