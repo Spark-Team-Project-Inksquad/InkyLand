@@ -52,4 +52,11 @@ export class ProfilePageComponent implements OnInit {
       this.offers = <any[]>data;
     });
   }
+
+  //TODO creates a printing offer
+  //STUB
+  createPrintingOffer() {
+    //TODO redirect to the printing offer creation page
+    // with the creation mode enabled
+  }
 }

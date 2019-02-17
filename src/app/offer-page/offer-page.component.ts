@@ -85,7 +85,7 @@ export class OfferPageComponent implements OnInit {
   }
 
   //retrieves the specific printing offer info
-  //STUB TODO
+  //TODO retrieve and display offer specs as well
   retrievePrintingOffer() {
     let printing_offer_id = this.offer_id;
 
@@ -109,9 +109,16 @@ export class OfferPageComponent implements OnInit {
 
   //STUB TODO
   // deletes the selected printing offer
-  deletePrintingOffer() {}
+  deletePrintingOffer() {
+    //TODO make api request to delete the selected offer
+    //TODO redirect back to the profile view
+    //TODO display a message of sorts signifying that the profile has been deleted
+  }
 
   //STUB TODO
   // allows one to edit the printing offer
-  editPrintingOffer() {}
+  editPrintingOffer() {
+    //TODO redirect to the printing offer creation form.
+    //with the creation mode enabled
+  }
 }

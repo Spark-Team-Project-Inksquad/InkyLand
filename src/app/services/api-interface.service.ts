@@ -243,5 +243,21 @@ export class ApiInterfaceService {
     return getPrintingOffer;
   }
 
+  //TODO deleted a authenticated printing offer
+  deletePrintingOffer(userToken: string, printing_offer_id: number) {
+    //TODO create the auth headers
+    //make the api request observable
+    //return the observable
+  }
+
+  //TODO creates a printing offer
+  createPrintingOffer(userToken: string, printing_offer_payload: any) {}
+
+  updatePrintingOffer(
+    userToken: string,
+    printing_offer_id: number,
+    printing_offer_payload: any
+  ) {}
+
   // Printing Offer Spec CRUD TODO
 }

@@ -5,14 +5,15 @@
     <p>Phone: {{profile.phone_number}}</p>
     <p>Bio: {{profile.bio}}</p>
 
-    <a class ="btn btn-primary" [routerLink]="['/edit-profile']">
-      Edit
+    <a class ="btn btn-info" [routerLink]="['/edit-profile']">
+      Edit Profile
     </a>
   </div>
 
   <br>
   <div class = "offers">
     <h1>Your Offers</h1>
+    <button class = "btn btn-success">Create New Printing Offer</button>
 
     <!-- Load in the offers here -->
     <div class = "card offer-card" *ngFor = "let offer of offers">
