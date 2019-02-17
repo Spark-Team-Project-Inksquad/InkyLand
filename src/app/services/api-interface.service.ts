@@ -276,11 +276,18 @@ export class ApiInterfaceService {
 
   //Printers
 
-  //TODO retrieves all printer options
+  //retrieves all printer options
   getPrinters() {
-    //STUB code
     // request path config
+    let request_path: string = "/api/printers/";
+
     // GET Request observable
+    //retrieves list of printers from the server
+    let getPrintersObservable: Observable<object[]> = this.http
+      .get(this.endpoint + request_path)
+      .pipe(share());
+
     // return observable
+    return getPrintersObservable;
   }
 }
