@@ -111,8 +111,24 @@ export class OfferPageComponent implements OnInit {
   // deletes the selected printing offer
   deletePrintingOffer() {
     //TODO make api request to delete the selected offer
-    //TODO redirect back to the profile view
-    //TODO display a message of sorts signifying that the profile has been deleted
+    this.api.deletePrintingOffer(this.userToken, this.offer_id).subscribe({
+      //observable completed an event
+      // printing offer was successfully deleted
+      next: data => {
+        console.log("The printing offer was deleted");
+        alert("printing offer was deleted!");
+      },
+      //error handling
+      error: err => {
+        console.log("Unable to delete printing offer");
+      },
+      //action complete
+      complete: () => {
+        //redirect back to the profile view
+        this.router.navigate(["/profile"]);
+        //TODO display a message of sorts signifying that the profile has been deleted
+      }
+    });
   }
 
   //STUB TODO

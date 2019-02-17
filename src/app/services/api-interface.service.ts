@@ -243,11 +243,24 @@ export class ApiInterfaceService {
     return getPrintingOffer;
   }
 
-  //TODO deleted a authenticated printing offer
+  //deletes a authenticated printing offer
   deletePrintingOffer(userToken: string, printing_offer_id: number) {
-    //TODO create the auth headers
+    //create the auth headers
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //configure the request path
+    let request_path: string =
+      "/api/printing-offers/" + printing_offer_id + "/";
+
     //make the api request observable
+    let deletePrintingOfferObservable: Observable<object> = this.http
+      .delete(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
     //return the observable
+    return deletePrintingOfferObservable;
   }
 
   //TODO creates a printing offer

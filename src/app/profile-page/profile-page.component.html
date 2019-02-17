@@ -18,6 +18,7 @@
     <!-- Load in the offers here -->
     <div class = "card offer-card" *ngFor = "let offer of offers">
       <div class = "card-body">
+        
         <h5 class = "card-title">{{offer.printerName}}</h5>
         <!-- TODO Put some eye icon or something -->
         <a href = "/printing-offer/{{offer.id}}">View</a>
