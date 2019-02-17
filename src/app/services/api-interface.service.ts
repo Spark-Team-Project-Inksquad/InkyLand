@@ -288,11 +288,23 @@ export class ApiInterfaceService {
     printing_offer_id: number,
     printing_offer_payload: any
   ) {
-    // http auth headers config
+    //create http headers for auth
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
     // request path config
+    let request_path: string =
+      "/api/printing-offers/" + printing_offer_id + "/";
+
     //PUT Request observable
     //update the printing offer
+    let updatePrintingOfferObservable: Observable<any> = this.http
+      .put(this.endpoint + request_path, printing_offer_payload, httpOptions)
+      .pipe(share());
+
     //return the update observable
+    return updatePrintingOfferObservable;
   }
 
   // Printing Offer Spec CRUD TODO

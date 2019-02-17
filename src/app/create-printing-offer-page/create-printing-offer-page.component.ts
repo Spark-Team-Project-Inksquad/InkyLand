@@ -36,6 +36,7 @@ export class CreatePrintingOfferPageComponent implements OnInit {
     note: ""
   };
   public printers: object[] = [];
+  public mode: string = "create";
 
   //TODO if user is not logged in redirect to the login page
   constructor(
@@ -46,6 +47,13 @@ export class CreatePrintingOfferPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //retrieve the mode for either creation or updating
+    this.route.data.subscribe(data => {
+      this.mode = data.mode;
+
+      //TODO check whether or not a model must be preloaded in
+    });
+
     //get the printer options
     this.getPrinters();
 
