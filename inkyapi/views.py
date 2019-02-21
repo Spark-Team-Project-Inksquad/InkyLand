@@ -122,7 +122,6 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
     serializer_class = PrintingOfferSerializer
     queryset = PrintingOffer.objects.all()
 
-    # TODO limit to only offers that the logged in user can access
     @permission_classes((IsAuthenticated, ))
     def destroy(self, request, pk = None):
         printing_offer = self.get_object()
@@ -139,7 +138,7 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
             printing_offer.delete()
             return Response({'status': 'deleted', 'message': 'Offer Deleted'})
 
-        return Response({'status': 'WIP'})
+        return Response({'status': 'Something went wrong'})
 
     # List of all printing offers, but more detailed
     # NOTE could potential optimize
@@ -171,7 +170,11 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
         serializer = PrintingOfferDetailedSerializer(printing_offers, many = True)
         return Response(serializer.data)
 
-
+    @action(detail = True, methods = ['get'])
+    def offer_specs(self, request, pk = None):
+        offer_specs = OfferSpec.objects.all().filter(printing_offer = pk)
+        serializer = OfferSpecSerializer(offer_specs, many = True)
+        return Response(serializer.data)
 
 class OfferSpecViewSet(viewsets.ModelViewSet):
     '''
@@ -180,6 +183,25 @@ class OfferSpecViewSet(viewsets.ModelViewSet):
 
     serializer_class = OfferSpecSerializer
     queryset = OfferSpec.objects.all()
+
+    @permission_classes((IsAuthenticated, ))
+    def destroy(self, request, pk = None):
+        offer_spec = self.get_object()
+        printing_offer = PrintingOffer.objects.get(pk = offer_spec.printing_offer.id)
+        auth_user = request.user
+
+        # Checks if the user is logged in correctly
+        # If not shoot an error
+        if (str(auth_user) == "AnonymousUser"):
+            return Response({'status': 'must be logged in!'})
+
+        # Checks if the selected printing offer is part of the logged in users account
+        if (printing_offer.owner == auth_user.account):
+            # If so, destroy the offer
+            offer_spec.delete()
+            return Response({'status': 'deleted', 'message': 'Offer Spec Deleted'})
+
+        return Response({'status': 'Something went wrong'})
 
 
 class PrintingMediumViewSet(viewsets.ModelViewSet):
