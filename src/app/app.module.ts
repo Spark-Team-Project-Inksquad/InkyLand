@@ -14,6 +14,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.component';
 import { OfferPageComponent } from './offer-page/offer-page.component';
 import { CreatePrintingOfferPageComponent } from './create-printing-offer-page/create-printing-offer-page.component';
+import { CreateOfferSpecPageComponent } from './create-offer-spec-page/create-offer-spec-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CreatePrintingOfferPageComponent } from './create-printing-offer-page/c
     ProfilePageComponent,
     EditProfilePageComponent,
     OfferPageComponent,
-    CreatePrintingOfferPageComponent
+    CreatePrintingOfferPageComponent,
+    CreateOfferSpecPageComponent
   ],
   imports: [
     BrowserModule,
