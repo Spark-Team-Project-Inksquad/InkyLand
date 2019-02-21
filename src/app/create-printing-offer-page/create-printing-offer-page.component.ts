@@ -29,7 +29,7 @@ export class CreatePrintingOfferPageComponent implements OnInit {
   private userToken: string = "";
   private profile: any = null;
   private offer_id: number = null;
-  public model: object = {
+  public model: any = {
     printerName: "",
     printer: null,
     minPrice: 0.0,
@@ -57,15 +57,17 @@ export class CreatePrintingOfferPageComponent implements OnInit {
         this.offer_id = parseInt(this.route.snapshot.paramMap.get("id"));
 
         //load in profile into model
-        this.api.getPrintingOffer(this.offer_id, true).subscribe(data => {
-          this.model = {
-            printerName: data.printerName,
-            printer: data.printer.id,
-            minPrice: data.minPrice,
-            maxPrice: data.maxPrice,
-            note: data.note
-          };
-        });
+        this.api
+          .getPrintingOffer(this.offer_id, true)
+          .subscribe((data: any) => {
+            this.model = {
+              printerName: data.printerName,
+              printer: data.printer.id,
+              minPrice: data.minPrice,
+              maxPrice: data.maxPrice,
+              note: data.note
+            };
+          });
       }
     });
 

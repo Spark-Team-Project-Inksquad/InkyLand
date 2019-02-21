@@ -16,9 +16,63 @@
 
     <p>Special Information: {{printing_offer.note}}</p>
   </div>
-
+  <hr>
+  <h2>Additional Specifications</h2>
   <!-- TODO Display Offer Specs -->
+  <div *ngFor = "let spec of printing_offer.specs" class = "card offer-spec-card">
+    <div class = "card-body">
 
+      <!-- Spec Info -->
+      <span>Info: {{spec.description}}</span>
+
+      <br>
+
+      <!-- Printing Mediums -->
+      <span>Specific to following printing mediums:
+        <span *ngFor = "let medium of spec.printing_mediums; let i = index;">
+          {{medium.name}}
+
+          <!-- if not last element place a comma -->
+          <span *ngIf = "i != (spec.printing_mediums.length - 1)">
+            ,
+          </span>
+
+        </span>
+      </span>
+
+      <br>
+
+      <!-- Document Types -->
+      <span>
+        Specific to the following document types:
+        <span *ngFor = "let type of spec.document_types; let i = index;">
+          {{type.name}}
+
+          <!-- if not last element place a comma -->
+          <span *ngIf = "i != (spec.document_types.length - 1)">
+            ,
+          </span>
+
+        </span>
+      </span>
+
+      <br>
+      <!-- Document Type Extensions -->
+
+      <span>
+        or the following file extensions:
+        <span *ngFor = "let type of spec.document_types; let i = index;">
+          {{type.extension}}
+          <!-- if not last element place a comma -->
+          <span *ngIf = "i != (spec.document_types.length - 1)">
+          ,
+          </span>
+
+        </span>
+      </span>
+
+    </div>
+  </div>
 
   <!-- Make this look better -->
 
