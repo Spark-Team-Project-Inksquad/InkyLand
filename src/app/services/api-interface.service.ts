@@ -309,6 +309,24 @@ export class ApiInterfaceService {
 
   // Printing Offer Spec CRUD TODO
 
+  deleteOfferSpec(userToken: string, offer_spec_id: number) {
+    //headers for auth
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+    //request path
+    let request_path: string = "/api/offer-specs/" + offer_spec_id + "/";
+
+    //observable (DELETE request)
+    let deleteOfferSpecObservable: Observable<any> = this.http.delete(
+      this.endpoint + request_path,
+      httpOptions
+    );
+
+    //return observable
+    return deleteOfferSpecObservable;
+  }
+
   //Printers
 
   //retrieves all printer options

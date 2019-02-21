@@ -148,6 +148,10 @@ export class OfferPageComponent implements OnInit {
     let spec: any = this.printing_offer.specs[spec_idx];
 
     //make API request to delete offer spec
+    this.api.deleteOfferSpec(this.userToken, spec.id).subscribe(data => {
+      console.log("spec deleted!");
+      this.retrievePrintingOffer();
+    });
   }
 
   //TODO edits the selected offer sepc
