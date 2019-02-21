@@ -17,7 +17,7 @@ import { TokenStorageService } from "../services/token-storage.service";
 @Component({
   selector: "app-offer-page",
   templateUrl: "./offer-page.component.html",
-  styleUrls: ["./offer-page.component.sass"],
+  styleUrls: ["./offer-page.component.scss"],
   providers: [ApiInterfaceService, HttpClient, TokenStorageService]
 })
 export class OfferPageComponent implements OnInit {
@@ -135,5 +135,23 @@ export class OfferPageComponent implements OnInit {
   editPrintingOffer() {
     //redirect to the printing offer creation form.
     this.router.navigate(["printing-offer/edit/" + this.offer_id]);
+  }
+
+  //TODO creates a new offer spec
+  createOfferSpec() {
+    //STUB
+  }
+
+  //TODO deletes the selected offer spec
+  deleteOfferSpec(spec_idx: number) {
+    //STUB
+    let spec: any = this.printing_offer.specs[spec_idx];
+
+    //make API request to delete offer spec
+  }
+
+  //TODO edits the selected offer sepc
+  editOfferSpec(spec_idx: number) {
+    //STUb
   }
 }
