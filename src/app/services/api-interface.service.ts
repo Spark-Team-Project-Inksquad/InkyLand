@@ -350,9 +350,11 @@ export class ApiInterfaceService {
 
   getPrintingMediums() {
       //request path
-      let request_path:string = "";
+      let request_path:string = "/api/printing-mediums/";
       //observable (GET Request)
-      let getPrintingMediumsObservable:Observable<any> = null;
+      let getPrintingMediumsObservable:Observable<any> = this.http
+        .get(this.endpoint + request_path)
+        .pipe(share());;
       //return observable
       return getPrintingMediumsObservable;
   }
@@ -362,9 +364,11 @@ export class ApiInterfaceService {
   //TODO get document types
   getDocumentTypes() {
       //request path
-      let request_path:string = "";
+      let request_path:string = "/api/document-types/";
       //observable (GET Request)
-      let getDocumentTypesObservable:Observable<any> = null;
+      let getDocumentTypesObservable:Observable<any> = this.http
+        .get(this.endpoint + request_path)
+        .pipe(share());;
       //return observable
       return getDocumentTypesObservable;
   }
