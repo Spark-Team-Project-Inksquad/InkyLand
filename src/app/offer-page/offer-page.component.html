@@ -19,7 +19,7 @@
   <hr>
   <h2>Additional Specifications</h2>
   <!-- For Spec Creation -->
-  <button class = "btn btn-success">Create a new offer specification</button>
+  <button (click) = "createOfferSpec()" class = "btn btn-success">Create a new offer specification</button>
 
   <!-- Display Offer Specs -->
   <div *ngFor = "let spec of printing_offer.specs; let i = index;" class = "card offer-spec-card">
