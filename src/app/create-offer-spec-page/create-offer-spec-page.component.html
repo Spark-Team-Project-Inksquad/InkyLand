@@ -29,11 +29,11 @@ which means
       <label for = "printing-medium-input">Printing Mediums: </label>
       <select multiple [(ngModel)] = "model.printing_mediums" class = "form-control" name = "printing-mediums" id = "printing-medium-input">
         <!-- Render the option list -->
-        <!--
-        <option *ngFor = "let printer of printers;" value = "{{printer.id}}">
-          {{printer.name}}
+
+        <option *ngFor = "let medium of printing_mediums;" value = "{{medium.id}}">
+          {{medium.name}}
         </option>
-      -->
+
       </select>
     </div>
 
@@ -43,11 +43,10 @@ which means
       <label for = "document-types-input">Document Types: </label>
       <select multiple [(ngModel)] = "model.document_types" class = "form-control" name = "document-types" id = "document-types-input">
         <!-- Render the option list -->
-        <!--
-        <option *ngFor = "let printer of printers;" value = "{{printer.id}}">
-          {{printer.name}}
+        <option *ngFor = "let document_type of document_types;" value = "{{document_type.id}}">
+          {{document_type.name}}
         </option>
-        -->
+
       </select>
     </div>
 
