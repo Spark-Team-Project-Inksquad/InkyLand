@@ -343,4 +343,30 @@ export class ApiInterfaceService {
     // return observable
     return getPrintersObservable;
   }
+
+  // Printing Mediums CRUD
+
+  //TODO get printing mediums
+
+  getPrintingMediums() {
+      //request path
+      let request_path:string = "";
+      //observable (GET Request)
+      let getPrintingMediumsObservable:Observable<any> = null;
+      //return observable
+      return getPrintingMediumsObservable;
+  }
+
+  // Document Types CRUD
+
+  //TODO get document types
+  getDocumentTypes() {
+      //request path
+      let request_path:string = "";
+      //observable (GET Request)
+      let getDocumentTypesObservable:Observable<any> = null;
+      //return observable
+      return getDocumentTypesObservable;
+  }
+
 }
