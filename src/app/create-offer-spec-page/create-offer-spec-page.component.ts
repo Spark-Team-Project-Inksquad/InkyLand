@@ -91,6 +91,12 @@ export class CreateOfferSpecPageComponent implements OnInit {
   createOrEditOfferSpec() {
     console.log(this.model);
     //make api request ot create offer spec
+    this.api.createOfferSpec(this.userToken, this.model)
+      .subscribe((offer_spec) => {
+        console.log(offer_spec);
+        alert("Offer created")
+        this.router.navigate(['/printing-offer/' + this.model['printing_offer']]);
+      });
     //redirect back to offer page
   }
 

@@ -311,12 +311,26 @@ export class ApiInterfaceService {
 
   //create a specific offer spec
   createOfferSpec(userToken:string, offer_spec_payload:any) {
+    // headers for auth
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    // request path
+    let request_path:string = "/api/offer-specs/";
+
+    //observable (POST request)
+    let createOfferSpecObservable: Observable<any> = this.http
+      .post(this.endpoint + request_path, offer_spec_payload, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return createOfferSpecObservable;
 
   }
 
   //update a specific offer spec
-  updateOfferSpec(userToken:string, offer_spec_id:number offer_spec_payload:any )
-
+  updateOfferSpec(userToken:string, offer_spec_id:number, offer_spec_payload:any ){}
   //deletes a specific offer spec
   deleteOfferSpec(userToken: string, offer_spec_id: number) {
     //headers for auth
