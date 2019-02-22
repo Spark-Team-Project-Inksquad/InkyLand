@@ -309,6 +309,15 @@ export class ApiInterfaceService {
 
   // Printing Offer Spec CRUD TODO
 
+  //create a specific offer spec
+  createOfferSpec(userToken:string, offer_spec_payload:any) {
+
+  }
+
+  //update a specific offer spec
+  updateOfferSpec(userToken:string, offer_spec_id:number offer_spec_payload:any )
+
+  //deletes a specific offer spec
   deleteOfferSpec(userToken: string, offer_spec_id: number) {
     //headers for auth
     const httpOptions = {
