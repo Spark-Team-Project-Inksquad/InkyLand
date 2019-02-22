@@ -35,6 +35,9 @@ export class CreateOfferSpecPageComponent implements OnInit {
     }
   **/
 
+  //extra spec info
+  private spec_id:number;
+
   //main form model for offer spec
   public model:any = {
     printing_offer: null,
@@ -50,12 +53,39 @@ export class CreateOfferSpecPageComponent implements OnInit {
   //for auth
   private userToken:string = "";
 
+  // create/edit mode
+  public mode: string = "create";
+
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
     private route: ActivatedRoute,
     private router: Router
   ) {
+
+  }
+
+  ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.mode = data.mode;
+
+      if (this.mode == "edit") {
+
+        // grab offer spec id
+        this.spec_id = parseInt(this.route.snapshot.paramMap.get("id"));
+
+        //load in offer spec
+        
+
+
+      }else {
+        // retrieve the printing offer id
+        // set printing offer in spec_model
+        this.model['printing_offer'] = this.route.snapshot.paramMap.get("id");
+      }
+
+    })
+
     // retrieve the stored user token
     this.tokenStore.getToken().subscribe(data => {
       let token: string = data as string;
@@ -66,9 +96,6 @@ export class CreateOfferSpecPageComponent implements OnInit {
       }
     });
 
-    // retrieve the printing offer id
-    // set printing offer in spec_model
-    this.model['printing_offer'] = this.route.snapshot.paramMap.get("id");
 
     //retrieve a set of document type options
     this.api.getDocumentTypes()
@@ -81,9 +108,6 @@ export class CreateOfferSpecPageComponent implements OnInit {
       .subscribe((printing_mediums) => {
         this.printing_mediums = printing_mediums;
       })
-  }
-
-  ngOnInit() {
   }
 
   //creates/updates a offer spec

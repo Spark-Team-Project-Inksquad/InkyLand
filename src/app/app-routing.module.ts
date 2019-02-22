@@ -32,7 +32,12 @@ const routes: Routes = [
     }
   },
   { path: "printing-offer/:id", component: OfferPageComponent },
-  {path: "printing-offer/:id/add-offer-spec", component: CreateOfferSpecPageComponent, pathMatch: 'full'}
+  {path: "printing-offer/:id/add-offer-spec", component: CreateOfferSpecPageComponent, pathMatch: 'full', data: {
+    mode: "create"
+  }},
+  {path: "edit-offer-spec/:id", component: CreateOfferSpecPageComponent, pathMatch: 'full', data: {
+    mode: "edit"
+  }}
 ];
 
 @NgModule({

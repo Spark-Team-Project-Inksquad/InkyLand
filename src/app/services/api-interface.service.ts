@@ -309,6 +309,8 @@ export class ApiInterfaceService {
 
   // Printing Offer Spec CRUD TODO
 
+  //get printing offer spec individual
+
   //create a specific offer spec
   createOfferSpec(userToken:string, offer_spec_payload:any) {
     // headers for auth

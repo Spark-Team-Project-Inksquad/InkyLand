@@ -82,12 +82,12 @@ export class CreatePrintingOfferPageComponent implements OnInit {
   creates the printing offer
   **/
   createOrUpdatePrintingOffer() {
-    //modify the model so that it has an owner
-    this.model["owner"] = this.profile.id;
-
     //check if edit or create
 
     if (this.mode == "create") {
+      //modify the model so that it has an owner
+      this.model["owner"] = this.profile.id;
+
       // make the api offer creation request
       this.api
         .createPrintingOffer(this.userToken, this.model)
