@@ -144,7 +144,7 @@ export class OfferPageComponent implements OnInit {
     ]);
   }
 
-  //TODO deletes the selected offer spec
+  // deletes the selected offer spec
   deleteOfferSpec(spec_idx: number) {
     //STUB
     let spec: any = this.printing_offer.specs[spec_idx];
@@ -156,8 +156,8 @@ export class OfferPageComponent implements OnInit {
     });
   }
 
-  //TODO edits the selected offer sepc
+  // edits the selected offer sepc
   editOfferSpec(spec_idx: number) {
-    //STUb
+    this.router.navigate(["edit-offer-spec/" + spec_idx]);
   }
 }
