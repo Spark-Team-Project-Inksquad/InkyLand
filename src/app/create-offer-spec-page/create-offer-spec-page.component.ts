@@ -71,7 +71,7 @@ export class CreateOfferSpecPageComponent implements OnInit {
         this.spec_id = parseInt(this.route.snapshot.paramMap.get("id"));
 
         //load in offer spec
-        this.api.getOfferSpec().subscribe(offer_spec => {
+        this.api.getOfferSpec(this.spec_id).subscribe(offer_spec => {
           this.model = offer_spec;
 
           //DEBUG

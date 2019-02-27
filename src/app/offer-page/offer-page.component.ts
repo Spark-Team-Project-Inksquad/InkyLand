@@ -146,7 +146,6 @@ export class OfferPageComponent implements OnInit {
 
   // deletes the selected offer spec
   deleteOfferSpec(spec_idx: number) {
-    //STUB
     let spec: any = this.printing_offer.specs[spec_idx];
 
     //make API request to delete offer spec
@@ -158,6 +157,8 @@ export class OfferPageComponent implements OnInit {
 
   // edits the selected offer sepc
   editOfferSpec(spec_idx: number) {
-    this.router.navigate(["edit-offer-spec/" + spec_idx]);
+    let spec: any = this.printing_offer.specs[spec_idx];
+
+    this.router.navigate(["edit-offer-spec/" + spec.id]);
   }
 }

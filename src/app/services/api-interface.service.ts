@@ -313,8 +313,15 @@ export class ApiInterfaceService {
   getOfferSpec(offer_spec_id: number) {
     //STUB
     //request path
+    let request_path: string = "/api/offer-specs/" + offer_spec_id + "/";
+
     //observable
+    let getOfferSpecObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path)
+      .pipe(share());
+
     //return observable
+    return getOfferSpecObservable;
   }
 
   //create a specific offer spec
