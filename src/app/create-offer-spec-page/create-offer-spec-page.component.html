@@ -39,6 +39,11 @@ which means
 
 
     <!-- Document Types -->
+
+    <!-- DEBUG -->
+    <ng-select [items] = "model.document_types" class="custom"></ng-select>
+
+
     <div class = "form-group">
       <label for = "document-types-input">Document Types: </label>
       <select multiple [(ngModel)] = "model.document_types" class = "form-control" name = "document-types" id = "document-types-input">
