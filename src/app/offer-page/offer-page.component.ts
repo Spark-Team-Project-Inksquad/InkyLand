@@ -137,13 +137,11 @@ export class OfferPageComponent implements OnInit {
     this.router.navigate(["printing-offer/edit/" + this.offer_id]);
   }
 
-  //TODO creates a new offer spec
+  // creates a new offer spec
   createOfferSpec() {
-    //STUB
-    //headers (auth)
-    // request config
-    // observable (POST)
-    // return observable
+    this.router.navigate([
+      "printing-offer/" + this.offer_id + "/add-offer-spec"
+    ]);
   }
 
   //TODO deletes the selected offer spec

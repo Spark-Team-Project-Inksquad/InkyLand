@@ -8,6 +8,7 @@ import { ProfilePageComponent } from "./profile-page/profile-page.component";
 import { EditProfilePageComponent } from "./edit-profile-page/edit-profile-page.component";
 import { OfferPageComponent } from "./offer-page/offer-page.component";
 import { CreatePrintingOfferPageComponent } from "./create-printing-offer-page/create-printing-offer-page.component";
+import {CreateOfferSpecPageComponent } from './create-offer-spec-page/create-offer-spec-page.component';
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -30,7 +31,13 @@ const routes: Routes = [
       mode: "edit"
     }
   },
-  { path: "printing-offer/:id", component: OfferPageComponent }
+  { path: "printing-offer/:id", component: OfferPageComponent },
+  {path: "printing-offer/:id/add-offer-spec", component: CreateOfferSpecPageComponent, pathMatch: 'full', data: {
+    mode: "create"
+  }},
+  {path: "edit-offer-spec/:id", component: CreateOfferSpecPageComponent, pathMatch: 'full', data: {
+    mode: "edit"
+  }}
 ];
 
 @NgModule({

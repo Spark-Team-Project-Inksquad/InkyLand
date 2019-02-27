@@ -1,3 +1,63 @@
-<p>
-  create-offer-spec-page works!
-</p>
+<!--
+Form must result
+
+description: '',
+printing_mediums: [],
+document_types: []
+
+which means
+1 textarea
+2 multiple select ones
+-->
+<div class = "container-fluid create-printing-offer">
+
+  <!-- NOTE change depending on mode -->
+  <h1>Create a Offer Spec</h1>
+
+  <!-- NOTE changes if editting mode enabled -->
+  <!-- The Creation Form -->
+  <form class = "create-offer-spec-form" (ngSubmit) = "createOrEditOfferSpec()" #specForm = "ngForm">
+
+    <!-- Description -->
+    <div class = "form-group">
+      <label for = "description-input">Description: </label>
+      <textarea [(ngModel)] = "model.description" class = "form-control" id = "description-input" name = "description"></textarea>
+    </div>
+
+    <!-- Printing Mediums -->
+    <div class = "form-group">
+      <label for = "printing-medium-input">Printing Mediums: </label>
+      <select multiple [(ngModel)] = "model.printing_mediums" class = "form-control" name = "printing-mediums" id = "printing-medium-input">
+        <!-- Render the option list -->
+
+        <option *ngFor = "let medium of printing_mediums;" value = "{{medium.id}}">
+          {{medium.name}}
+        </option>
+
+      </select>
+    </div>
+
+
+    <!-- Document Types -->
+    <div class = "form-group">
+      <label for = "document-types-input">Document Types: </label>
+      <select multiple [(ngModel)] = "model.document_types" class = "form-control" name = "document-types" id = "document-types-input">
+        <!-- Render the option list -->
+        <option *ngFor = "let document_type of document_types;" value = "{{document_type.id}}">
+          {{document_type.name}}
+        </option>
+
+      </select>
+    </div>
+
+    <!-- Submission Button -->
+    <!-- NOTE may change for edit mode -->
+
+    <button  class = "btn btn-primary" type = "submit" class = "btn btn-success">Create</button>
+
+  </form>
+
+  <!-- END -->
+
+
+</div>
