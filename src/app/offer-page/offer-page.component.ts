@@ -140,6 +140,10 @@ export class OfferPageComponent implements OnInit {
   //TODO creates a new offer spec
   createOfferSpec() {
     //STUB
+    //headers (auth)
+    // request config
+    // observable (POST)
+    // return observable
   }
 
   //TODO deletes the selected offer spec
