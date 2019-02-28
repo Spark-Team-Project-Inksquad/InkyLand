@@ -12,7 +12,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 # Models + Serializers
-from .serializers import ProfileSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
+from .serializers import ProfileSerializer, OrderDetailedSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
 from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 from django.contrib.auth.models import User
 
@@ -230,11 +230,29 @@ class PrinterViewSet(viewsets.ModelViewSet):
 
 class OrderViewSet(viewsets.ModelViewSet):
     '''
-    Viewsets for viewing and editing account instances
+    Viewsets for viewing and editing order instances
     '''
 
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
+
+    # returns list of orders for authenticated user
+    #TODO split into one for pending orders and in progress orders
+    @action(detail = False, methods = ['get'])
+    def retrieve_orders(self, request):
+        # LIMIT to auth user
+        orders = Order.objects.all()
+        serializer = OrderSerializer(orders, many = True)
+        return Response(serializer.data)
+
+    # returns a detailed version of a specific order
+    # NOTE may require auth
+    # NOTE should be limited to the owner + vendor
+    @action(detail = True, methods = ['get'])
+    def get_detailed_order_info(self, request, pk = None):
+        order = self.get_object()
+        serializer = OrderDetailedSerializer(order)
+        return Response(serializer.data)
 
 class DocumentViewSet(viewsets.ModelViewSet):
     '''

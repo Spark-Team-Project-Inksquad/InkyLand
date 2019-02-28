@@ -81,12 +81,17 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('id', 'address', 'orderer', 'documents', 'lat', 'lon', 'pickup', 'shipping', 'printing_offer')
 
-
 class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ('id', 'owner', 'document_type', 'uploaded_file')
 
+class OrderDetailedSerializer(serializers.ModelSerializer):
+    printing_offer = PrintingOfferSerializer(many = False)
+    documents = DocumentSerializer(many = True)
+
+    class Meta(OrderSerializer.Meta):
+        pass
 
 class VendorReviewSerializer(serializers.ModelSerializer):
     class Meta:

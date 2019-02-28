@@ -88,6 +88,9 @@ class PrintingOffer(models.Model):
     maxPrice = models.DecimalField(max_digits = 10, decimal_places = 2, null = True)
     note = models.TextField(blank = True)
 
+    def __str__(self):
+        return self.printerName
+
 class OfferSpec(models.Model):
     printing_offer = models.ForeignKey(PrintingOffer, on_delete = models.CASCADE)
     description = models.TextField()
@@ -99,8 +102,11 @@ class Order(models.Model):
     address = models.TextField(blank = True)
     orderer = models.ForeignKey(Account, on_delete = models.CASCADE, related_name = "orders")
     documents = models.ManyToManyField(Document)
-    lat = models.FloatField(null = True)
-    lon = models.FloatField(null = True)
+    lat = models.FloatField(blank = True, null = True)
+    lon = models.FloatField(blank = True, null = True)
     pickup = models.BooleanField(default = False)
     shipping = models.BooleanField(default = False)
     printing_offer = models.ForeignKey(PrintingOffer, on_delete = models.CASCADE, related_name = "orders")
+
+    def __str__(self):
+        return 'Order for ' + str(self.printing_offer) + ' print'
