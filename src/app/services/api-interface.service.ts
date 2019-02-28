@@ -348,7 +348,23 @@ export class ApiInterfaceService {
     userToken: string,
     offer_spec_id: number,
     offer_spec_payload: any
-  ) {}
+  ) {
+    //headers for auth
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    // request path
+    let request_path: string = "/api/offer-specs/" + offer_spec_id + "/";
+
+    // observable request (PUT)
+    let updateOfferSpecObservable: Observable<any> = this.http
+      .put(this.endpoint + request_path, offer_spec_payload, httpOptions)
+      .pipe(share());
+
+    // return observable
+    return updateOfferSpecObservable;
+  }
   //deletes a specific offer spec
   deleteOfferSpec(userToken: string, offer_spec_id: number) {
     //headers for auth
@@ -359,10 +375,9 @@ export class ApiInterfaceService {
     let request_path: string = "/api/offer-specs/" + offer_spec_id + "/";
 
     //observable (DELETE request)
-    let deleteOfferSpecObservable: Observable<any> = this.http.delete(
-      this.endpoint + request_path,
-      httpOptions
-    );
+    let deleteOfferSpecObservable: Observable<any> = this.http
+      .delete(this.endpoint + request_path, httpOptions)
+      .pipe(share());
 
     //return observable
     return deleteOfferSpecObservable;
@@ -387,8 +402,7 @@ export class ApiInterfaceService {
 
   // Printing Mediums CRUD
 
-  //TODO get printing mediums
-
+  // get printing mediums
   getPrintingMediums() {
     //request path
     let request_path: string = "/api/printing-mediums/";
@@ -402,7 +416,7 @@ export class ApiInterfaceService {
 
   // Document Types CRUD
 
-  //TODO get document types
+  //get document types
   getDocumentTypes() {
     //request path
     let request_path: string = "/api/document-types/";

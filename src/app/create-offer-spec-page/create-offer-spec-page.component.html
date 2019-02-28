@@ -44,7 +44,6 @@ which means
 
     <!-- Document Types -->
 
-    <!-- DEBUG -->
     <div class = "form-group">
       <label for = "document-types-input">Document Types: </label>
 
@@ -64,7 +63,8 @@ which means
     <!-- Submission Button -->
     <!-- NOTE may change for edit mode -->
 
-    <button  class = "btn btn-primary" type = "submit" class = "btn btn-success">Create</button>
+    <button *ngIf = "mode == 'create'" type = "submit" class = "btn btn-success">Create</button>
+    <button *ngIf = "mode == 'edit'" type = "submit" class = "btn btn-info">Update</button>
 
   </form>
 
