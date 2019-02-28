@@ -37,6 +37,8 @@ export class OfferPageComponent implements OnInit {
   ngOnInit() {
     console.log("Yo!");
 
+    //FIXME shoot an error if not logged in
+
     this.offer_id = parseInt(this.route.snapshot.paramMap.get("id"));
 
     //retrieves the user token if auth
