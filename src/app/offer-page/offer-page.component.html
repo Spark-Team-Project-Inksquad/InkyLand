@@ -76,7 +76,7 @@
 
     </div>
 
-    <div class = "card-footer">
+    <div *ngIf = "write_access" class = "card-footer">
       <!-- Additional Spec Actions Edit + Delete -->
       <button (click) = "editOfferSpec(i)" class = "btn btn-info">Edit</button>
       <button (click) = "deleteOfferSpec(i)" class = "btn btn-danger">Delete</button>
