@@ -34,9 +34,15 @@
         <br>
 
       </div>
+      <!--
+
+      <a [routerLink]="['/user/bob']" [queryParams]="{debug: true}" fragment="education">
+  link to user component
+</a>
+-->
       <div class = "card-footer">
         <!-- Additional Spec Actions Edit + Delete -->
-        <button class = "btn btn-info">View</button>
+        <a class = "btn btn-info" [routerLink] = "['/printing-offer/' + offer.id]">View</a>
       </div>
 
     </div>

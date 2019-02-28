@@ -15,7 +15,7 @@ import { ApiInterfaceService } from "../services/api-interface.service";
 })
 export class SearchOffersPageComponent implements OnInit {
   public query: string = "";
-  public results: any[] = [];
+  public results: any = [];
 
   constructor(
     private api: ApiInterfaceService,

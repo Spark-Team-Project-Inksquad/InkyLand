@@ -2,6 +2,8 @@
 
   <h1>{{printing_offer.printerName}}</h1>
 
+
+  <!-- AUTH actions -->
   <div *ngIf = "write_access" class = "authenticated-actions">
     <!-- delete button -->
     <button (click) = "deletePrintingOffer()" class = "btn btn-danger">Delete</button>
@@ -9,6 +11,14 @@
     <!-- edit button -->
     <button (click) = "editPrintingOffer()" class = "btn btn-info">Edit</button>
   </div>
+
+  <!-- non-Auth actions, but must be logged in -->
+  <div class = "nonauthenticated-actions">
+    <!-- Order button -->
+    <button (click) = "placeOrder()" class = "btn btn-info">Order</button>
+  </div>
+
+
   <br>
   <div class = "offer">
     <p>Printer: {{printing_offer.printer.name}}
