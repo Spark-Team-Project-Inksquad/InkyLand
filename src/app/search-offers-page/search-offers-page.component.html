@@ -14,7 +14,32 @@
 
   <!-- Offer Results -->
   <div class = "search-results">
-    
+    <div *ngFor = "let offer of results; let i = index;" class = "card offer-card">
+      <div class = "card-body">
+
+        <!-- Offer Name -->
+        <span>Name: {{offer.printerName}}</span>
+        <br>
+
+        <!-- Max Price -->
+        <span>Max: ${{offer.maxPrice}}</span>
+        <br>
+
+        <!-- Min Price -->
+        <span>Min: ${{offer.minPrice}}</span>
+        <br>
+
+        <!-- Note -->
+        <span>Note: {{offer.note}}</span>
+        <br>
+
+      </div>
+      <div class = "card-footer">
+        <!-- Additional Spec Actions Edit + Delete -->
+        <button class = "btn btn-info">View</button>
+      </div>
+
+    </div>
   </div>
 
 </div>

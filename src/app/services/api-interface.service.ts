@@ -282,7 +282,7 @@ export class ApiInterfaceService {
     return createPrintingOfferObservable;
   }
 
-  //TODO updates a printing offer
+  //updates a printing offer
   updatePrintingOffer(
     userToken: string,
     printing_offer_id: number,
@@ -307,7 +307,7 @@ export class ApiInterfaceService {
     return updatePrintingOfferObservable;
   }
 
-  // Printing Offer Spec CRUD TODO
+  // Printing Offer Spec CRUD
 
   //get printing offer spec individual
   getOfferSpec(offer_spec_id: number) {
