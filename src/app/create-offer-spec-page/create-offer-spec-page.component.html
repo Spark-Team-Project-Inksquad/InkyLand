@@ -27,33 +27,39 @@ which means
     <!-- Printing Mediums -->
     <div class = "form-group">
       <label for = "printing-medium-input">Printing Mediums: </label>
-      <select multiple [(ngModel)] = "model.printing_mediums" class = "form-control" name = "printing-mediums" id = "printing-medium-input">
-        <!-- Render the option list -->
 
-        <option *ngFor = "let medium of printing_mediums;" value = "{{medium.id}}">
-          {{medium.name}}
-        </option>
 
-      </select>
+      <ng-select [items]="printing_mediums"
+         [multiple] = 'true'
+         bindLabel="name"
+         autofocus
+         bindValue="id"
+         [(ngModel)]="model.printing_mediums"
+         name = 'printing_mediums'
+         >
+      </ng-select>
+
     </div>
 
 
     <!-- Document Types -->
 
     <!-- DEBUG -->
-    <ng-select [items] = "model.document_types" class="custom"></ng-select>
-
-
     <div class = "form-group">
       <label for = "document-types-input">Document Types: </label>
-      <select multiple [(ngModel)] = "model.document_types" class = "form-control" name = "document-types" id = "document-types-input">
-        <!-- Render the option list -->
-        <option *ngFor = "let document_type of document_types;" value = "{{document_type.id}}">
-          {{document_type.name}}
-        </option>
 
-      </select>
+      <ng-select [items]="document_types"
+                 [multiple] = 'true'
+                 bindLabel="name"
+                 autofocus
+                 bindValue="id"
+                 [(ngModel)]="model.document_types"
+                 name = 'document_types'
+                 >
+      </ng-select>
+
     </div>
+
 
     <!-- Submission Button -->
     <!-- NOTE may change for edit mode -->
