@@ -1,3 +1,20 @@
-<p>
-  search-offers-page works!
-</p>
+<div class = "container-fluid search-offers-page">
+
+  <!-- Search Box -->
+  <form id = 'search-offers-form' (ngSubmit) = "search()" #searchForm = "ngForm">
+    <div class = "form-row">
+      <div class = "col-10">
+        <input type = 'text' [(ngModel)] = "query" class = "form-control" name = "search-query"/>
+      </div>
+      <div class = "col-2">
+        <button type = "submit" class ="btn btn-block btn-primary">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Offer Results -->
+  <div class = "search-results">
+    
+  </div>
+
+</div>
