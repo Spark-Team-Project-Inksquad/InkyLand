@@ -267,6 +267,18 @@ class OrderViewSet(viewsets.ModelViewSet):
         else:
             return Response({'message': 'Not authorized to cancel order'})
 
+    # Returns the contact info of both parties for a authenticated order
+    @action (detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
+    def retrieve_contact_info(self, request, pk = None):
+        auth_user = request.user
+        order = self.get_object()
+
+        # Validate
+
+        # Return contact info
+
+        # Error
+
     # Retrieves a detailed view of an order that the user is tied to in some way (vendor/orderer)
     @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
     def retrieve_order(self, request, pk = None):
