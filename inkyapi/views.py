@@ -255,6 +255,18 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
 
+    # Cancels a order if the user is the orderer or vendor
+    @action(detail = True, methods = ['delete'], permission_classes = [IsAuthenticated])
+    def cancel_order(self, request, pk = None):
+        auth_user = request.user
+        order = self.get_object()
+
+        if (order.orderer == auth_user.account or order.printing_offer.owner == auth_user.account):
+            order.delete()
+            return Response({'message': 'ORDER_DELETED'})
+        else:
+            return Response({'message': 'Not authorized to cancel order'})
+
     # Retrieves a detailed view of an order that the user is tied to in some way (vendor/orderer)
     @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
     def retrieve_order(self, request, pk = None):
