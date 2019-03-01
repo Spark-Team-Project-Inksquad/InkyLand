@@ -438,6 +438,8 @@ export class ApiInterfaceService {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
     };
     //request string
+    let request_path = "/api/orders/"
+
     //observable API request (GET)
     //return observable
   }
