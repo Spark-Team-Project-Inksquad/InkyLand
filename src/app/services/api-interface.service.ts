@@ -497,9 +497,25 @@ export class ApiInterfaceService {
     return placeOrderObservable;
   }
 
-  // TODO cancels a order
+  // cancels a order
+  // NOTE test
   cancelOrder(userToken: string, order_id:number) {
-    
+    // auth headers
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    // request path
+    let request_path = "/api/orders/" + order_id  + "/cancel_order";
+
+    // api request observable (DELETE)
+    let cancelOrderObservable: Observable<any> = this.http
+      .delete(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    // return observable
+    return cancelOrderObservable;
+
   }
 
 }
