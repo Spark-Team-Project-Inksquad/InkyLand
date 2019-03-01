@@ -122,6 +122,25 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
     serializer_class = PrintingOfferSerializer
     queryset = PrintingOffer.objects.all()
 
+    # Places an order for a printing offer
+    @action(detail = True, methods = ['post'], permission_classes = [IsAuthenticated])
+    def place_order(self, request, pk = None):
+        printing_offer = self.get_object()
+        auth_user = request.user
+
+        # Checks if the user is logged in correctly
+        # If not shoot an error
+        if (str(auth_user) == "AnonymousUser"):
+            return Response({'status': 'must be logged in!'})
+
+        orderer = auth_user.account
+
+        new_order = Order(orderer = orderer, printing_offer = printing_offer)
+        new_order.save()
+
+        serializer = OrderSerializer(new_order, many = False)
+        return Response(serializer.data)
+
     @permission_classes((IsAuthenticated, ))
     def destroy(self, request, pk = None):
         printing_offer = self.get_object()
@@ -236,12 +255,19 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
 
-    # returns list of orders for authenticated user
-    #TODO split into one for pending orders and in progress orders
-    @action(detail = False, methods = ['get'])
-    def retrieve_orders(self, request):
-        # LIMIT to auth user
-        orders = Order.objects.all()
+    # retrieves in progress orders for user
+    @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
+    def retrieve_in_progress_orders(self, request):
+        auth_user = request.user
+        orders = Order.objects.all().filter(orderer = auth_user.account)
+        serializer = OrderSerializer(orders, many = True)
+        return Response(serializer.data)
+
+    # retrieves orders to be fulfilled
+    @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
+    def retrieve_pending_orders(self, request):
+        auth_user = request.user
+        orders = Order.objects.all().filter(printing_offer__owner = auth_user.account)
         serializer = OrderSerializer(orders, many = True)
         return Response(serializer.data)
 
