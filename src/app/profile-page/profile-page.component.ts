@@ -24,6 +24,49 @@ export class ProfilePageComponent implements OnInit {
   public pending_orders: any = [];
   public inprogress_orders: any = [];
 
+  // DEBUG dummy order
+  /**
+  {
+        "id": 6,
+        "address": "",
+        "orderer": 9,
+        "documents": [],
+        "lat": null,
+        "lon": null,
+        "pickup": false,
+        "shipping": false,
+        "printing_offer": {
+            "id": 6,
+            "owner": 10,
+            "printerName": "Test Printer",
+            "printer": 1,
+            "minPrice": "0.00",
+            "maxPrice": "100.00",
+            "note": "I don't like little kid drawings to print"
+        }
+    }
+  **/
+  // Dummy order for DEBUG
+  public dummy_order: any = {
+    id: 6,
+    address: "",
+    orderer: 9,
+    documents: [],
+    lat: null,
+    lon: null,
+    pickup: false,
+    shipping: false,
+    printing_offer: {
+      id: 6,
+      owner: 10,
+      printerName: "Test Printer",
+      printer: 1,
+      minPrice: "0.00",
+      maxPrice: "100.00",
+      note: "I don't like little kid drawings to print"
+    }
+  };
+
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
