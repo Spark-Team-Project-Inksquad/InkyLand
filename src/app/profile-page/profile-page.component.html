@@ -17,21 +17,21 @@
       <div class = "text-center col">
         <h2 class = "text-center">Your Pending Orders</h2>
 
-        <div class = "card order-card">
+        <div class = "card order-card" *ngFor = "let order of pending_orders">
           <div class = "card-body">
-            <h5 class = "card-title">Order for {{dummy_order.printing_offer.printerName}}</h5>
-            <span>{{dummy_order.documents.length}} Documents to be printed</span>
+            <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
+            <span>{{order.documents.length}} Documents to be printed</span>
           </div>
         </div>
-        
+
       </div>
       <div class = "col">
         <h2 class = "text-center">Your In-Progress Orders</h2>
 
-        <div class = "card order-card">
+        <div class = "card order-card" *ngFor = "let order of in_progress_orders">
           <div class = "card-body">
-            <h5 class = "card-title">Order for {{dummy_order.printing_offer.printerName}}</h5>
-            <span>{{dummy_order.documents.length}} Documents to be printed</span>
+            <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
+            <span>{{order.documents.length}} Documents to be printed</span>
           </div>
         </div>
 

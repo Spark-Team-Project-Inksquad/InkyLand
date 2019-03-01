@@ -22,7 +22,7 @@ export class ProfilePageComponent implements OnInit {
   public offers: any[] = [];
 
   public pending_orders: any = [];
-  public inprogress_orders: any = [];
+  public in_progress_orders: any = [];
 
   // DEBUG dummy order
   /**
@@ -85,6 +85,8 @@ export class ProfilePageComponent implements OnInit {
         this.userToken = token;
         this.getProfile();
         this.getAuthOffers();
+        this.getPendingOrders();
+        this.getProgressOrders();
       }
     });
   }
@@ -104,10 +106,20 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  //TODO retrieves all the pending orders that the owner has yet to fulfill
-  getPendingOrders() {}
-  //TODO retrieves all the in progress orders that the owner is waiting on
-  getProgressOrders() {}
+  //retrieves all the pending orders that the owner has yet to fulfill
+  getPendingOrders() {
+    this.api.getPendingOrders(this.userToken).subscribe(data => {
+      console.log(data);
+      this.pending_orders = <any[]>data;
+    });
+  }
+  //retrieves all the in progress orders that the owner is waiting on
+  getProgressOrders() {
+    this.api.getInProgressOrders(this.userToken).subscribe(data => {
+      console.log(data);
+      this.in_progress_orders = <any[]>data;
+    });
+  }
 
   //creates a printing offer
   createPrintingOffer() {

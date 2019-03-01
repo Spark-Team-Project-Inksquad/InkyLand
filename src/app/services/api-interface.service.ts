@@ -431,14 +431,68 @@ export class ApiInterfaceService {
   // Orders CRUD
 
   //TODO retrieves a specific order that is related to the user
-  getDetailedOrder(authToken: string, order_id: number) {}
+  getDetailedOrder(userToken: string, order_id: number) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+    //request string
+    //observable API request (GET)
+    //return observable
+  }
 
-  //TODO retrieves a list of orders that are in progress of being fulfilled for user
-  getInProgressOrders(authToken: string) {}
+  //retrieves a list of orders that are in progress of being fulfilled for user
+  getInProgressOrders(userToken: string) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+    //request string
+    let request_path = "/api/orders/retrieve_in_progress_orders/";
+    //observable API request (GET)
+    let getInProgressOrdersObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
 
-  //TODO retrieves a list of pending orders that the vendor has yet to fulfill
-  getPendingOrders(authToken: string) {}
+    //return observable
+    return getInProgressOrdersObservable;
+  }
+
+  //retrieves a list of pending orders that the vendor has yet to fulfill
+  getPendingOrders(userToken: string) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+    //request string
+    let request_path = "/api/orders/retrieve_pending_orders/";
+
+    //observable API request (GET)
+    let getPendingOrdersObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return getPendingOrdersObservable;
+  }
 
   //TODO places a new order
-  placeOrder(authToken: string, printing_offer_id: number) {}
+  placeOrder(userToken: string, printing_offer_id: number) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request string
+    let request_path =
+      "/api/printing-offers/" + printing_offer_id + "/place_order/";
+
+    //observable API request (POST)
+    let placeOrderObservable: Observable<any> = this.http
+      .post(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return placeOrderObservable;
+  }
 }
