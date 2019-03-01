@@ -255,6 +255,17 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
 
+    @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
+    def retrieve_order(self, request, pk = None):
+        auth_user = request.user
+        order = self.get_object()
+
+        if (order.orderer == auth_user.account or order.printing_offer.owner == auth_user.account):
+            serializer = OrderDetailedSerializer(order, many = False)
+            return Response(serializer.data)
+        else:
+            return Response({'message': 'Not authorized to retrieve order'})
+
     # retrieves in progress orders for user
     @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
     def retrieve_in_progress_orders(self, request):
