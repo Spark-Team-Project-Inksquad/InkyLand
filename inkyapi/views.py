@@ -255,6 +255,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
 
+    # Retrieves a detailed view of an order that the user is tied to in some way (vendor/orderer)
     @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
     def retrieve_order(self, request, pk = None):
         auth_user = request.user
