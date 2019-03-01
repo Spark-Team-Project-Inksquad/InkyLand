@@ -489,7 +489,7 @@ export class ApiInterfaceService {
 
     //observable API request (POST)
     let placeOrderObservable: Observable<any> = this.http
-      .post(this.endpoint + request_path, httpOptions)
+      .post(this.endpoint + request_path, {}, httpOptions)
       .pipe(share());
 
     //return observable

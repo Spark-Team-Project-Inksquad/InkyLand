@@ -14,17 +14,6 @@
   <br>
   <div class = "orders">
     <div class = 'row'>
-      <div class = "text-center col">
-        <h2 class = "text-center">Your Pending Orders</h2>
-
-        <div class = "card order-card" *ngFor = "let order of pending_orders">
-          <div class = "card-body">
-            <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
-            <span>{{order.documents.length}} Documents to be printed</span>
-          </div>
-        </div>
-
-      </div>
       <div class = "col">
         <h2 class = "text-center">Your In-Progress Orders</h2>
 
@@ -36,6 +25,18 @@
         </div>
 
       </div>
+      <div class = "text-center col">
+        <h2 class = "text-center">Your Pending Orders</h2>
+
+        <div class = "card order-card" *ngFor = "let order of pending_orders">
+          <div class = "card-body">
+            <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
+            <span>{{order.documents.length}} Documents to be printed</span>
+          </div>
+        </div>
+
+      </div>
+
 
       <!-- TODO list out printing orders -->
     </div>

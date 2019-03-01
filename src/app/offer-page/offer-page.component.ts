@@ -163,4 +163,15 @@ export class OfferPageComponent implements OnInit {
 
     this.router.navigate(["edit-offer-spec/" + spec.id]);
   }
+
+  //places an order to later be fulfilled
+  placeOrder() {
+    this.api
+      .placeOrder(this.userToken, this.printing_offer.id)
+      .subscribe(data => {
+        alert("order placed!");
+
+        this.router.navigate(["/profile"]);
+      });
+  }
 }

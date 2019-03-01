@@ -109,6 +109,7 @@ export class ProfilePageComponent implements OnInit {
   //retrieves all the pending orders that the owner has yet to fulfill
   getPendingOrders() {
     this.api.getPendingOrders(this.userToken).subscribe(data => {
+      console.log("pending orders");
       console.log(data);
       this.pending_orders = <any[]>data;
     });
@@ -116,6 +117,7 @@ export class ProfilePageComponent implements OnInit {
   //retrieves all the in progress orders that the owner is waiting on
   getProgressOrders() {
     this.api.getInProgressOrders(this.userToken).subscribe(data => {
+      console.log("in progress orders");
       console.log(data);
       this.in_progress_orders = <any[]>data;
     });
