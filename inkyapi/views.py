@@ -272,7 +272,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def retrieve_in_progress_orders(self, request):
         auth_user = request.user
         orders = Order.objects.all().filter(orderer = auth_user.account)
-        serializer = OrderSerializer(orders, many = True)
+        serializer = OrderDetailedSerializer(orders, many = True)
         return Response(serializer.data)
 
     # retrieves orders to be fulfilled
@@ -280,16 +280,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def retrieve_pending_orders(self, request):
         auth_user = request.user
         orders = Order.objects.all().filter(printing_offer__owner = auth_user.account)
-        serializer = OrderSerializer(orders, many = True)
-        return Response(serializer.data)
-
-    # returns a detailed version of a specific order
-    # NOTE may require auth
-    # NOTE should be limited to the owner + vendor
-    @action(detail = True, methods = ['get'])
-    def get_detailed_order_info(self, request, pk = None):
-        order = self.get_object()
-        serializer = OrderDetailedSerializer(order)
+        serializer = OrderDetailedSerializer(orders, many = True)
         return Response(serializer.data)
 
 class DocumentViewSet(viewsets.ModelViewSet):
