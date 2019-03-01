@@ -22,6 +22,9 @@
             <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
             <span>{{order.documents.length}} Documents to be printed</span>
           </div>
+          <div class = "card-footer">
+            <a [routerLink] = "['/view-order/' + order.id]" class = "btn btn-info" href = "#">View</a>
+          </div>
         </div>
 
       </div>
@@ -32,6 +35,9 @@
           <div class = "card-body">
             <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
             <span>{{order.documents.length}} Documents to be printed</span>
+          </div>
+          <div class = "card-footer">
+            <a [routerLink] = "['/view-order/' + order.id]" class = "btn btn-info" href = "#">View</a>
           </div>
         </div>
 
