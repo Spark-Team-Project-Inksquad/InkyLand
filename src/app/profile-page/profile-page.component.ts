@@ -21,6 +21,9 @@ export class ProfilePageComponent implements OnInit {
   public profile: any = null;
   public offers: any[] = [];
 
+  public pending_orders: any = [];
+  public inprogress_orders: any = [];
+
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
@@ -57,6 +60,11 @@ export class ProfilePageComponent implements OnInit {
       this.offers = <any[]>data;
     });
   }
+
+  //TODO retrieves all the pending orders that the owner has yet to fulfill
+  getPendingOrders() {}
+  //TODO retrieves all the in progress orders that the owner is waiting on
+  getProgressOrders() {}
 
   //creates a printing offer
   createPrintingOffer() {

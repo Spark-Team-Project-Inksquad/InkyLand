@@ -26,6 +26,9 @@ export class TokenStorageService {
           observer.error("Could not get token");
         }
 
+        //DEBUG log token
+        console.log(<string>value);
+
         observer.next(<string>value);
         observer.complete();
       });

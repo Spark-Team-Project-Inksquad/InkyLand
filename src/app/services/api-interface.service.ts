@@ -427,4 +427,18 @@ export class ApiInterfaceService {
     //return observable
     return getDocumentTypesObservable;
   }
+
+  // Orders CRUD
+
+  //TODO retrieves a specific order that is related to the user
+  getDetailedOrder(authToken: string, order_id: number) {}
+
+  //TODO retrieves a list of orders that are in progress of being fulfilled for user
+  getInProgressOrders(authToken: string) {}
+
+  //TODO retrieves a list of pending orders that the vendor has yet to fulfill
+  getPendingOrders(authToken: string) {}
+
+  //TODO places a new order
+  placeOrder(authToken: string, printing_offer_id: number) {}
 }
