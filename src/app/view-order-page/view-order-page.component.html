@@ -13,13 +13,36 @@
 
     <!-- contact info for both orderer and vendor -->
     <br>
-    <div class = "row">
+    <div  *ngIf = "order_contact_info"  class = "row">
       <div class = "col orderer-info">
         <h2 class = "text-center">Orderer Contact Info</h2>
+
+        <div class = "card card-contact">
+
+          <div class = 'card-body'>
+            <p>Name: {{order_contact_info.orderer.user.username}}</p>
+            <p>Email: {{order_contact_info.orderer.user.email}}</p>
+            <p>Bio: {{order_contact_info.orderer.bio}}</p>
+            <p>Phone Number: {{order_contact_info.orderer.phone_number}}</p>
+          </div>
+
+        </div>
+
       </div>
 
       <div class = "col vendor-info">
         <h2 class = "text-center">Vendor Contact Info</h2>
+
+        <div class = "card card-contact">
+
+          <div class = 'card-body'>
+            <p>Name: {{order_contact_info.vendor.user.username}}</p>
+            <p>Email: {{order_contact_info.vendor.user.email}}</p>
+            <p>Bio: {{order_contact_info.vendor.bio}}</p>
+            <p>Phone Number: {{order_contact_info.vendor.phone_number}}</p>
+          </div>
+
+        </div>
       </div>
     </div>
 

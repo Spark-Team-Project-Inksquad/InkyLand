@@ -503,8 +503,27 @@ export class ApiInterfaceService {
     return placeOrderObservable;
   }
 
+  // retrieves contact info specific to an order
+  retrieveOrderContactInfo(userToken: string, order_id: number) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request path
+    let request_path: string =
+      "/api/orders/" + order_id + "/retrieve_contact_info";
+
+    //observable api request (GET)
+    let orderContactInfoObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return orderContactInfoObservable;
+  }
+
   // cancels a order
-  // NOTE test
   cancelOrder(userToken: string, order_id: number) {
     // auth headers
     const httpOptions = {

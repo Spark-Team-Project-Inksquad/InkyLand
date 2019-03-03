@@ -42,6 +42,7 @@ export class ViewOrderPageComponent implements OnInit {
 
       // get the order after getting auth token
       this.getOrder();
+      this.getOrderContact();
     });
   }
 
@@ -62,9 +63,14 @@ export class ViewOrderPageComponent implements OnInit {
     });
   }
 
-  //TODO retrieves the vendor contact info
-  getVendorContact() {}
-
-  //TODO retrieves the orderer contact info
-  getOrdererContact() {}
+  //retrieves the order contact information for the vendor and orderer
+  getOrderContact() {
+    this.api
+      .retrieveOrderContactInfo(this.authToken, this.order_id)
+      .subscribe(data => {
+        console.log("contact info");
+        console.log(data);
+        this.order_contact_info = data;
+      });
+  }
 }
