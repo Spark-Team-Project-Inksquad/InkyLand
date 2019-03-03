@@ -274,10 +274,18 @@ class OrderViewSet(viewsets.ModelViewSet):
         order = self.get_object()
 
         # Validate
+        if (order.orderer == auth_user.account or order.printing_offer.owner == auth_user.account):
+            orderer = order.orderer
+            vendor = order.printing_offer.owner
 
-        # Return contact info
+            # Return contact info
+            ordererSerializer = ProfileSerializer(orderer, many = False)
+            vendorSerializer = ProfileSerializer(vendor, many = False)
 
-        # Error
+            return Response({'orderer': ordererSerializer.data, 'vendor': vendorSerializer.data})
+        else:
+            # Error
+            return Response({'message': 'Not authorized to retrieve order info'})
 
     # Retrieves a detailed view of an order that the user is tied to in some way (vendor/orderer)
     @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
