@@ -1,4 +1,3 @@
-
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
@@ -18,52 +17,52 @@ export class ApiInterfaceService {
   // signs the user in and sends back a auth token
   // expects {key: KEY}
   public signIn(username: string, password: string) {
-  let signInObservable: Observable<string> = this.http
-  .post(this.endpoint + "/api/rest-auth/login/", {
-    username: username,
-    password: password
-  })
-  .pipe(map(tokenJson => tokenJson["key"]))
-  .pipe(share());
+    let signInObservable: Observable<string> = this.http
+      .post(this.endpoint + "/api/rest-auth/login/", {
+        username: username,
+        password: password
+      })
+      .pipe(map(tokenJson => tokenJson["key"]))
+      .pipe(share());
 
-  signInObservable.subscribe({
-    next: token => {
-      console.log(token);
-      console.log("Login Success");
-    },
-    error: err => {
-      console.error("Unable to log in");
-    },
-    complete: () => {
-      console.log("Request complete!");
-    }
-  });
+    signInObservable.subscribe({
+      next: token => {
+        console.log(token);
+        console.log("Login Success");
+      },
+      error: err => {
+        console.error("Unable to log in");
+      },
+      complete: () => {
+        console.log("Request complete!");
+      }
+    });
 
-  return signInObservable;
-}
+    return signInObservable;
+  }
 
   // signs the user out
   public signOutUser(userToken: string) {
-  const httpOptions = {
-    headers: new HttpHeaders({ Authorization: "Token " + userToken })
-  };
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
 
-  let signOutObservable: Observable<object> = this.http
-  .post(this.endpoint + "/api/rest-auth/logout/", {}, httpOptions)
-  .pipe(share());
+    let signOutObservable: Observable<object> = this.http
+      .post(this.endpoint + "/api/rest-auth/logout/", {}, httpOptions)
+      .pipe(share());
 
-  signOutObservable.subscribe({
-    next: res => {
-      console.log("Logout Success!");
-    },
-    error: err => {
-      console.error("Unable to log out");
-    },
-    complete: () => {
-      console.log("logout request complete");
-    }
-  });
-  return signOutObservable;
+    signOutObservable.subscribe({
+      next: res => {
+        console.log("Logout Success!");
+      },
+      error: err => {
+        console.error("Unable to log out");
+      },
+      complete: () => {
+        console.log("logout request complete");
+      }
+    });
+    return signOutObservable;
   }
 
   //Views the user
@@ -73,8 +72,8 @@ export class ApiInterfaceService {
     };
 
     let viewUserObservable: Observable<object> = this.http
-    .get(this.endpoint + "/api/rest-auth/user", httpOptions)
-    .pipe(share());
+      .get(this.endpoint + "/api/rest-auth/user", httpOptions)
+      .pipe(share());
 
     viewUserObservable.subscribe({
       next: res => {
@@ -98,13 +97,13 @@ export class ApiInterfaceService {
     password_confirm: string
   ) {
     let signInObservable: Observable<string> = this.http
-    .post(this.endpoint + "/api/rest-auth/registration/", {
-      username: username,
-      password1: password,
-      password2: password_confirm
-    })
-    .pipe(map(tokenJson => tokenJson["key"]))
-    .pipe(share());
+      .post(this.endpoint + "/api/rest-auth/registration/", {
+        username: username,
+        password1: password,
+        password2: password_confirm
+      })
+      .pipe(map(tokenJson => tokenJson["key"]))
+      .pipe(share());
 
     signInObservable.subscribe({
       next: token => {
@@ -131,8 +130,8 @@ export class ApiInterfaceService {
     };
 
     let getProfileObservable: Observable<object> = this.http
-    .get(this.endpoint + "/api/profiles/logged_in_profile", httpOptions)
-    .pipe(share());
+      .get(this.endpoint + "/api/profiles/logged_in_profile", httpOptions)
+      .pipe(share());
 
     getProfileObservable.subscribe({
       next: profile => {
@@ -157,12 +156,12 @@ export class ApiInterfaceService {
     };
 
     let updateProfileObservable: Observable<object> = this.http
-    .put(
-      this.endpoint + "/api/profiles/" + newProfile.id + "/",
-      newProfile,
-      httpOptions
-    )
-    .pipe(share());
+      .put(
+        this.endpoint + "/api/profiles/" + newProfile.id + "/",
+        newProfile,
+        httpOptions
+      )
+      .pipe(share());
 
     updateProfileObservable.subscribe({
       next: updatedProfile => {
@@ -195,8 +194,8 @@ export class ApiInterfaceService {
 
     //make the request
     let getPrintingOffers: Observable<object> = this.http
-    .get(this.endpoint + utilized_request_path)
-    .pipe(share());
+      .get(this.endpoint + utilized_request_path)
+      .pipe(share());
 
     return getPrintingOffers;
   }
@@ -208,7 +207,7 @@ export class ApiInterfaceService {
 
     let request_path: string = "/api/printing-offers/get_auth_printing_offers/";
     let detailed_request_path: string =
-    "/api/printing-offers/get_auth_detailed_printing_offers/";
+      "/api/printing-offers/get_auth_detailed_printing_offers/";
     let utilized_request_path: string = request_path;
 
     //if the user requests for it to be more detailed then yeah we get them the more detailed info
@@ -217,8 +216,8 @@ export class ApiInterfaceService {
     }
 
     let getPrintingAuthOffers: Observable<object> = this.http
-    .get(this.endpoint + utilized_request_path, httpOptions)
-    .pipe(share());
+      .get(this.endpoint + utilized_request_path, httpOptions)
+      .pipe(share());
 
     return getPrintingAuthOffers;
   }
@@ -228,7 +227,7 @@ export class ApiInterfaceService {
     //request urls
     let request_path: string = "/api/printing-offers/" + offer_id + "/";
     let detailed_request_path: string =
-    "/api/printing-offers/" + offer_id + "/detailed/";
+      "/api/printing-offers/" + offer_id + "/detailed/";
     let utilized_request_path: string = request_path;
 
     //if the user requests for it to be more detailed then yeah we get them the more detailed info
@@ -238,8 +237,8 @@ export class ApiInterfaceService {
 
     //make the request
     let getPrintingOffer: Observable<object> = this.http
-    .get(this.endpoint + utilized_request_path)
-    .pipe(share());
+      .get(this.endpoint + utilized_request_path)
+      .pipe(share());
 
     return getPrintingOffer;
   }
@@ -253,12 +252,12 @@ export class ApiInterfaceService {
 
     //configure the request path
     let request_path: string =
-    "/api/printing-offers/" + printing_offer_id + "/";
+      "/api/printing-offers/" + printing_offer_id + "/";
 
     //make the api request observable
     let deletePrintingOfferObservable: Observable<object> = this.http
-    .delete(this.endpoint + request_path, httpOptions)
-    .pipe(share());
+      .delete(this.endpoint + request_path, httpOptions)
+      .pipe(share());
 
     //return the observable
     return deletePrintingOfferObservable;
@@ -276,8 +275,8 @@ export class ApiInterfaceService {
 
     // make api request method[POST]
     let createPrintingOfferObservable: Observable<any> = this.http
-    .post(this.endpoint + request_path, printing_offer_payload, httpOptions)
-    .pipe(share());
+      .post(this.endpoint + request_path, printing_offer_payload, httpOptions)
+      .pipe(share());
 
     //return observable
     return createPrintingOfferObservable;
@@ -296,13 +295,13 @@ export class ApiInterfaceService {
 
     // request path config
     let request_path: string =
-    "/api/printing-offers/" + printing_offer_id + "/";
+      "/api/printing-offers/" + printing_offer_id + "/";
 
     //PUT Request observable
     //update the printing offer
     let updatePrintingOfferObservable: Observable<any> = this.http
-    .put(this.endpoint + request_path, printing_offer_payload, httpOptions)
-    .pipe(share());
+      .put(this.endpoint + request_path, printing_offer_payload, httpOptions)
+      .pipe(share());
 
     //return the update observable
     return updatePrintingOfferObservable;
@@ -318,8 +317,8 @@ export class ApiInterfaceService {
 
     //observable
     let getOfferSpecObservable: Observable<any> = this.http
-    .get(this.endpoint + request_path)
-    .pipe(share());
+      .get(this.endpoint + request_path)
+      .pipe(share());
 
     //return observable
     return getOfferSpecObservable;
@@ -337,8 +336,8 @@ export class ApiInterfaceService {
 
     //observable (POST request)
     let createOfferSpecObservable: Observable<any> = this.http
-    .post(this.endpoint + request_path, offer_spec_payload, httpOptions)
-    .pipe(share());
+      .post(this.endpoint + request_path, offer_spec_payload, httpOptions)
+      .pipe(share());
 
     //return observable
     return createOfferSpecObservable;
@@ -360,8 +359,8 @@ export class ApiInterfaceService {
 
     // observable request (PUT)
     let updateOfferSpecObservable: Observable<any> = this.http
-    .put(this.endpoint + request_path, offer_spec_payload, httpOptions)
-    .pipe(share());
+      .put(this.endpoint + request_path, offer_spec_payload, httpOptions)
+      .pipe(share());
 
     // return observable
     return updateOfferSpecObservable;
@@ -377,8 +376,8 @@ export class ApiInterfaceService {
 
     //observable (DELETE request)
     let deleteOfferSpecObservable: Observable<any> = this.http
-    .delete(this.endpoint + request_path, httpOptions)
-    .pipe(share());
+      .delete(this.endpoint + request_path, httpOptions)
+      .pipe(share());
 
     //return observable
     return deleteOfferSpecObservable;
@@ -394,8 +393,8 @@ export class ApiInterfaceService {
     // GET Request observable
     //retrieves list of printers from the server
     let getPrintersObservable: Observable<any> = this.http
-    .get(this.endpoint + request_path)
-    .pipe(share());
+      .get(this.endpoint + request_path)
+      .pipe(share());
 
     // return observable
     return getPrintersObservable;
@@ -409,8 +408,8 @@ export class ApiInterfaceService {
     let request_path: string = "/api/printing-mediums/";
     //observable (GET Request)
     let getPrintingMediumsObservable: Observable<any> = this.http
-    .get(this.endpoint + request_path)
-    .pipe(share());
+      .get(this.endpoint + request_path)
+      .pipe(share());
     //return observable
     return getPrintingMediumsObservable;
   }
@@ -423,25 +422,30 @@ export class ApiInterfaceService {
     let request_path: string = "/api/document-types/";
     //observable (GET Request)
     let getDocumentTypesObservable: Observable<any> = this.http
-    .get(this.endpoint + request_path)
-    .pipe(share());
+      .get(this.endpoint + request_path)
+      .pipe(share());
     //return observable
     return getDocumentTypesObservable;
   }
 
   // Orders CRUD
 
-  //TODO retrieves a specific order that is related to the user
+  //retrieves a specific order that is related to the user
   getDetailedOrder(userToken: string, order_id: number) {
     //auth headers config
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
     };
     //request string
-    let request_path = "/api/orders/"
+    let request_path = "/api/orders/" + order_id + "/retrieve_order";
 
     //observable API request (GET)
+    let getDetailedOrderObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
     //return observable
+    return getDetailedOrderObservable;
   }
 
   //retrieves a list of orders that are in progress of being fulfilled for user
@@ -454,8 +458,8 @@ export class ApiInterfaceService {
     let request_path = "/api/orders/retrieve_in_progress_orders/";
     //observable API request (GET)
     let getInProgressOrdersObservable: Observable<any> = this.http
-    .get(this.endpoint + request_path, httpOptions)
-    .pipe(share());
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
 
     //return observable
     return getInProgressOrdersObservable;
@@ -472,8 +476,8 @@ export class ApiInterfaceService {
 
     //observable API request (GET)
     let getPendingOrdersObservable: Observable<any> = this.http
-    .get(this.endpoint + request_path, httpOptions)
-    .pipe(share());
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
 
     //return observable
     return getPendingOrdersObservable;
@@ -488,12 +492,12 @@ export class ApiInterfaceService {
 
     //request string
     let request_path =
-    "/api/printing-offers/" + printing_offer_id + "/place_order/";
+      "/api/printing-offers/" + printing_offer_id + "/place_order/";
 
     //observable API request (POST)
     let placeOrderObservable: Observable<any> = this.http
-    .post(this.endpoint + request_path, {}, httpOptions)
-    .pipe(share());
+      .post(this.endpoint + request_path, {}, httpOptions)
+      .pipe(share());
 
     //return observable
     return placeOrderObservable;
@@ -501,14 +505,14 @@ export class ApiInterfaceService {
 
   // cancels a order
   // NOTE test
-  cancelOrder(userToken: string, order_id:number) {
+  cancelOrder(userToken: string, order_id: number) {
     // auth headers
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
     };
 
     // request path
-    let request_path = "/api/orders/" + order_id  + "/cancel_order";
+    let request_path = "/api/orders/" + order_id + "/cancel_order";
 
     // api request observable (DELETE)
     let cancelOrderObservable: Observable<any> = this.http
@@ -517,7 +521,5 @@ export class ApiInterfaceService {
 
     // return observable
     return cancelOrderObservable;
-
   }
-
 }

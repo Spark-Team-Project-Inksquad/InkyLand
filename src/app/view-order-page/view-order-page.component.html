@@ -1,3 +1,29 @@
-<p>
-  view-order-page works!
-</p>
+<div class = "container-fluid view-order">
+
+  <div *ngIf = "order" class = "order-display">
+    <h1>Order for {{order.printing_offer.printerName}}</h1>
+    <button (click) = "cancelOrder()" class = "btn btn-danger">Cancel Order</button>
+
+    <!-- information regarding documents to print -->
+    <h3>{{order.documents.length}} documents to print</h3>
+
+    <div class = "document-info">
+
+    </div>
+
+    <!-- contact info for both orderer and vendor -->
+    <br>
+    <div class = "row">
+      <div class = "col orderer-info">
+        <h2 class = "text-center">Orderer Contact Info</h2>
+      </div>
+
+      <div class = "col vendor-info">
+        <h2 class = "text-center">Vendor Contact Info</h2>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
