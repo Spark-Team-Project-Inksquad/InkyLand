@@ -1,3 +1,16 @@
-<p>
-  new-document-page works!
-</p>
+<div class = "new-document-page container-fluid">
+
+  <!-- Upload document form -->
+  <form class = "document-upload-form" (ngSubmit) = "uploadDocument()" #documentUploadForm = "ngForm">
+
+    <div class = "form-group">
+      <label for="document">Choose a document:</label>
+      <input (change)= "onFileChange($event)" type="file" class = "form-control-file"
+         id="document" name="document">
+    </div>
+
+    <button class = "btn btn-success" type = "submit">Submit</button>
+
+  </form>
+
+</div>

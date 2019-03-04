@@ -541,4 +541,24 @@ export class ApiInterfaceService {
     // return observable
     return cancelOrderObservable;
   }
+
+  //Document CRUD
+
+  //TODO retrieves the documents associated with a specific order
+  getOrderDocuments() {}
+
+  //TODO gets all the documents of a specific user
+  getUserDocuments() {}
+
+  //TODO retrievs a specific document
+  getDocument() {}
+
+  //TODO uploads a new document
+  createDocument() {}
+
+  //TODO deletes a document
+  deleteDocument() {}
+
+  //TODO edits a document
+  editDocument() {}
 }
