@@ -10,8 +10,8 @@ import { OfferPageComponent } from "./offer-page/offer-page.component";
 import { CreatePrintingOfferPageComponent } from "./create-printing-offer-page/create-printing-offer-page.component";
 import { CreateOfferSpecPageComponent } from "./create-offer-spec-page/create-offer-spec-page.component";
 import { SearchOffersPageComponent } from "./search-offers-page/search-offers-page.component";
-import {ViewOrderPageComponent} from './view-order-page/view-order-page.component';
-
+import { ViewOrderPageComponent } from "./view-order-page/view-order-page.component";
+import { NewDocumentPageComponent } from "./new-document-page/new-document-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -56,8 +56,12 @@ const routes: Routes = [
     component: SearchOffersPageComponent
   },
   {
-    path: 'view-order/:id',
+    path: "view-order/:id",
     component: ViewOrderPageComponent
+  },
+  {
+    path: "new-document",
+    component: NewDocumentPageComponent
   }
 ];
 
