@@ -2,6 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
 
+import { HttpRequest,
+         HttpEventType,
+         HttpResponse
+       } from '@angular/common/http';
+
 // RxJs
 import { map, share, catchError } from "rxjs/operators";
 import { Observable } from "rxjs";
@@ -548,13 +553,38 @@ export class ApiInterfaceService {
   getOrderDocuments() {}
 
   //TODO gets all the documents of a specific user
-  getUserDocuments() {}
+  getUserDocuments() {
+
+  }
 
   //TODO retrievs a specific document
   getDocument() {}
 
-  //TODO uploads a new document
-  createDocument() {}
+  //uploads a new document
+  createDocument(userToken:string, user_id: any, file:File) {
+    // auth headers
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //form data
+    let formData: FormData = new FormData();
+    formData.append("uploaded_file", file, file.name);
+    formData.append("owner", user_id);
+
+    //request path
+    let request_path:string = "/api/document/";
+
+    // create a http-post request and pass the form
+    // tell it to report the upload progress
+    const req = new HttpRequest('POST', this.endpoint + request_path, formData, httpOptions);
+
+    this.http.request(req).subscribe(event => {
+        console.log(event);
+    });
+
+
+  }
 
   //TODO deletes a document
   deleteDocument() {}
