@@ -18,7 +18,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class NewDocumentPageComponent implements OnInit {
   public doc_file: File;
   private userToken: string;
-  private profile: string;
+  private profile: any;
 
   constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService,private router: Router, private route: ActivatedRoute) {
 
