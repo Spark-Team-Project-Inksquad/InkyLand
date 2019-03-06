@@ -2,10 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HttpHeaders } from "@angular/common/http";
 
-import { HttpRequest,
-         HttpEventType,
-         HttpResponse
-       } from '@angular/common/http';
+import { HttpRequest, HttpEventType, HttpResponse } from "@angular/common/http";
 
 // RxJs
 import { map, share, catchError } from "rxjs/operators";
@@ -419,20 +416,6 @@ export class ApiInterfaceService {
     return getPrintingMediumsObservable;
   }
 
-  // Document Types CRUD
-
-  //get document types
-  getDocumentTypes() {
-    //request path
-    let request_path: string = "/api/document-types/";
-    //observable (GET Request)
-    let getDocumentTypesObservable: Observable<any> = this.http
-      .get(this.endpoint + request_path)
-      .pipe(share());
-    //return observable
-    return getDocumentTypesObservable;
-  }
-
   // Orders CRUD
 
   //retrieves a specific order that is related to the user
@@ -553,15 +536,13 @@ export class ApiInterfaceService {
   getOrderDocuments() {}
 
   //TODO gets all the documents of a specific user
-  getUserDocuments() {
-
-  }
+  getUserDocuments() {}
 
   //TODO retrievs a specific document
   getDocument() {}
 
   //uploads a new document
-  createDocument(userToken:string, user_id: any, file:File) {
+  createDocument(userToken: string, user_id: any, payload: any) {
     // auth headers
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
@@ -569,21 +550,29 @@ export class ApiInterfaceService {
 
     //form data
     let formData: FormData = new FormData();
+
+    let file: File = payload["uploaded_file"];
     formData.append("uploaded_file", file, file.name);
+
+    //NOTE can potentially optimize
     formData.append("owner", user_id);
+    formData.append("document_type", payload["document_type"]);
 
     //request path
-    let request_path:string = "/api/document/";
+    let request_path: string = "/api/document/";
 
     // create a http-post request and pass the form
     // tell it to report the upload progress
-    const req = new HttpRequest('POST', this.endpoint + request_path, formData, httpOptions);
+    const req = new HttpRequest(
+      "POST",
+      this.endpoint + request_path,
+      formData,
+      httpOptions
+    );
 
     this.http.request(req).subscribe(event => {
-        console.log(event);
+      console.log(event);
     });
-
-
   }
 
   //TODO deletes a document
@@ -591,4 +580,20 @@ export class ApiInterfaceService {
 
   //TODO edits a document
   editDocument() {}
+
+  //CRUD document Types
+
+  //returns a list of document types
+  getDocumentTypes() {
+    //request path
+    let request_path: string = "/api/document-types/";
+
+    //make the request (GET) observable
+    let getDocumentTypesObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path)
+      .pipe(share());
+
+    //return the observable for data usage
+    return getDocumentTypesObservable;
+  }
 }

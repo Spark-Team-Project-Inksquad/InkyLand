@@ -8,7 +8,7 @@ import { ApiInterfaceService } from "../services/api-interface.service";
 import { TokenStorageService } from "../services/token-storage.service";
 
 // Routing
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 
 @Component({
   selector: "app-new-document-page",
@@ -16,21 +16,42 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ["./new-document-page.component.scss"]
 })
 export class NewDocumentPageComponent implements OnInit {
+  //The document file
   public doc_file: File;
+
+  //The selected document type for the document w/ options
+  public selected_document_type: any;
+  public document_type_options: any;
+
+  //user auth token + profile
   private userToken: string;
   private profile: any;
 
-  constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService,private router: Router, private route: ActivatedRoute) {
-
-  }
+  constructor(
+    private api: ApiInterfaceService,
+    private tokenStore: TokenStorageService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    //retrieve the auth token
+    //then retreive the user profile
     this.tokenStore.getToken().subscribe(data => {
       let token = data as string;
       if (data !== null) {
         this.userToken = token;
         this.getProfile();
       }
+    });
+
+    this.getDocumentTypeOptions();
+  }
+
+  //retrieves the list of document type options
+  getDocumentTypeOptions() {
+    this.api.getDocumentTypes().subscribe(document_types => {
+      this.document_type_options = document_types;
     });
   }
 
@@ -45,15 +66,30 @@ export class NewDocumentPageComponent implements OnInit {
   uploadDocument() {
     console.log(this.doc_file);
 
-    this.api.createDocument(this.userToken, this.profile.id, this.doc_file);
+    let payload = {
+      uploaded_file: this.doc_file,
+      document_type: this.selected_document_type
+    };
 
-    //Make the api request
+    //FIXME Make the api request
+    this.api.createDocument(this.userToken, this.profile.id, payload);
   }
 
   onFileChange(event) {
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       this.doc_file = file;
+      let extension: string = this.doc_file.name.split(".").pop();
+      console.log("extension!");
+      console.log(extension);
+
+      for (var i = 0; i < this.document_type_options.length; i++) {
+        let document_type_option = this.document_type_options[i];
+        let document_extension = document_type_option["extension"];
+        if (document_extension == "." + extension) {
+          this.selected_document_type = document_type_option["id"];
+        }
+      }
     }
   }
 }
