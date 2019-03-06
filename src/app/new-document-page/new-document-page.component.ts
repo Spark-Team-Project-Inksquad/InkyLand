@@ -20,7 +20,7 @@ export class NewDocumentPageComponent implements OnInit {
   public doc_file: File;
 
   //The selected document type for the document w/ options
-  public selected_document_type: any;
+  public selected_document_type: any = null;
   public document_type_options: any;
 
   //user auth token + profile
@@ -64,15 +64,17 @@ export class NewDocumentPageComponent implements OnInit {
 
   // uploads the document to the server
   uploadDocument() {
-    console.log(this.doc_file);
 
     let payload = {
       uploaded_file: this.doc_file,
       document_type: this.selected_document_type
     };
 
-    //FIXME Make the api request
-    this.api.createDocument(this.userToken, this.profile.id, payload);
+    // Make the api request
+    this.api.createDocument(this.userToken, this.profile.id, payload).
+      subscribe(data => {
+        this.router.navigate(['/profile'])
+      })
   }
 
   onFileChange(event) {

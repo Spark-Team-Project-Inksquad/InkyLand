@@ -580,8 +580,11 @@ export class ApiInterfaceService {
 
     //NOTE can potentially optimize
     formData.append("owner", user_id);
-    formData.append("document_type", payload["document_type"]);
 
+    if (payload['document_type'] != null) {
+      formData.append("document_type", payload["document_type"]);
+    }
+    
     //request path
     let request_path: string = "/api/document/";
 
@@ -594,9 +597,15 @@ export class ApiInterfaceService {
       httpOptions
     );
 
-    this.http.request(req).subscribe(event => {
+    let createDocumentObservable: Observable<any> = this.http.request(req)
+    .pipe(share());
+
+    createDocumentObservable
+    .subscribe(event => {
       console.log(event);
     });
+
+    return createDocumentObservable;
   }
 
   //TODO deletes a document

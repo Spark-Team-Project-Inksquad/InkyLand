@@ -93,6 +93,11 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
+  //NOTE hardcoded
+  viewFile(document) {
+    window.location.href = 'http://localhost:8000' + document.uploaded_file.url
+  }
+
   //retrieves the account from the backend server
   getProfile() {
     this.api.getProfile(this.userToken).subscribe(profile => {
@@ -139,4 +144,6 @@ export class ProfilePageComponent implements OnInit {
     //redirect to the printing offer creation page
     this.router.navigate(["/printing-offer/create"]);
   }
+
+
 }

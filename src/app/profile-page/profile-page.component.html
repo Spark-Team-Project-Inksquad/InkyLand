@@ -18,8 +18,12 @@
 
     <div class = "card document-card" *ngFor = "let document of documents">
       <div class = "card-body">
-        {{document.uploaded_file}}
-        {{document.document_type}}
+        <!-- HARDCODED NOTE -->
+        <button class = "btn btn-primary" (click) = "viewFile(document)">View</button>
+        <br>
+        <p *ngIf = "document.uploaded_file">Name: {{document.uploaded_file.name}}</p>
+        <br>
+        <p *ngIf = "document.document_type">Type: {{document.document_type.name}}</p>
       </div>
     </div>
 
