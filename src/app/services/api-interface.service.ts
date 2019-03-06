@@ -535,11 +535,33 @@ export class ApiInterfaceService {
   //TODO retrieves the documents associated with a specific order
   getOrderDocuments() {}
 
-  //TODO gets all the documents of a specific user
-  getUserDocuments() {}
+  //gets all the documents of a specific user
+  getUserDocuments(userToken:string) {
+    //user auth
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request path
+    let request_path: string = "/api/document/view_documents_for_user";
+
+    // Observable (GET) api request
+    let getUserDocumentsObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    //return Observable
+    return getUserDocumentsObservable;
+  }
 
   //TODO retrievs a specific document
   getDocument() {}
+
+  //returns the document link for a given document
+  viewDocumentLink(document:any) {
+    let document_link = this.endpoint + document['uploaded_file'];
+    return document_link;
+  }
 
   //uploads a new document
   createDocument(userToken: string, user_id: any, payload: any) {

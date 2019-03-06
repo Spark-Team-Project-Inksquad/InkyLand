@@ -20,6 +20,7 @@ export class ProfilePageComponent implements OnInit {
   public userToken: string;
   public profile: any = null;
   public offers: any[] = [];
+  public documents: any[] = [];
 
   public pending_orders: any = [];
   public in_progress_orders: any = [];
@@ -84,6 +85,7 @@ export class ProfilePageComponent implements OnInit {
       if (data !== null) {
         this.userToken = token;
         this.getProfile();
+        this.getDocuments();
         this.getAuthOffers();
         this.getPendingOrders();
         this.getProgressOrders();
@@ -96,6 +98,15 @@ export class ProfilePageComponent implements OnInit {
     this.api.getProfile(this.userToken).subscribe(profile => {
       this.profile = profile;
     });
+  }
+
+  //retrieves a list of documents that the user has
+  getDocuments() {
+    this.api.getUserDocuments(this.userToken).subscribe(documents => {
+      this.documents = documents;
+      console.log("DOCUMENTS");
+      console.log(this.documents);
+    })
   }
 
   //retrieves all the offers of this specific user
