@@ -533,7 +533,9 @@ export class ApiInterfaceService {
   //Document CRUD
 
   //TODO retrieves the documents associated with a specific order
-  getOrderDocuments() {}
+  getOrderDocuments() {
+
+  }
 
   //gets all the documents of a specific user
   getUserDocuments(userToken:string) {

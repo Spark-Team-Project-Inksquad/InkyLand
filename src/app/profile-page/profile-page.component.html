@@ -15,6 +15,14 @@
   <div class = "documents">
     <h2> Your Documents</h2>
     <a [routerLink]= "['/new-document']" class = "btn btn-success">New Document</a>
+
+    <div class = "card document-card" *ngFor = "let document of documents">
+      <div class = "card-body">
+        {{document.uploaded_file}}
+        {{document.document_type}}
+      </div>
+    </div>
+
   </div>
 
   <!-- Printing Orders -->
