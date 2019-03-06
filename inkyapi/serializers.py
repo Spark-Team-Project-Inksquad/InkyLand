@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+import os
 from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 from django.contrib.auth.models import User
 
@@ -82,9 +82,29 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('id', 'address', 'orderer', 'documents', 'lat', 'lon', 'pickup', 'shipping', 'printing_offer')
 
 class DocumentSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Document
         fields = ('id', 'owner', 'document_type', 'uploaded_file')
+
+
+class DocumentDetailedSerializer(serializers.ModelSerializer):
+    document_type = DocumentTypeSerializer(many = False)
+    uploaded_file = serializers.SerializerMethodField()
+
+    class Meta(DocumentSerializer.Meta):
+        pass
+
+    # Serializes the file
+    def get_uploaded_file(self, obj):
+
+        uploaded_file = {
+            'url': obj.uploaded_file.url,
+            'name': os.path.basename(obj.uploaded_file.name)
+        }
+
+        return uploaded_file
+
 
 class OrderDetailedSerializer(serializers.ModelSerializer):
     printing_offer = PrintingOfferSerializer(many = False)
@@ -92,6 +112,7 @@ class OrderDetailedSerializer(serializers.ModelSerializer):
 
     class Meta(OrderSerializer.Meta):
         pass
+
 
 class VendorReviewSerializer(serializers.ModelSerializer):
     class Meta:

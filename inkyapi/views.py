@@ -12,7 +12,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 # Models + Serializers
-from .serializers import ProfileSerializer, OrderDetailedSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
+from .serializers import ProfileSerializer, OrderDetailedSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentDetailedSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
 from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 from django.contrib.auth.models import User
 
@@ -328,7 +328,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
     def view_documents_for_user(self, request):
         auth_user = request.user
         documents = Document.objects.all().filter(owner = auth_user.account)
-        serializer = DocumentSerializer(documents, many = True)
+        serializer = DocumentDetailedSerializer(documents, many = True)
         return Response(serializer.data)
 
 class VendorReviewViewSet(viewsets.ModelViewSet):
