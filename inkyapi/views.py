@@ -323,6 +323,14 @@ class DocumentViewSet(viewsets.ModelViewSet):
     serializer_class = DocumentSerializer
     queryset = Document.objects.all()
 
+    # retrieves the list of documents for a specific user
+    @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
+    def view_documents_for_user(self, request):
+        auth_user = request.user
+        documents = Document.objects.all().filter(owner = auth_user.account)
+        serializer = DocumentSerializer(documents, many = True)
+        return Response(serializer.data)
+
 class VendorReviewViewSet(viewsets.ModelViewSet):
     '''
     Viewsets for viewing and editing account instances
