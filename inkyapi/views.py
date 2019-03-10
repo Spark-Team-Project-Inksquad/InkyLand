@@ -16,6 +16,9 @@ from .serializers import ProfileSerializer, OrderDetailedSerializer, PrintingOff
 from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 from django.contrib.auth.models import User
 
+# forms
+from .forms import PartialOrderForm
+
 # API Viewsets
 # NOTE edit the descriptions
 
@@ -123,6 +126,7 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
     queryset = PrintingOffer.objects.all()
 
     # Places an order for a printing offer
+    # TODO revise to add documents
     @action(detail = True, methods = ['post'], permission_classes = [IsAuthenticated])
     def place_order(self, request, pk = None):
         printing_offer = self.get_object()
@@ -135,8 +139,9 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
 
         orderer = auth_user.account
 
-        new_order = Order(orderer = orderer, printing_offer = printing_offer)
-        new_order.save()
+        new_order = Order(orderer = orderer)
+        form = PartialOrderForm(request.data, instance = new_order)
+        form.save()
 
         serializer = OrderSerializer(new_order, many = False)
         return Response(serializer.data)
