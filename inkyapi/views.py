@@ -284,7 +284,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             documents = order.documents
 
             # serialize + return documents
-            serialized_documents = DocumentSerializer(documents, many = True)
+            serialized_documents = DocumentDetailedSerializer(documents, many = True)
             return Response(serialized_documents.data)
         else:
             return Response({'message': 'Not auth to retrieve order docs'})
