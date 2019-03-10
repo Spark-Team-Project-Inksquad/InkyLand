@@ -24,8 +24,10 @@
         <p *ngIf = "document.uploaded_file">Name: {{document.uploaded_file.name}}</p>
         <br>
         <p *ngIf = "document.document_type">Type: {{document.document_type.name}}</p>
+        <button class = "btn btn-danger" (click) = "deleteDocument(document.id)">Remove</button>
       </div>
     </div>
+
 
   </div>
 

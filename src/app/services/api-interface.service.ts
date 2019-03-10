@@ -533,12 +533,10 @@ export class ApiInterfaceService {
   //Document CRUD
 
   //TODO retrieves the documents associated with a specific order
-  getOrderDocuments() {
-
-  }
+  getOrderDocuments() {}
 
   //gets all the documents of a specific user
-  getUserDocuments(userToken:string) {
+  getUserDocuments(userToken: string) {
     //user auth
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
@@ -560,8 +558,8 @@ export class ApiInterfaceService {
   getDocument() {}
 
   //returns the document link for a given document
-  viewDocumentLink(document:any) {
-    let document_link = this.endpoint + document['uploaded_file'];
+  viewDocumentLink(document: any) {
+    let document_link = this.endpoint + document["uploaded_file"];
     return document_link;
   }
 
@@ -581,10 +579,10 @@ export class ApiInterfaceService {
     //NOTE can potentially optimize
     formData.append("owner", user_id);
 
-    if (payload['document_type'] != null) {
+    if (payload["document_type"] != null) {
       formData.append("document_type", payload["document_type"]);
     }
-    
+
     //request path
     let request_path: string = "/api/document/";
 
@@ -597,19 +595,36 @@ export class ApiInterfaceService {
       httpOptions
     );
 
-    let createDocumentObservable: Observable<any> = this.http.request(req)
-    .pipe(share());
+    let createDocumentObservable: Observable<any> = this.http
+      .request(req)
+      .pipe(share());
 
-    createDocumentObservable
-    .subscribe(event => {
+    createDocumentObservable.subscribe(event => {
       console.log(event);
     });
 
     return createDocumentObservable;
   }
 
-  //TODO deletes a document
-  deleteDocument() {}
+  //deletes a document
+  //NOTE does not remove from storage
+  deleteDocument(userToken: string, document_id: number) {
+    //auth headers
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request path
+    let request_path: string = "/api/document/" + document_id + "/";
+
+    //observable (DEL) api request
+    let deleteDocumentObservable: Observable<any> = this.http
+      .delete(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return deleteDocumentObservable;
+  }
 
   //TODO edits a document
   editDocument() {}

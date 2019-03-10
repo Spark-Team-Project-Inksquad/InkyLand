@@ -95,7 +95,7 @@ export class ProfilePageComponent implements OnInit {
 
   //NOTE hardcoded
   viewFile(document) {
-    window.location.href = 'http://localhost:8000' + document.uploaded_file.url
+    window.location.href = "http://localhost:8000" + document.uploaded_file.url;
   }
 
   //retrieves the account from the backend server
@@ -111,7 +111,14 @@ export class ProfilePageComponent implements OnInit {
       this.documents = documents;
       console.log("DOCUMENTS");
       console.log(this.documents);
-    })
+    });
+  }
+
+  //deletes the selected document
+  deleteDocument(document_id: number) {
+    this.api.deleteDocument(this.userToken, document_id).subscribe(res => {
+      this.getDocuments();
+    });
   }
 
   //retrieves all the offers of this specific user
@@ -144,6 +151,4 @@ export class ProfilePageComponent implements OnInit {
     //redirect to the printing offer creation page
     this.router.navigate(["/printing-offer/create"]);
   }
-
-
 }
