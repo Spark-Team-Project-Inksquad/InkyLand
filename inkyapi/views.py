@@ -137,16 +137,19 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
             return Response({'status': 'must be logged in!'})
 
         orderer = auth_user.account
-
         new_order = Order(orderer = orderer)
         form = OrderForm(request.data, instance = new_order)
 
         if (form.is_valid()):
             form.save()
+            print ("success")
             serializer = OrderSerializer(new_order, many = False)
             return Response(serializer.data)
         else:
+            print ("ERRROR")
+            print (form.errors)
             return Response({'status': 'unable to create order'})
+
 
     @permission_classes((IsAuthenticated, ))
     def destroy(self, request, pk = None):
@@ -282,7 +285,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         # if the person is the orderer or the owner of the printing offer, they got access
         if (order.orderer == auth_user.account or order.printing_offer.owner == auth_user.account):
-            serialized_order = OrderDetailedSerializer(order, many = False)
+            serialized_order = OrderSerializer(order, many = False)
             return Response(serialized_order.data)
         else:
             return Response({'message': 'Not authorized to retrieve the order'})
@@ -345,7 +348,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     # Retrieves a detailed view of an order that the user is tied to in some way (vendor/orderer)
     @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
-    def retrieve_order(self, request, pk = None):
+    def detailed_order(self, request, pk = None):
         auth_user = request.user
         order = self.get_object()
 
