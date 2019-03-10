@@ -17,7 +17,7 @@ from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedi
 from django.contrib.auth.models import User
 
 # forms
-from .forms import PartialOrderForm
+from .forms import OrderForm
 
 # API Viewsets
 # NOTE edit the descriptions
@@ -126,7 +126,6 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
     queryset = PrintingOffer.objects.all()
 
     # Places an order for a printing offer
-    # TODO revise to add documents
     @action(detail = True, methods = ['post'], permission_classes = [IsAuthenticated])
     def place_order(self, request, pk = None):
         printing_offer = self.get_object()
@@ -140,11 +139,14 @@ class PrintingOfferViewSet(viewsets.ModelViewSet):
         orderer = auth_user.account
 
         new_order = Order(orderer = orderer)
-        form = PartialOrderForm(request.data, instance = new_order)
-        form.save()
+        form = OrderForm(request.data, instance = new_order)
 
-        serializer = OrderSerializer(new_order, many = False)
-        return Response(serializer.data)
+        if (form.is_valid()):
+            form.save()
+            serializer = OrderSerializer(new_order, many = False)
+            return Response(serializer.data)
+        else:
+            return Response({'status': 'unable to create order'})
 
     @permission_classes((IsAuthenticated, ))
     def destroy(self, request, pk = None):
@@ -259,6 +261,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
+    permission_classes = [IsAuthenticated]
 
     # Cancels a order if the user is the orderer or vendor
     @action(detail = True, methods = ['delete'], permission_classes = [IsAuthenticated])
@@ -271,6 +274,37 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response({'message': 'ORDER_DELETED'})
         else:
             return Response({'message': 'Not authorized to cancel order'})
+
+    # Overrides the order retrieval request
+    def retrieve(self, request, pk=None):
+        auth_user = request.user
+        order = self.get_object()
+
+        # if the person is the orderer or the owner of the printing offer, they got access
+        if (order.orderer == auth_user.account or order.printing_offer.owner == auth_user.account):
+            serialized_order = OrderDetailedSerializer(order, many = False)
+            return Response(serialized_order.data)
+        else:
+            return Response({'message': 'Not authorized to retrieve the order'})
+
+    # Overrides update order behavior
+    # Updates the printing order
+    def update(self, request, pk=None):
+        order = self.get_object()
+        auth_user = request.user
+
+        if (order.orderer == auth_user.account or order.printing_offer.owner == auth_user.account):
+            # Authenticated
+            pass
+        else:
+            return Response({'status': 'not auth'})
+
+        order_form =  OrderForm(request.data, instance = order)
+
+        if (order_form.is_valid()):
+            order_form.save()
+            serializer = OrderSerializer(order, many = False)
+            return Response(serializer.data)
 
     # Retrieves order documents
     @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
