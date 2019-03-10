@@ -28,7 +28,10 @@ export class PlaceOrderPageComponent implements OnInit {
   //main form model for order
   public model: any = {
     printing_offer: null,
-    documents: []
+    documents: [],
+    address: null,
+    shipping: false,
+    pickup: false
   };
 
   constructor(

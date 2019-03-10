@@ -17,6 +17,32 @@
     </ng-select>
     <br>
 
+    <div class = "form-group">
+      <label for = "address-field">
+        Address:
+      </label>
+
+      <textarea class = "form-control" [(ngModel)] = "model.address" name = "address">
+
+      </textarea>
+
+    </div>
+
+    <div class = "form-check">
+      <input class = "form-check-input" type = "checkbox" [(ngModel)] = "model.shipping" id = "shipping-check" name = "shipping">
+      <label class = "form-check-label" for = "shipping-check">
+        Shipping?
+      </label>
+    </div>
+
+
+    <div class = "form-check">
+      <input class = "form-check-input" type = "checkbox" [(ngModel)] = "model.pickup" id = "pickup-check" name = "pickup">
+      <label class = "form-check-label" for = "pickup-check">
+        Pickup?
+      </label>
+    </div>
+
     <!-- Submit button -->
     <button class = "btn btn-success" type = "submit">Place Order</button>
 
