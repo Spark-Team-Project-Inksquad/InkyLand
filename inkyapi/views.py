@@ -272,6 +272,23 @@ class OrderViewSet(viewsets.ModelViewSet):
         else:
             return Response({'message': 'Not authorized to cancel order'})
 
+    # Retrieves order documents
+    @action(detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
+    def documents(self, request, pk = None):
+        auth_user = request.user
+        order = self.get_object()
+
+        # check if authenticated to actually retrieve order documents
+        if (order.orderer == auth_user.account or order.printing_offer.owner == auth_user.account):
+            # retrieve documents
+            documents = order.documents
+
+            # serialize + return documents
+            serialized_documents = DocumentSerializer(documents, many = True)
+            return Response(serialized_documents.data)
+        else:
+            return Response({'message': 'Not auth to retrieve order docs'})
+
     # Returns the contact info of both parties for a authenticated order
     @action (detail = True, methods = ['get'], permission_classes = [IsAuthenticated])
     def retrieve_contact_info(self, request, pk = None):
