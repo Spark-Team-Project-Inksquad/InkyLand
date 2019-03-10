@@ -472,11 +472,13 @@ export class ApiInterfaceService {
   }
 
   // places a new order
-  placeOrder(userToken: string, printing_offer_id: number) {
+  placeOrder(userToken: string, order_payload: any) {
     //auth headers config
     const httpOptions = {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
     };
+
+    let printing_offer_id = order_payload["printing_offer"];
 
     //request string
     let request_path =
@@ -484,7 +486,7 @@ export class ApiInterfaceService {
 
     //observable API request (POST)
     let placeOrderObservable: Observable<any> = this.http
-      .post(this.endpoint + request_path, {}, httpOptions)
+      .post(this.endpoint + request_path, order_payload, httpOptions)
       .pipe(share());
 
     //return observable

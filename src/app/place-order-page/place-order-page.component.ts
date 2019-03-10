@@ -17,10 +17,13 @@ import { TokenStorageService } from "../services/token-storage.service";
 })
 export class PlaceOrderPageComponent implements OnInit {
   //user token for auth
-  private user_token: string = null;
+  private userToken: string = null;
 
   //mode for edit or creation
   private mode: string;
+
+  //list of document options for user to choose from
+  public user_documents: any[] = null;
 
   //main form model for order
   public model: any = {
@@ -58,18 +61,25 @@ export class PlaceOrderPageComponent implements OnInit {
       if (data !== null) {
         //save user token
         this.userToken = token;
+        this.retrieveUserDocuments();
       }
     });
   }
 
   //places an order
   placeOrder() {
-    this.api
-      .placeOrder(this.userToken, this.model["printing_offer"])
-      .subscribe(data => {
-        alert("order placed!");
+    this.api.placeOrder(this.userToken, this.model).subscribe(data => {
+      alert("order placed!");
 
-        this.router.navigate(["/profile"]);
-      });
+      this.router.navigate(["/profile"]);
+    });
+  }
+
+  // retrieves user documents to choose from for order
+  retrieveUserDocuments() {
+    this.api.getUserDocuments(this.userToken).subscribe(documents => {
+      this.user_documents = documents;
+      console.log(this.user_documents);
+    });
   }
 }

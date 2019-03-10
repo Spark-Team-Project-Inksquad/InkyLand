@@ -1,9 +1,23 @@
 <div class = "container-fluid place-print-order">
 
-  <!-- NOTE must be authenticated -->
-  <form class = "place-order-form" (ngSubmit) = "placeOrder()" #placeOrderForm="ngForm">
+  <h1>Place an order</h1>
 
+  <!--  must be authenticated -->
+  <form *ngIf = "userToken" class = "place-order-form" (ngSubmit) = "placeOrder()" #placeOrderForm="ngForm">
 
+    <!-- Multi select for multiple documents to order to be printed -->
+
+    <ng-select *ngIf = "user_documents" [items] = "user_documents"
+      bindLabel = "uploaded_file.name"
+      [multiple]=  "true"
+      bindValue = "id"
+      placeholder = "Select Documents"
+      [(ngModel)] = "model.documents"
+      name = "documents" >
+    </ng-select>
+    <br>
+
+    <!-- Submit button -->
     <button class = "btn btn-success" type = "submit">Place Order</button>
 
   </form>
