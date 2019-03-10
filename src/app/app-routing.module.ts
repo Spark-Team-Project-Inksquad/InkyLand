@@ -12,6 +12,7 @@ import { CreateOfferSpecPageComponent } from "./create-offer-spec-page/create-of
 import { SearchOffersPageComponent } from "./search-offers-page/search-offers-page.component";
 import { ViewOrderPageComponent } from "./view-order-page/view-order-page.component";
 import { NewDocumentPageComponent } from "./new-document-page/new-document-page.component";
+import { PlaceOrderPageComponent } from "./place-order-page/place-order-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -38,6 +39,14 @@ const routes: Routes = [
   {
     path: "printing-offer/:id/add-offer-spec",
     component: CreateOfferSpecPageComponent,
+    pathMatch: "full",
+    data: {
+      mode: "create"
+    }
+  },
+  {
+    path: "printing-offer/:offer-id/place-order",
+    component: PlaceOrderPageComponent,
     pathMatch: "full",
     data: {
       mode: "create"

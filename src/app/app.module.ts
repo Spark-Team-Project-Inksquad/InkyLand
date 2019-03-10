@@ -16,11 +16,10 @@ import { EditProfilePageComponent } from "./edit-profile-page/edit-profile-page.
 import { OfferPageComponent } from "./offer-page/offer-page.component";
 import { CreatePrintingOfferPageComponent } from "./create-printing-offer-page/create-printing-offer-page.component";
 import { CreateOfferSpecPageComponent } from "./create-offer-spec-page/create-offer-spec-page.component";
-import { SearchOffersPageComponent } from './search-offers-page/search-offers-page.component';
-import { ViewOrderPageComponent } from './view-order-page/view-order-page.component';
-import { NewDocumentPageComponent } from './new-document-page/new-document-page.component';
-import { PlaceOrderPageComponent } from './place-order-page/place-order-page.component';
-import { EditOrderPageComponent } from './edit-order-page/edit-order-page.component';
+import { SearchOffersPageComponent } from "./search-offers-page/search-offers-page.component";
+import { ViewOrderPageComponent } from "./view-order-page/view-order-page.component";
+import { NewDocumentPageComponent } from "./new-document-page/new-document-page.component";
+import { PlaceOrderPageComponent } from "./place-order-page/place-order-page.component";
 
 @NgModule({
   declarations: [
@@ -37,8 +36,7 @@ import { EditOrderPageComponent } from './edit-order-page/edit-order-page.compon
     SearchOffersPageComponent,
     ViewOrderPageComponent,
     NewDocumentPageComponent,
-    PlaceOrderPageComponent,
-    EditOrderPageComponent
+    PlaceOrderPageComponent
   ],
   imports: [
     BrowserModule,

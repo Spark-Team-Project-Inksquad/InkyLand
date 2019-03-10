@@ -166,12 +166,6 @@ export class OfferPageComponent implements OnInit {
 
   //places an order to later be fulfilled
   placeOrder() {
-    this.api
-      .placeOrder(this.userToken, this.printing_offer.id)
-      .subscribe(data => {
-        alert("order placed!");
-
-        this.router.navigate(["/profile"]);
-      });
+    this.router.navigate(["/printing-offer/" + this.offer_id + "/place-order"]);
   }
 }
