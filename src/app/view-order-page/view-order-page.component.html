@@ -17,7 +17,15 @@
       <h2 class = "text-center">Order Documents</h2>
 
       <!-- TODO List all documents for Order -->
-
+      <div class = "card document-card" *ngFor = "let document of order_documents">
+        <div class = "card-body">
+          <!-- HARDCODED NOTE -->
+          <button class = "btn btn-primary" (click) = "viewFile(document)">View</button>
+          <br>
+          <p *ngIf = "document.uploaded_file">Name: {{document.uploaded_file.name}}</p>
+          <p *ngIf = "document.document_type">Type: {{document.document_type.name}}</p>
+        </div>
+      </div>
       <!-- END -->
 
     </div>

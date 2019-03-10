@@ -21,6 +21,7 @@ export class ViewOrderPageComponent implements OnInit {
   //order object
   public order: any = null;
   public order_contact_info: any = null;
+  public order_documents: any[] = [];
 
   private authToken: string = "";
   private order_id: number = null;
@@ -43,6 +44,7 @@ export class ViewOrderPageComponent implements OnInit {
       // get the order after getting auth token
       this.getOrder();
       this.getOrderContact();
+      this.retrieveOrderDocuments();
     });
   }
 
@@ -53,6 +55,22 @@ export class ViewOrderPageComponent implements OnInit {
       console.log(data);
       this.order = data;
     });
+  }
+
+  // retrieve documents for the order
+  retrieveOrderDocuments() {
+    this.api
+      .getOrderDocuments(this.authToken, this.order_id)
+      .subscribe(order_documents => {
+        this.order_documents = order_documents;
+        console.log("Order docs");
+        console.log(this.order_documents);
+      });
+  }
+
+  //NOTE hardcoded
+  viewFile(document) {
+    window.location.href = "http://localhost:8000" + document.uploaded_file.url;
   }
 
   //cancels an order
