@@ -417,6 +417,22 @@ export class ApiInterfaceService {
   }
 
   // Orders CRUD
+  getOrder(userToken: string, order_id: number) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+    //request string
+    let request_path = "/api/orders/" + order_id;
+
+    //observable API request (GET)
+    let getOrderObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return getOrderObservable;
+  }
 
   //retrieves a specific order that is related to the user
   getDetailedOrder(userToken: string, order_id: number) {
@@ -425,7 +441,7 @@ export class ApiInterfaceService {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
     };
     //request string
-    let request_path = "/api/orders/" + order_id + "/retrieve_order";
+    let request_path = "/api/orders/" + order_id + "/detailed_order";
 
     //observable API request (GET)
     let getDetailedOrderObservable: Observable<any> = this.http
@@ -491,6 +507,25 @@ export class ApiInterfaceService {
 
     //return observable
     return placeOrderObservable;
+  }
+
+  // places a new order
+  updateOrder(userToken: string, order_id: number, order_payload: any) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request string
+    let request_path = "/api/orders/" + order_id + "/";
+
+    //observable API request (POST)
+    let updateOrderObservable: Observable<any> = this.http
+      .put(this.endpoint + request_path, order_payload, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return updateOrderObservable;
   }
 
   // retrieves contact info specific to an order

@@ -53,6 +53,14 @@ const routes: Routes = [
     }
   },
   {
+    path: "edit-order/:id",
+    component: PlaceOrderPageComponent,
+    pathMatch: "full",
+    data: {
+      mode: "edit"
+    }
+  },
+  {
     path: "edit-offer-spec/:id",
     component: CreateOfferSpecPageComponent,
     pathMatch: "full",

@@ -81,6 +81,11 @@ export class ViewOrderPageComponent implements OnInit {
     });
   }
 
+  //edits the order
+  editOrder() {
+    this.router.navigate(["/edit-order/" + this.order_id]);
+  }
+
   //retrieves the order contact information for the vendor and orderer
   getOrderContact() {
     this.api

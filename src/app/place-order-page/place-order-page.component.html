@@ -1,6 +1,10 @@
 <div class = "container-fluid place-print-order">
 
-  <h1>Place an order</h1>
+
+  <h1>
+      <span *ngIf = "mode == 'create'">Place an order</span>
+      <span *ngIf = "mode == 'edit'">Update order</span>
+  </h1>
 
   <!--  must be authenticated -->
   <form *ngIf = "userToken" class = "place-order-form" (ngSubmit) = "placeOrder()" #placeOrderForm="ngForm">
@@ -44,8 +48,10 @@
     </div>
 
     <!-- Submit button -->
-    <button class = "btn btn-success" type = "submit">Place Order</button>
+    <button *ngIf = "mode == 'create'" class = "btn btn-success" type = "submit">Place Order</button>
+    <button *ngIf = "mode == 'edit'" class = "btn btn-info" type = "submit">Update Order</button>
 
   </form>
+
 
 </div>

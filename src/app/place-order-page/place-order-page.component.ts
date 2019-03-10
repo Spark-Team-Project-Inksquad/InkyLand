@@ -25,6 +25,9 @@ export class PlaceOrderPageComponent implements OnInit {
   //list of document options for user to choose from
   public user_documents: any[] = null;
 
+  //Id for the order
+  private order_id: number;
+
   //main form model for order
   public model: any = {
     printing_offer: null,
@@ -47,12 +50,13 @@ export class PlaceOrderPageComponent implements OnInit {
       this.mode = data.mode;
 
       if (this.mode == "edit") {
-        // TODO grab order id
+        // grab order id
+        this.order_id = parseInt(this.route.snapshot.paramMap.get("id"));
       } else {
         // retrieve the printing offer id
         // set printing offer in model
-        this.model["printing_offer"] = this.route.snapshot.paramMap.get(
-          "offer-id"
+        this.model["printing_offer"] = parseInt(
+          this.route.snapshot.paramMap.get("offer-id")
         );
       }
     });
@@ -65,6 +69,12 @@ export class PlaceOrderPageComponent implements OnInit {
         //save user token
         this.userToken = token;
         this.retrieveUserDocuments();
+
+        if (this.mode == "edit") {
+          // retrieve the order
+          // and save it to the model
+          this.retrieveOrder();
+        }
       }
     });
   }
@@ -76,7 +86,22 @@ export class PlaceOrderPageComponent implements OnInit {
         alert("order placed!");
         this.router.navigate(["/profile"]);
       });
+    } else if (this.mode == "edit") {
+      this.api
+        .updateOrder(this.userToken, this.order_id, this.model)
+        .subscribe(data => {
+          alert("order updated!");
+          this.router.navigate(["/view-order/" + this.order_id]);
+        });
     }
+  }
+
+  //retrieve an order and save it to edit form
+  retrieveOrder() {
+    this.api.getOrder(this.userToken, this.order_id).subscribe(order => {
+      console.log("EDIT ORDER");
+      this.model = order;
+    });
   }
 
   // retrieves user documents to choose from for order
