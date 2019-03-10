@@ -71,11 +71,12 @@ export class PlaceOrderPageComponent implements OnInit {
 
   //places an order
   placeOrder() {
-    this.api.placeOrder(this.userToken, this.model).subscribe(data => {
-      alert("order placed!");
-
-      this.router.navigate(["/profile"]);
-    });
+    if (this.mode == "create") {
+      this.api.placeOrder(this.userToken, this.model).subscribe(data => {
+        alert("order placed!");
+        this.router.navigate(["/profile"]);
+      });
+    }
   }
 
   // retrieves user documents to choose from for order
