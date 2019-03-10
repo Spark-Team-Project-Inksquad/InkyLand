@@ -534,8 +534,24 @@ export class ApiInterfaceService {
 
   //Document CRUD
 
-  //TODO retrieves the documents associated with a specific order
-  getOrderDocuments() {}
+  //retrieves the documents associated with a specific order
+  getOrderDocuments(userToken: string, order_id: number) {
+    //user auth
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request path
+    let request_path: string = "/api/orders/" + order_id + "/documents/";
+
+    //observable api request (GET)
+    let getOrderDocumentsObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return getOrderDocumentsObservable;
+  }
 
   //gets all the documents of a specific user
   getUserDocuments(userToken: string) {
