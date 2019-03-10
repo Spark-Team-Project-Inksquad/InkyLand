@@ -19,6 +19,8 @@ import { CreateOfferSpecPageComponent } from "./create-offer-spec-page/create-of
 import { SearchOffersPageComponent } from './search-offers-page/search-offers-page.component';
 import { ViewOrderPageComponent } from './view-order-page/view-order-page.component';
 import { NewDocumentPageComponent } from './new-document-page/new-document-page.component';
+import { PlaceOrderPageComponent } from './place-order-page/place-order-page.component';
+import { EditOrderPageComponent } from './edit-order-page/edit-order-page.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { NewDocumentPageComponent } from './new-document-page/new-document-page.
     CreateOfferSpecPageComponent,
     SearchOffersPageComponent,
     ViewOrderPageComponent,
-    NewDocumentPageComponent
+    NewDocumentPageComponent,
+    PlaceOrderPageComponent,
+    EditOrderPageComponent
   ],
   imports: [
     BrowserModule,
