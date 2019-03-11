@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 #Exceptions
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,6 +8,9 @@ from django.core.exceptions import ObjectDoesNotExist
 # Signals
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+# OS
+import os
 
 # Create your models here.
 class Account(models.Model):
@@ -78,6 +82,10 @@ class Document(models.Model):
     owner = models.ForeignKey(Account, on_delete = models.CASCADE)
     document_type = models.ForeignKey(DocumentType, on_delete = models.SET_NULL, null = True)
     uploaded_file = models.FileField(upload_to = 'media/uploads/')
+
+    def delete(self, *artgs, **kwargs):
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.uploaded_file.name))
+        super(Document, self).delete(*args, **kwargs)
 
 # Offer for printing documents with conditions
 class PrintingOffer(models.Model):
