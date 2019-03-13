@@ -83,8 +83,12 @@ class Document(models.Model):
     document_type = models.ForeignKey(DocumentType, on_delete = models.SET_NULL, null = True)
     uploaded_file = models.FileField(upload_to = 'media/uploads/')
 
-    def delete(self, *artgs, **kwargs):
-        os.remove(os.path.join(settings.MEDIA_ROOT, self.uploaded_file.name))
+    def delete(self, *args, **kwargs):
+        file_path = os.path.join(settings.MEDIA_ROOT, self.uploaded_file.name)
+
+        if (os.path.isfile(file_path)):
+            os.remove(file_path)
+
         super(Document, self).delete(*args, **kwargs)
 
 # Offer for printing documents with conditions
