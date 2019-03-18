@@ -1,0 +1,46 @@
+.search-filters {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #f1f2f2;
+}
+
+.filter-option {
+  font-size: 1.25em;
+  font-weight: lighter;
+  border-radius: 32px;
+  display: inline-block;
+
+  margin-left: 8px;
+  margin-right: 8px;
+
+  padding-bottom: 8px;
+  padding-top: 8px;
+  white-space: nowrap;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.color-pink {
+  background-color: #f80255;
+  color: white;
+}
+
+.color-blue {
+  background-color: #39b7ff;
+  color: white;
+}
+
+.color-yellow {
+  background-color: #fdc90c;
+  color: white;
+}
+
+.color-black {
+  background-color: #35383a;
+  color: white;
+}
+
+.color-turquoise {
+  background-color: #44f7c8;
+  color: white;
+}

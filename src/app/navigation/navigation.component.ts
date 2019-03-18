@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 // Api lib
 import { HttpClient } from "@angular/common/http";
@@ -8,32 +8,31 @@ import { ApiInterfaceService } from "../services/api-interface.service";
 import { TokenStorageService } from "../services/token-storage.service";
 
 //Routing
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.sass']
+  selector: "app-navigation",
+  templateUrl: "./navigation.component.html",
+  styleUrls: ["./navigation.component.scss"]
 })
 export class NavigationComponent implements OnInit {
-
-  public profile:any = null;
-  public userToken:string = "";
+  public profile: any = null;
+  public userToken: string = "";
 
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
     private router: Router
   ) {
-    this.router.events.subscribe((event) => {
-      if (event.constructor.name === "NavigationStart"){
+    this.router.events.subscribe(event => {
+      if (event.constructor.name === "NavigationStart") {
         this.authenticateAndRetrieveProfile();
       }
-    })
+    });
   }
 
   ngOnInit() {
-    this.authenticateAndRetrieveProfile()
+    this.authenticateAndRetrieveProfile();
   }
 
   authenticateAndRetrieveProfile() {
@@ -58,9 +57,7 @@ export class NavigationComponent implements OnInit {
   logOutAction() {
     this.api.signOutUser(this.userToken).subscribe(res => {
       this.profile = null;
-      this.router.navigate(['/']);
-    })
+      this.router.navigate(["/"]);
+    });
   }
-
-
 }

@@ -1,0 +1,21 @@
+nav {
+  font-size: 1.5em;
+}
+
+.search-bar {
+  background-color: #f1f2f2 !important;
+  border: none !important;
+  width: 100%;
+  border-radius: 10px;
+  padding-left: 16px;
+}
+
+::placeholder {
+  color: black;
+}
+
+.search-bar:focus {
+  border-radius: 10px;
+  box-shadow: 0px 0px 0px 1px #fe055c inset;
+  outline: none;
+}
