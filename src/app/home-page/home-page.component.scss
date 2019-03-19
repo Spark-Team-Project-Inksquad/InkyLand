@@ -1,3 +1,4 @@
+// Filter options styling
 .search-filters {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -43,4 +44,68 @@
 .color-turquoise {
   background-color: #44f7c8;
   color: white;
+}
+
+//result list
+.result-list {
+  margin-top: 32px;
+}
+
+.result-list .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+//Vendor Card styling
+.card-vendor {
+  border-top: 10px solid black;
+  border-radius: 10px;
+  box-shadow: 0px 1px 8px 0px #888888;
+}
+
+.vendor-info {
+  margin-top: 24px;
+}
+
+.vendor-specs {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+.vendor-price-button {
+  font-size: 1.25em;
+  margin-top: 16px;
+  font-weight: lighter;
+  border: none;
+  border-radius: 32px;
+  width: 100%;
+
+  padding-bottom: 8px;
+  padding-top: 8px;
+  white-space: nowrap;
+}
+
+.vendor-price-button:focus {
+  border-radius: 32px;
+  outline: none;
+}
+
+.card-pink {
+  border-top-color: #f80255;
+}
+
+.card-blue {
+  border-top-color: #39b7ff;
+}
+
+.card-yellow {
+  border-top-color: #fdc90c;
+}
+
+.card-black {
+  border-top-color: #35383a;
+}
+
+.card-turquoise {
+  border-top-color: #44f7c8;
 }
