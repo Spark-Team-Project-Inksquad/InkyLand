@@ -22,6 +22,7 @@ import { NewDocumentPageComponent } from "./pages/new-document-page/new-document
 import { PlaceOrderPageComponent } from "./pages/place-order-page/place-order-page.component";
 import { VendorCardComponent } from "./sub-components/vendor-card/vendor-card.component";
 import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
+import { OrderCardComponent } from "./sub-components/order-card/order-card.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
     NewDocumentPageComponent,
     PlaceOrderPageComponent,
     VendorCardComponent,
-    OrdersPageComponent
+    OrdersPageComponent,
+    OrderCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,75 @@
+.card-order {
+  margin-top: 16px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 8px 0px #888888;
+}
+
+.card-order .card-header {
+  background-color: #f5f4f4;
+  border-bottom: none;
+
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 48px;
+  padding-right: 48px;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-order .progress {
+  background-color: white;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.card-order .progress-bar {
+  background-color: #39b7ff;
+}
+
+//content
+.card-body .row {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.tracking-progress {
+  margin-bottom: 24px;
+}
+
+.vendor-info {
+  margin-top: 24px;
+  font-size: 1.25em;
+}
+
+.action-button {
+  font-size: 1.25em;
+  margin-top: 16px;
+  width: 100%;
+  font-weight: lighter;
+  border: none;
+  border-radius: 32px;
+  width: 100%;
+
+  padding-bottom: 8px;
+  padding-top: 8px;
+  white-space: nowrap;
+
+  background-color: #39b7ff;
+  color: white;
+}
+
+.action-button:focus {
+  border-radius: 32px;
+  outline: none;
+}
+
+//sizing
+.display-large {
+  font-size: 2em;
+}
+
+.display-sub {
+  padding-left: 4px;
+  font-size: 1em;
+}
