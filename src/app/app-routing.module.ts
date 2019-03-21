@@ -13,9 +13,11 @@ import { SearchOffersPageComponent } from "./pages/search-offers-page/search-off
 import { ViewOrderPageComponent } from "./pages/view-order-page/view-order-page.component";
 import { NewDocumentPageComponent } from "./pages/new-document-page/new-document-page.component";
 import { PlaceOrderPageComponent } from "./pages/place-order-page/place-order-page.component";
+import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
+  { path: "orders", component: OrdersPageComponent },
   { path: "login", component: LoginPageComponent },
   { path: "register", component: RegisterPageComponent },
   { path: "profile", component: ProfilePageComponent },

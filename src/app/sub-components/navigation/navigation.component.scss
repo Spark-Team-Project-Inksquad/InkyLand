@@ -2,6 +2,32 @@ nav {
   font-size: 1.5em;
 }
 
+//default nav item color
+.nav-item a {
+  color: black;
+}
+
+//Active routes
+.orders-item .active {
+  color: #39b7ff;
+  border-bottom: 5px solid #39b7ff;
+}
+
+.favorites-item .active {
+  color: #f80255;
+  border-bottom: 5px solid #f80255;
+}
+
+.messages-item .active {
+  color: #fdc90c;
+  border-bottom: 5px solid #fdc90c;
+}
+
+.profile-item .active {
+  color: black;
+  border-bottom: 5px solid black;
+}
+
 .search-bar {
   background-color: #f1f2f2 !important;
   border: none !important;

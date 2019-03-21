@@ -8,7 +8,7 @@ import { ApiInterfaceService } from "../../services/api-interface.service";
 import { TokenStorageService } from "../../services/token-storage.service";
 
 //Routing
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-navigation",
@@ -18,21 +18,34 @@ import { Router } from "@angular/router";
 export class NavigationComponent implements OnInit {
   public profile: any = null;
   public userToken: string = "";
+  public navUrl: string = "";
 
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event: any) => {
       if (event.constructor.name === "NavigationStart") {
         this.authenticateAndRetrieveProfile();
+        this.navUrl = event.url;
+        console.log(this.navUrl);
       }
     });
   }
 
   ngOnInit() {
     this.authenticateAndRetrieveProfile();
+  }
+
+  getNav(url: string) {
+    let baseClass = "nav-link";
+    if (this.navUrl == url) {
+      return baseClass + " active";
+    } else {
+      return baseClass;
+    }
   }
 
   authenticateAndRetrieveProfile() {
