@@ -2,7 +2,10 @@ import { Component, OnInit } from "@angular/core";
 
 // Api lib
 import { HttpClient } from "@angular/common/http";
-import { ApiInterfaceService } from "../services/api-interface.service";
+import { ApiInterfaceService } from "../../services/api-interface.service";
+
+// Token lib
+import { TokenStorageService } from "../../services/token-storage.service";
 
 @Component({
   selector: "app-register-page",

@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 
 // Api lib
 import { HttpClient } from "@angular/common/http";
-import { ApiInterfaceService } from "../services/api-interface.service";
+import { ApiInterfaceService } from "../../services/api-interface.service";
 
 // Token lib
-import { TokenStorageService } from "../services/token-storage.service";
+import { TokenStorageService } from "../../services/token-storage.service";
 
 // Routing
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
@@ -64,17 +64,17 @@ export class NewDocumentPageComponent implements OnInit {
 
   // uploads the document to the server
   uploadDocument() {
-
     let payload = {
       uploaded_file: this.doc_file,
       document_type: this.selected_document_type
     };
 
     // Make the api request
-    this.api.createDocument(this.userToken, this.profile.id, payload).
-      subscribe(data => {
-        this.router.navigate(['/profile'])
-      })
+    this.api
+      .createDocument(this.userToken, this.profile.id, payload)
+      .subscribe(data => {
+        this.router.navigate(["/profile"]);
+      });
   }
 
   onFileChange(event) {

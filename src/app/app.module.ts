@@ -7,20 +7,21 @@ import { NgSelectModule } from "@ng-select/ng-select";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { HomePageComponent } from "./home-page/home-page.component";
-import { NavigationComponent } from "./navigation/navigation.component";
-import { LoginPageComponent } from "./login-page/login-page.component";
-import { RegisterPageComponent } from "./register-page/register-page.component";
-import { ProfilePageComponent } from "./profile-page/profile-page.component";
-import { EditProfilePageComponent } from "./edit-profile-page/edit-profile-page.component";
-import { OfferPageComponent } from "./offer-page/offer-page.component";
-import { CreatePrintingOfferPageComponent } from "./create-printing-offer-page/create-printing-offer-page.component";
-import { CreateOfferSpecPageComponent } from "./create-offer-spec-page/create-offer-spec-page.component";
-import { SearchOffersPageComponent } from "./search-offers-page/search-offers-page.component";
-import { ViewOrderPageComponent } from "./view-order-page/view-order-page.component";
-import { NewDocumentPageComponent } from "./new-document-page/new-document-page.component";
-import { PlaceOrderPageComponent } from "./place-order-page/place-order-page.component";
+import { HomePageComponent } from "./pages/home-page/home-page.component";
+import { NavigationComponent } from "./sub-components/navigation/navigation.component";
+import { LoginPageComponent } from "./pages/login-page/login-page.component";
+import { RegisterPageComponent } from "./pages/register-page/register-page.component";
+import { ProfilePageComponent } from "./pages/profile-page/profile-page.component";
+import { EditProfilePageComponent } from "./pages/edit-profile-page/edit-profile-page.component";
+import { OfferPageComponent } from "./pages/offer-page/offer-page.component";
+import { CreatePrintingOfferPageComponent } from "./pages/create-printing-offer-page/create-printing-offer-page.component";
+import { CreateOfferSpecPageComponent } from "./pages/create-offer-spec-page/create-offer-spec-page.component";
+import { SearchOffersPageComponent } from "./pages/search-offers-page/search-offers-page.component";
+import { ViewOrderPageComponent } from "./pages/view-order-page/view-order-page.component";
+import { NewDocumentPageComponent } from "./pages/new-document-page/new-document-page.component";
+import { PlaceOrderPageComponent } from "./pages/place-order-page/place-order-page.component";
 import { VendorCardComponent } from "./sub-components/vendor-card/vendor-card.component";
+import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { VendorCardComponent } from "./sub-components/vendor-card/vendor-card.co
     ViewOrderPageComponent,
     NewDocumentPageComponent,
     PlaceOrderPageComponent,
-    VendorCardComponent
+    VendorCardComponent,
+    OrdersPageComponent
   ],
   imports: [
     BrowserModule,
