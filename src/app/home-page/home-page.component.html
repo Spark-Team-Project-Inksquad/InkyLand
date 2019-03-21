@@ -29,98 +29,12 @@
   <div class = "result-list container-fluid">
 
     <!-- Example Card -->
-    <div class = "row">
-      <div class = 'col-sm-4'>
-        <div class="card card-vendor card-pink">
-          <div class="card-body">
-            <div class = "row">
-              <div class = "col-3">
-                <img class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
-              </div>
+    <div *ngFor = "let vendor_row of getVendorGrid(3)"  class = "row">
+      <div *ngFor = "let vendor of vendor_row" class = "col-sm-4">
 
-              <div class = "col-6 vendor-info">
-                <h3><b>Vendor Name</b></h3>
-                <div class = "vendor-specs ">
-                  <p>
-                    <span><img src = "/assets/icons/place-icon.svg" /> miles away</span>
-                    <br>
-                    <span><img src = "/assets/icons/car-icon.svg" /> types of transportation</span>
-                    <br>
-                    <span>other specs</span>
-                  </p>
-                </div>
-              </div>
-
-              <div class = "col-3">
-                <span class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
-                <button class = "text-center color-turquoise vendor-price-button">Price</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <vendor-card cardColor = "{{vendor.color}}"></vendor-card>
       </div>
-      <div class = "col-sm-4">
-        <div class="card card-vendor card-black">
-            <div class="card-body">
-              <div class = "row">
-                <div class = "col-3">
-                  <img class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
-                </div>
-
-                <div class = "col-6 vendor-info">
-                  <h3><b>Vendor Name</b></h3>
-                  <div class = "vendor-specs ">
-                    <p>
-                      <span><img src = "/assets/icons/place-icon.svg" /> miles away</span>
-                      <br>
-                      <span><img src = "/assets/icons/car-icon.svg" /> types of transportation</span>
-                      <br>
-                      <span>other specs</span>
-                    </p>
-                  </div>
-                </div>
-
-                <div class = "col-3">
-                  <span class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
-                  <button class = "text-center color-turquoise vendor-price-button">Price</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class = "col-sm-4">
-          <div class="card card-vendor card-blue">
-              <div class="card-body">
-                <div class = "row">
-                  <div class = "col-3">
-                    <img class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
-                  </div>
-
-                  <div class = "col-6 vendor-info">
-                    <h3><b>Vendor Name</b></h3>
-                    <div class = "vendor-specs ">
-                      <p>
-                        <span><img src = "/assets/icons/place-icon.svg" /> miles away</span>
-                        <br>
-                        <span><img src = "/assets/icons/car-icon.svg" /> types of transportation</span>
-                        <br>
-                        <span>other specs</span>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class = "col-3">
-                    <span class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
-                    <button class = "text-center color-turquoise vendor-price-button">Price</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-      </div>
+    </div>
   </div>
 
   <div class = "footer">
