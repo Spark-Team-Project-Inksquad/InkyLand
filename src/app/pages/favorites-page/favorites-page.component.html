@@ -1,5 +1,6 @@
 <div class = "favorites-page container-fluid">
 
+  <!--
   <div class = "favorites-list row">
     <div class = "col-sm-2"></div>
     <div class = "col-sm-4">
@@ -10,5 +11,20 @@
     </div>
     <div class = "col-sm-2"></div>
   </div>
+-->
+
+  <div class = "favorites-list">
+
+    <!-- Render the favorite cards -->
+    <div *ngFor = "let vendor_row of getVendorGrid(2)" class = "row">
+      <div class = "col-md-2"></div>
+      <div *ngFor = "let vendor of vendor_row" class = "col-md-4">
+          <vendor-card mode = "favorite"></vendor-card>
+      </div>
+      <div class = "col-md-2"></div>
+    </div>
+
+  </div>
+
 
 </div>
