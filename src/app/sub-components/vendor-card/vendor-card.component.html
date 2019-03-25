@@ -11,7 +11,11 @@
             <p>
               <span><img src = "/assets/icons/place-icon.svg" /> miles away</span>
               <br>
-              <span><img src = "/assets/icons/car-icon.svg" /> types of transportation</span>
+              <span>
+                <img *ngIf = "mode != 'favorite'" src = "/assets/icons/car-icon.svg" />
+                <img *ngIf = "mode == 'favorite'" src = "/assets/icons/favorite-car-icon.svg" />
+                types of transportation
+              </span>
               <br>
               <span>other specs</span>
             </p>
@@ -19,8 +23,8 @@
         </div>
 
         <div class = "col-3">
-          <span class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
-          <button class = "text-center vendor-price-button">Price</button>
+          <span *ngIf = "mode != 'favorite'" class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
+          <button class = "text-center vendor-price-button {{mode}}">Price</button>
         </div>
       </div>
     </div>

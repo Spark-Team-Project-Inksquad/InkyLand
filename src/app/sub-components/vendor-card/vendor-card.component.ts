@@ -15,6 +15,7 @@ import {
 export class VendorCardComponent implements OnInit {
   @Input() cardColor: string;
   @Input() vendorInfo: any;
+  @Input() mode: string;
 
   private colorClass: string;
 
@@ -22,5 +23,9 @@ export class VendorCardComponent implements OnInit {
 
   ngOnInit() {
     this.colorClass = "card-" + this.cardColor;
+
+    if (this.mode == "favorite") {
+      this.colorClass = "card-pink";
+    }
   }
 }

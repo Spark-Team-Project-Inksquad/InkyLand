@@ -30,6 +30,10 @@
   color: white;
 }
 
+.vendor-price-button.favorite {
+  background-color: #f80255;
+}
+
 .vendor-price-button:focus {
   border-radius: 32px;
   outline: none;
