@@ -14,10 +14,12 @@ import { ViewOrderPageComponent } from "./pages/view-order-page/view-order-page.
 import { NewDocumentPageComponent } from "./pages/new-document-page/new-document-page.component";
 import { PlaceOrderPageComponent } from "./pages/place-order-page/place-order-page.component";
 import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
+import { FavoritesPageComponent } from "./pages/favorites-page/favorites-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
   { path: "orders", component: OrdersPageComponent },
+  { path: "favorites", component: FavoritesPageComponent },
   { path: "login", component: LoginPageComponent },
   { path: "register", component: RegisterPageComponent },
   { path: "profile", component: ProfilePageComponent },

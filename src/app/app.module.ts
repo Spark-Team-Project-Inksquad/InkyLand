@@ -23,6 +23,7 @@ import { PlaceOrderPageComponent } from "./pages/place-order-page/place-order-pa
 import { VendorCardComponent } from "./sub-components/vendor-card/vendor-card.component";
 import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
 import { OrderCardComponent } from "./sub-components/order-card/order-card.component";
+import { FavoritesPageComponent } from "./pages/favorites-page/favorites-page.component";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { OrderCardComponent } from "./sub-components/order-card/order-card.compo
     PlaceOrderPageComponent,
     VendorCardComponent,
     OrdersPageComponent,
-    OrderCardComponent
+    OrderCardComponent,
+    FavoritesPageComponent
   ],
   imports: [
     BrowserModule,
