@@ -1,0 +1,59 @@
+.chat {
+  display: table;
+  height: 90vh;
+  background-color: #f5f4f4;
+}
+
+.sidebar {
+  display: table-cell;
+}
+
+/** A contact **/
+.friend {
+  background-color: white;
+  width: 400px;
+  height: 80px;
+}
+
+/** Messaging **/
+
+.message-recieved-container {
+  text-align: right;
+  height: 30px;
+}
+.message-recieved {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  background-color: pink;
+}
+
+.message-sent-container {
+  text-align: left;
+  height: 30px;
+}
+.message-sent {
+  display: inline-block;
+  background-color: turquoise;
+  width: 100px;
+  height: 30px;
+  display: block;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+}
+
+.main-container {
+  display: table;
+  width: 100%;
+  height: inherit;
+}
+
+.message-form {
+  display: table-footer-group;
+  vertical-align: bottom;
+  max-height: 70px;
+}
