@@ -25,6 +25,7 @@ import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
 import { OrderCardComponent } from "./sub-components/order-card/order-card.component";
 import { FavoritesPageComponent } from "./pages/favorites-page/favorites-page.component";
 import { MessagePageComponent } from "./pages/message-page/message-page.component";
+import { MessageProfileCardComponent } from "./sub-components/message-profile-card/message-profile-card.component";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MessagePageComponent } from "./pages/message-page/message-page.componen
     OrdersPageComponent,
     OrderCardComponent,
     FavoritesPageComponent,
-    MessagePageComponent
+    MessagePageComponent,
+    MessageProfileCardComponent
   ],
   imports: [
     BrowserModule,
