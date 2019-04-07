@@ -3,6 +3,12 @@
   font-weight: bold;
   padding: 0px;
 }
-.profile-img {
+
+.profile-img .profile-container {
   padding-top: 8px;
+}
+
+.profile-img {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
