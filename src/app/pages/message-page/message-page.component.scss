@@ -1,17 +1,18 @@
 .chat {
-  display: table;
   height: 90vh;
   background-color: #f5f4f4;
 }
 
+.row {
+  margin: 0px;
+}
+
 .sidebar {
-  display: table-cell;
 }
 
 /** A contact **/
 .friend {
   background-color: white;
-  width: 400px;
   height: 80px;
 }
 
@@ -20,8 +21,12 @@
   display: table;
 }
 .message-container {
-  vertical-align: center;
-  display: table-footer-group;
+  margin-bottom: 24px;
+}
+
+.message-list {
+  display: table-cell;
+  vertical-align: bottom;
 }
 
 .message-recieved-container {
@@ -63,4 +68,8 @@
   display: table-footer-group;
   vertical-align: bottom;
   max-height: 70px;
+}
+
+.message-form-items {
+  margin-bottom: 20px;
 }
