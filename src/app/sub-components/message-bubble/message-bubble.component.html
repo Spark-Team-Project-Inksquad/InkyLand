@@ -1,0 +1,16 @@
+<div class = "message-bubble">
+
+  <div class = 'row'>
+
+    <div *ngIf = "message_type == 'sender'" class="col-md-9 bubble sender">{{message}}</div>
+
+    <div class = "col-md-3 profile">
+      <img class = "rounded-circle" src = "https://via.placeholder.com/75"/>
+    </div>
+
+    <div *ngIf = "message_type == 'reciever'" class="col-md-9  bubble reciever">{{message}}</div>
+
+
+  </div>
+
+</div>

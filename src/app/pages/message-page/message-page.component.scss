@@ -31,25 +31,19 @@
 
 .message-recieved-container {
   text-align: right;
-  height: 30px;
+  height: 70px;
 }
 .message-recieved {
   display: inline-block;
-  width: 100px;
-  height: 30px;
-  background-color: pink;
 }
 
 .message-sent-container {
   text-align: left;
-  height: 30px;
+  height: 80px;
 }
 .message-sent {
   display: inline-block;
-  background-color: turquoise;
-  width: 100px;
-  height: 30px;
-  display: block;
+
 }
 
 .main {
