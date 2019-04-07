@@ -16,6 +16,13 @@
 }
 
 /** Messaging **/
+.main-container {
+  display: table;
+}
+.message-container {
+  vertical-align: center;
+  display: table-footer-group;
+}
 
 .message-recieved-container {
   text-align: right;
