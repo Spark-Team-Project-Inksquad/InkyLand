@@ -9,15 +9,22 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="w-100 navbar-nav mr-auto">
+    <ul class=" navbar-nav">
       <!-- TODO Search Bar -->
-
-      <input class = "search-bar" placeholder = "Search" type = "search" />
 
     </ul>
 
-    <!-- If the user is not logged in -->
-    <ul *ngIf = "profile == null" class = "navbar-nav ml-auto">
+    <!-- If user is logged in -->
+
+      <ul class = "navbar-nav mr-auto">
+        <li class = "nav-item">
+          <input class = "search-bar" placeholder = "Search" type = "search" />
+        </li>
+      </ul>
+
+
+          <!-- If the user is not logged in -->
+      <ul *ngIf = "profile == null" class = "navbar-nav ml-auto">
 
             <!--
             <li *ngIf = "profile == null" class="nav-item">
@@ -27,26 +34,29 @@
             Log out button
             <li *ngIf = "profile" class = "nav-item">
               <a (click) = "logOutAction()" class = "nav-link" href = "#">Logout</a>
-            </li>
-            -->
+            </li>      -->
+      </ul>
 
-    </ul>
+      <ul *ngIf = "profile != null" class = "navbar-nav ml-auto">
 
-    <!-- If user is logged in -->
-    <ul *ngIf = "profile != null" class = "navbar-nav ml-auto">
-
-      <li class = "nav-item orders-item mx-4">
-        <a [class] = "getNav('/orders')" href = "/orders">Orders</a>
-      </li>
-      <li class = "nav-item favorites-item mx-4">
-        <a [class] = "getNav('/favorites')" href = "/favorites">Favorites</a>
-      </li>
-      <li class = "nav-item messages-item mx-4">
-        <a [class] = "getNav('/messages')" href = "/messages">Messages</a>
-      </li>
-      <li class = "nav-item profile-item mx-4" href = "#">
-        <a [class] = "getNav('/profile')" href = "#">Profile</a>
-      </li>
-    </ul>
+        <li class = "nav-item orders-item">
+          <a [class] = "getNav('/orders')" href = "/orders">Orders</a>
+        </li>
+        <li class = "nav-item favorites-item">
+          <a [class] = "getNav('/favorites')" href = "/favorites">Favorites</a>
+        </li>
+        <li class = "nav-item messages-item">
+          <a [class] = "getNav('/messages')" href = "/messages">Messages</a>
+        </li>
+        <li class="nav-item profile-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Profile
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">View</a>
+            <a class="dropdown-item" href="#" (click) = "logOutAction()">Log Out</a>
+          </div>
+        </li>
+      </ul>
   </div>
 </nav>
