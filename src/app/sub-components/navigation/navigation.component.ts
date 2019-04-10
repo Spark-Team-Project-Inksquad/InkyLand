@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { ApiInterfaceService } from "../../services/api-interface.service";
 
 //element ref
+declare var $: any;
 import {ElementRef} from '@angular/core';
 
 // Token lib
@@ -73,7 +74,7 @@ export class NavigationComponent implements OnInit {
 
   //TODO trigger sign in modal
   signInAction() {
-    var modal = $('#loginModal');
+    var modal: any = $('#loginModal');
     modal.modal();
   }
 

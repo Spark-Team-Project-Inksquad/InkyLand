@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginModalComponent implements OnInit {
 
+  //NOTE refer to the login regular page
+
+  public model: any = {
+    username: "",
+    password: ""
+  };
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  //TODO
+  login() {
+    console.log(this.model);
   }
 
 }
