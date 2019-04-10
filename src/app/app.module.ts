@@ -27,6 +27,7 @@ import { FavoritesPageComponent } from "./pages/favorites-page/favorites-page.co
 import { MessagePageComponent } from "./pages/message-page/message-page.component";
 import { MessageProfileCardComponent } from "./sub-components/message-profile-card/message-profile-card.component";
 import { MessageBubbleComponent } from './sub-components/message-bubble/message-bubble.component';
+import { LoginModalComponent } from './modals/login-modal/login-modal.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MessageBubbleComponent } from './sub-components/message-bubble/message-
     FavoritesPageComponent,
     MessagePageComponent,
     MessageProfileCardComponent,
-    MessageBubbleComponent
+    MessageBubbleComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,

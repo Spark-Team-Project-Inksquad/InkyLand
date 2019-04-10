@@ -4,6 +4,9 @@ import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiInterfaceService } from "../../services/api-interface.service";
 
+//element ref
+import {ElementRef} from '@angular/core';
+
 // Token lib
 import { TokenStorageService } from "../../services/token-storage.service";
 
@@ -24,7 +27,8 @@ export class NavigationComponent implements OnInit {
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private elRef:ElementRef
   ) {
     this.router.events.subscribe((event: any) => {
       if (event.constructor.name === "NavigationStart") {
@@ -65,6 +69,12 @@ export class NavigationComponent implements OnInit {
     this.api.getProfile(this.userToken).subscribe(profile => {
       this.profile = profile;
     });
+  }
+
+  //TODO trigger sign in modal
+  signInAction() {
+    var modal = $('#loginModal');
+    modal.modal();
   }
 
   logOutAction() {
