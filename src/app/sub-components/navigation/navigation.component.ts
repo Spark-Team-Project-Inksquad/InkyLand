@@ -6,7 +6,7 @@ import { ApiInterfaceService } from "../../services/api-interface.service";
 
 //element ref
 declare var $: any;
-import {ElementRef} from '@angular/core';
+import { ElementRef } from "@angular/core";
 
 // Token lib
 import { TokenStorageService } from "../../services/token-storage.service";
@@ -29,7 +29,7 @@ export class NavigationComponent implements OnInit {
     private tokenStore: TokenStorageService,
     private router: Router,
     private route: ActivatedRoute,
-    private elRef:ElementRef
+    private elRef: ElementRef
   ) {
     this.router.events.subscribe((event: any) => {
       if (event.constructor.name === "NavigationStart") {
@@ -74,8 +74,12 @@ export class NavigationComponent implements OnInit {
 
   //TODO trigger sign in modal
   signInAction() {
-    var modal: any = $('#loginModal');
+    var modal: any = $("#loginModal");
     modal.modal();
+
+    modal.on("hide.bs.modal", e => {
+      this.authenticateAndRetrieveProfile();
+    });
   }
 
   logOutAction() {
