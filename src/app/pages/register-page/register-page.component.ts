@@ -24,7 +24,7 @@ export class RegisterPageComponent implements OnInit {
   ngOnInit() {}
 
   //registers the new user
-  //TODO Send out request for registration
+  //Send out request for registration
   register() {
     //Checks that the password was repeated for validation
     if (this.model.password !== this.model.confirmpassword) {

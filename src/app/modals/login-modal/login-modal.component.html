@@ -3,8 +3,8 @@
   Launch demo modal
 </button>-->
 
-<!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Login Modal -->
+<div *ngIf = "mode == 'login'" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,13 +20,13 @@
           <!-- Userfield field -->
           <div class = "form-group">
             <label for = "usernameInput">Username:</label>
-            <input [(ngModel)] = 'model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
+            <input [(ngModel)] = 'login_model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
           </div>
 
           <!-- Password field -->
           <div class = "form-group">
               <label for = "passwordInput">Password:</label>
-              <input [(ngModel)] = 'model.password' id = "passwordInput" class = "form-control" name = "password" type = "password">
+              <input [(ngModel)] = 'login_model.password' id = "passwordInput" class = "form-control" name = "password" type = "password">
           </div>
 
           <p>Don't have an account? <a href = "/register">Sign Up</a></p>
@@ -36,6 +36,53 @@
 
         <!-- submit button-->
         <button type="submit" class="btn btn-primary">Sign In</button>
+      </div>
+    </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Sign up Modal -->
+<div *ngIf = "mode == 'signup'" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+        <form class = "signup-form" (ngSubmit) = "register()" #loginForm="ngForm">
+
+      <div class="modal-body">
+        <!-- Userfield field -->
+        <div class = "form-group">
+          <label for = "usernameInput">Username:</label>
+          <input [(ngModel)] = 'signup_model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
+        </div>
+
+        <!-- Password field -->
+        <div class = "form-group">
+            <label for = "passwordInput">Password:</label>
+            <input [(ngModel)] = 'signup_model.password' id = "passwordInput" class = "form-control" name = "password" type = "password">
+        </div>
+
+        <!-- Password field -->
+        <div class = "form-group">
+            <label for = "passwordConfirmInput">Confirm Password:</label>
+            <input [(ngModel)] = 'signup_model.confirmpassword' id = "passwordConfirmInput" class = "form-control" name = "password_confirm" type = "password">
+        </div>
+
+        <p>Have an account? <a href = "/login">Log In</a></p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+        <!-- submit button-->
+        <button type="submit" class="btn btn-primary">Register</button>
       </div>
     </form>
 
