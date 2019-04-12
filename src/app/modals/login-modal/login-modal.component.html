@@ -3,9 +3,10 @@
   Launch demo modal
 </button>-->
 
-<!-- Login Modal -->
-<div *ngIf = "mode == 'login'" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <!-- Login Modal -->
+  <div *ngIf = "mode == 'login'" class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
@@ -29,7 +30,7 @@
               <input [(ngModel)] = 'login_model.password' id = "passwordInput" class = "form-control" name = "password" type = "password">
           </div>
 
-          <p>Don't have an account? <a href = "/register">Sign Up</a></p>
+          <p>Don't have an account? <a (click) = "switchMode()" href = "#">Sign Up</a></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -41,11 +42,9 @@
 
     </div>
   </div>
-</div>
 
-<!-- Sign up Modal -->
-<div *ngIf = "mode == 'signup'" class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <!-- Sign up Modal -->
+  <div *ngIf = "mode == 'signup'" class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
@@ -75,7 +74,7 @@
             <input [(ngModel)] = 'signup_model.confirmpassword' id = "passwordConfirmInput" class = "form-control" name = "password_confirm" type = "password">
         </div>
 
-        <p>Have an account? <a href = "/login">Log In</a></p>
+        <p>Have an account? <a (click) = "switchMode()" href = "#">Log In</a></p>
 
       </div>
       <div class="modal-footer">

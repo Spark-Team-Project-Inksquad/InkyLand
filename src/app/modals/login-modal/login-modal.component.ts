@@ -45,6 +45,17 @@ export class LoginModalComponent implements OnInit {
 
   ngOnInit() {}
 
+  // switchs the mode of the auth method
+  switchMode() {
+
+    if (this.mode == "login") {
+      this.mode = "signup"
+    }else if (this.mode == "signup") {
+      this.mode = "login"
+    }
+
+  }
+
   //logs the user in
   login() {
     this.api
@@ -59,14 +70,7 @@ export class LoginModalComponent implements OnInit {
       });
   }
 
-  //TODO signs up a user
-
-  register() {
-    console.log("REGISTER");
-    console.log(this.signup_model);
-  }
-
-  /**
+  //signs up a user
   register() {
     //Checks that the password was repeated for validation
     if (this.signup_model.password !== this.signup_model.confirmpassword) {
@@ -82,8 +86,11 @@ export class LoginModalComponent implements OnInit {
         this.signup_model.confirmpassword
       )
       .subscribe(token => {
-        console.log("Your user token " + token);
+        this.tokenStore.setToken(token).subscribe(token => {
+          // close modal
+          let theModal = $("#loginModal");
+          theModal.modal("hide");
+        });
       });
   }
-  **/
 }
