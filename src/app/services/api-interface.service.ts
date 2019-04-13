@@ -697,4 +697,15 @@ export class ApiInterfaceService {
     //return the observable for data usage
     return getDocumentTypesObservable;
   }
+
+  // TODO Favorite functionality
+
+  //lists user favorites
+  listFavorites(authToken: string) {}
+
+  //unfavorites a vendor
+  unfavoriteVendor(authToken: string, fav_id: number) {}
+
+  //favorites a vendor
+  favoriteVendor(authToken: string, vendor_id: number) {}
 }
