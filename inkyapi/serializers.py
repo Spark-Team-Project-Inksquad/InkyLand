@@ -42,6 +42,13 @@ class FavoriteVendorSerializer(serializers.ModelSerializer):
         model = FavoriteVendor
         fields = ('id', 'owner', 'vendor')
 
+class DetailedFavoriteVendorSerializer(serializers.ModelSerializer):
+    owner = ProfileSerializer()
+    vendor = ProfileSerializer()
+
+    class Meta(FavoriteVendorSerializer.Meta):
+        pass
+
 class PrinterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Printer

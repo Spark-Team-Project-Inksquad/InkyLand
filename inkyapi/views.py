@@ -12,7 +12,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 # Models + Serializers
-from .serializers import ProfileSerializer, OrderDetailedSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentDetailedSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
+from .serializers import ProfileSerializer, DetailedFavoriteVendorSerializer, OrderDetailedSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentDetailedSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
 from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 from django.contrib.auth.models import User
 
@@ -116,6 +116,62 @@ class FavoriteVendorViewSet(viewsets.ModelViewSet):
 
     serializer_class = FavoriteVendorSerializer
     queryset = FavoriteVendor.objects.all()
+
+    # NOTE test
+    # POST favorites a vendor
+    @action (detail = False, methods = ['post'], permission_classes = [IsAuthenticated])
+    def favorite_vendor(self, request, pk=None):
+        # get the auth user
+        auth_user = request.user
+
+        # retrieve the favorite vendor
+        vendor = Account.objects.get(id=pk)
+
+        # create the favorite vendor object
+        favorite_vendor = FavoriteVendor(owner = auth_user.account, vendor = vendor)
+
+        # Save the object to the database
+        favorite_vendor.save()
+
+        # serialize object
+        serialized_favorite_vendor = DetailedFavoriteVendorSerializer(favorite_vendor, many = False)
+
+        # return serialization
+        return JsonResponse(serialized_favorite_vendor.data)
+
+    # NOTE test me
+    # GET lists the favorite vendors
+    @action (detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
+    def list_favorites(self, request):
+        # get the authenticated user
+        auth_user = request.user
+
+        # retrieve and serialize the favorites list
+        favorites_list = FavoriteVendor.objects.all().where(owner = auth_user.account)
+        serialized_favorites_list = DetailedFavoriteVendorSerializer(favorites_list, many = True)
+
+        # Returns the json response for the favorites
+        return JsonResponse(serialized_favorites_list)
+
+    # NOTE testme!
+    # unfavorites a vendor i.e DELETE
+    @action (detail = False, methods = ['delete'], permission_classes = [IsAuthenticated])
+    def unfavorite_vendor(self, request, pk=None):
+        # get the authenticated user
+        auth_user = request.user
+        selected_favorite = FavoriteVendor.objects.get(owner = auth_user, pk = pk)
+
+
+        # Checks if the user is logged in correctly
+        # If not shoot an error
+        if (str(auth_user) == "AnonymousUser"):
+            return Response({'status': 'must be logged in!'})
+
+        # Checks if the selected printing offer is part of the logged in users account
+        if (selected_favorite.owner == auth_user.account):
+            # If so, destroy the offer
+            selected_favorite.delete()
+            return Response({'status': 'deleted', 'message': 'favorite vendor Deleted'})
 
 class PrintingOfferViewSet(viewsets.ModelViewSet):
     '''
