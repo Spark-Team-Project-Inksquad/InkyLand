@@ -31,23 +31,10 @@ export class VendorCardComponent implements OnInit {
     }
   }
 
-  click() {
-    alert("click");
-  }
+  retrieveAuthToken() {}
 
-  //TODO favorites the vendor
-  favoriteVendor() {
-    //TODO favorite the vendor visually
-    console.log("HIT");
-    this.favoriteStatusChange.emit(true);
-
-    //TODO favorite the vendor on the backend
-  }
-
-  //TODO unfavorites the vendor
-  unfavoriteVendor() {
-    console.log("UNHIT");
-    //TODO unfavorite the vendor visually
-    this.favoriteStatusChange.emit(false);
+  //favorites or unfavorites vendor
+  favoriteOrUnFavoriteVendor() {
+    this.favoriteStatusChange.emit(!this.isFavorited);
   }
 }

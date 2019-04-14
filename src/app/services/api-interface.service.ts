@@ -715,12 +715,32 @@ export class ApiInterfaceService {
 
   // TODO Favorite functionality
 
-  //lists user favorites
+  //TODO lists user favorites
   listFavorites(authToken: string) {}
 
-  //unfavorites a vendor
+  //TODO unfavorites a vendor
   unfavoriteVendor(authToken: string, fav_id: number) {}
 
   //favorites a vendor
-  favoriteVendor(authToken: string, vendor_id: number) {}
+  favoriteVendor(userToken: string, vendor_id: number) {
+    console.log("OUGHT TO DO THIS");
+
+    //auth headers
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    console.log(userToken);
+    //request path
+    let request_path: string =
+      "/api/profiles/" + vendor_id + "/favorite_vendor/";
+
+    //observable POST
+    let favoriteVendorObservable: Observable<object> = this.http
+      .post(this.endpoint + request_path, {}, httpOptions)
+      .pipe(share());
+
+    //return observable
+    return favoriteVendorObservable;
+  }
 }

@@ -18,8 +18,21 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 })
 export class HomePageComponent implements OnInit {
   private vendors: any[] = [];
+  private userToken: string;
 
-  constructor(private api: ApiInterfaceService) {}
+  constructor(
+    private api: ApiInterfaceService,
+    private tokenStore: TokenStorageService
+  ) {}
+
+  retrieveAuthToken() {
+    this.tokenStore.getToken().subscribe(data => {
+      let token = data as string;
+      if (data !== null) {
+        this.userToken = token;
+      }
+    });
+  }
 
   //retrieves the list of actual vendors from the server
   retrieveVendors() {
@@ -34,6 +47,15 @@ export class HomePageComponent implements OnInit {
       this.vendors[vendor_idx].favorited = true;
     } else if (e == false) {
       this.vendors[vendor_idx].favorited = false;
+    }
+
+    if (e == true) {
+      //favorite the vendor on the backend
+      this.api
+        .favoriteVendor(this.userToken, this.vendors[vendor_idx].id)
+        .subscribe(res => {
+          console.log(res);
+        });
     }
   }
 
@@ -88,6 +110,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     //this.vendors = this.generateDummyVendors(10);
+    this.retrieveAuthToken();
     this.retrieveVendors();
   }
 }
