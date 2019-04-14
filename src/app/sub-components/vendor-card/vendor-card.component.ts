@@ -29,8 +29,6 @@ export class VendorCardComponent implements OnInit {
     if (this.mode == "favorite") {
       this.colorClass = "card-pink";
     }
-
-    console.log(this.vendorInfo);
   }
 
   retrieveAuthToken() {}
