@@ -32,7 +32,7 @@
     <div *ngFor = "let vendor_row of getVendorGrid(3)"  class = "row">
       <div *ngFor = "let vendor of vendor_row; index as i;" class = "col-sm-4">
 
-        <vendor-card  [isFavorited] = 'vendor.favorited' (favoriteStatusChange)="favoriteVendor($event, i)" [vendorInfo] = 'vendor' cardColor = "{{vendor.color}}"></vendor-card>
+        <vendor-card [isFavorited] = 'vendor.favorited' (favoriteStatusChange)="favoriteVendor($event, i)" [vendorInfo] = 'vendor' cardColor = "{{vendor.color}}"></vendor-card>
       </div>
     </div>
   </div>

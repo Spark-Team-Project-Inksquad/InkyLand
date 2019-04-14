@@ -6,13 +6,18 @@ import {
   SimpleChange,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy
 } from "@angular/core";
+
+declare var $: any;
 
 @Component({
   selector: "vendor-card",
   templateUrl: "./vendor-card.component.html",
-  styleUrls: ["./vendor-card.component.scss"]
+  styleUrls: ["./vendor-card.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VendorCardComponent implements OnInit {
   @Input() cardColor: string;
@@ -23,6 +28,8 @@ export class VendorCardComponent implements OnInit {
 
   private colorClass: string;
 
+  constructor() {}
+
   ngOnInit() {
     this.colorClass = "card-" + this.cardColor;
 
@@ -30,8 +37,6 @@ export class VendorCardComponent implements OnInit {
       this.colorClass = "card-pink";
     }
   }
-
-  retrieveAuthToken() {}
 
   //favorites or unfavorites vendor
   favoriteOrUnFavoriteVendor() {

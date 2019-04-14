@@ -23,13 +23,11 @@
         </div>
 
         <div class = "col-3">
-          <div class = "favorite-vendor-container"  *ngIf = "mode != 'favorite'">
-            <a (click) = "favoriteOrUnFavoriteVendor()" href = "#">
-              <span  *ngIf = "isFavorited == false" class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
-              <span *ngIf = "isFavorited == true" class = "float-right"><img  width = "40" src = "/assets/icons/favorited-icon.svg"/></span>
+          <button *ngIf = "mode != 'favorite' && isFavorited != undefined" class = "float-right btn btn-light" (click) = "favoriteOrUnFavoriteVendor()" >
+            <span  *ngIf = "isFavorited == false" ><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
+            <span *ngIf = "isFavorited == true" ><img  width = "40" src = "/assets/icons/favorited-icon.svg"/></span>
 
-            </a>
-          </div>
+          </button>
           <button class = "text-center vendor-price-button {{mode}}">Price</button>
         </div>
       </div>

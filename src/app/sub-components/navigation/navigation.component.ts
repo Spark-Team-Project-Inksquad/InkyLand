@@ -78,7 +78,7 @@ export class NavigationComponent implements OnInit {
     modal.modal();
 
     modal.on("hide.bs.modal", e => {
-      this.authenticateAndRetrieveProfile();
+      location.reload();
     });
   }
 
@@ -86,6 +86,7 @@ export class NavigationComponent implements OnInit {
     this.api.signOutUser(this.userToken).subscribe(res => {
       this.profile = null;
       this.router.navigate(["/"]);
+      location.reload();
     });
   }
 }

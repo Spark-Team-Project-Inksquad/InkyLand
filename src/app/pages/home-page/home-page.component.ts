@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 
 // Api lib
 import { HttpClient } from "@angular/common/http";
@@ -14,6 +14,8 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { map, share, catchError } from "rxjs/operators";
 import { Observable } from "rxjs";
 
+declare var $: any;
+
 @Component({
   selector: "app-home-page",
   templateUrl: "./home-page.component.html",
@@ -21,15 +23,25 @@ import { Observable } from "rxjs";
   providers: [ApiInterfaceService, HttpClient]
 })
 export class HomePageComponent implements OnInit {
-  private vendors: any[] = [];
-  private favorites: any[] = [];
+  private vendors: any = [];
+  private favorites: any = [];
 
   private userToken: string;
 
   constructor(
     private api: ApiInterfaceService,
-    private tokenStore: TokenStorageService
-  ) {}
+    private tokenStore: TokenStorageService,
+    private router: Router
+  ) {
+    this.retrieveAuthToken()
+      .toPromise()
+      .then(_ => {
+        return this.updateVendorData();
+      })
+      .catch(err => {
+        return this.retrieveVendors();
+      });
+  }
 
   retrieveAuthToken() {
     let observable = this.tokenStore
@@ -49,10 +61,10 @@ export class HomePageComponent implements OnInit {
 
   //retrieves the list of actual vendors from the server
   retrieveVendors() {
-    let observable = this.api.getVendorProfiles();
+    let observable = this.api.getVendorProfiles().pipe(share());
 
     observable.subscribe(vendors => {
-      this.vendors = this.unfavoriteVendors(vendors);
+      this.vendors = vendors;
     });
 
     return observable;
@@ -61,30 +73,30 @@ export class HomePageComponent implements OnInit {
   //(un)favorites a vendor (visually)
   favoriteVendor(e, vendor_idx) {
     if (e == true) {
-      this.vendors[vendor_idx].favorited = true;
-    } else if (e == false) {
-      this.vendors[vendor_idx].favorited = false;
-    }
-
-    if (e == true) {
       //favorite the vendor on the backend
       this.api
         .favoriteVendor(this.userToken, this.vendors[vendor_idx].id)
         .subscribe(res => {
           console.log(res);
+          this.updateVendorData();
+        });
+    } else if (e == false) {
+      //retrieve the favorite vendor
+      let selected_vendor = this.vendors[vendor_idx];
+      let selected_favorite_vendor = this.favorites.find(favorite => {
+        return favorite.vendor.id == selected_vendor.id;
+      });
+
+      console.log(selected_favorite_vendor);
+
+      //unfavorite the vendor on the backend
+      this.api
+        .unfavoriteVendor(this.userToken, selected_favorite_vendor.id)
+        .subscribe(res => {
+          console.log(res);
+          this.updateVendorData();
         });
     }
-  }
-
-  // DEBUG makes each vendor not favorited by default
-  unfavoriteVendors(vendors) {
-    let new_vendors = [];
-    for (let i: number = 0; i < vendors.length; i++) {
-      let new_vendor = vendors[i];
-      new_vendor.favorited = false;
-      new_vendors.push(new_vendor);
-    }
-    return new_vendors;
   }
 
   //retrieves the list of vendor favorites
@@ -94,9 +106,12 @@ export class HomePageComponent implements OnInit {
 
       .pipe(share());
 
-    observable.subscribe(res => {
-      console.log("vendor favorites");
-      this.favorites = res;
+    observable.subscribe({
+      next: res => {
+        console.log("vendor favorites");
+        this.favorites = res;
+      },
+      error: err => {}
     });
 
     return observable;
@@ -140,18 +155,20 @@ export class HomePageComponent implements OnInit {
     return vendor_grid;
   }
 
-  ngOnInit() {
-    //this.vendors = this.generateDummyVendors(10);
-
-    this.retrieveAuthToken()
+  //updates all the vendor data
+  updateVendorData() {
+    return this.retrieveFavorites()
       .toPromise()
-      .then(_ => {
-        return this.retrieveFavorites().toPromise();
-      })
       .then(_ => {
         return this.retrieveVendors().toPromise();
       })
       .then(_ => {
+        //unfavorite all the vendors
+        for (let i = 0; i < this.vendors.length; i++) {
+          this.vendors[i].favorited = false;
+        }
+
+        //favorite the ones that are actually favorited;
         for (let i = 0; i < this.favorites.length; i++) {
           let favorite_idx = this.favorites[i].vendor.id;
 
@@ -165,4 +182,11 @@ export class HomePageComponent implements OnInit {
         }
       });
   }
+
+  ngOnInit() {
+    //DEBUG this.vendors = this.generateDummyVendors(10);
+    //retrieve the auth token then update the vendor data
+  }
+
+  ngOnChanges(changes) {}
 }
