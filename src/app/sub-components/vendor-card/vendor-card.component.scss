@@ -58,3 +58,9 @@
 .card-turquoise {
   border-top-color: #44f7c8;
 }
+
+// Favorite Vendor Button
+.favorite-vendor-container {
+  cursor: pointer;
+  pointer-events: auto !important;
+}

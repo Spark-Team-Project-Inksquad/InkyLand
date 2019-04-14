@@ -23,7 +23,10 @@
         </div>
 
         <div class = "col-3">
-          <span *ngIf = "mode != 'favorite'" class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
+          <div class = "favorite-vendor-container"  *ngIf = "mode != 'favorite'">
+            <span (click) = "favoriteVendor()" *ngIf = "isFavorited == false" class = "float-right"><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
+            <span (click) = "unfavoriteVendor()" *ngIf = "isFavorited == true" class = "float-right"><img  width = "40" src = "/assets/icons/favorited-icon.svg"/></span>
+          </div>
           <button class = "text-center vendor-price-button {{mode}}">Price</button>
         </div>
       </div>

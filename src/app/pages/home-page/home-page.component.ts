@@ -1,14 +1,52 @@
 import { Component, OnInit } from "@angular/core";
 
+// Api lib
+import { HttpClient } from "@angular/common/http";
+import { ApiInterfaceService } from "../../services/api-interface.service";
+
+// Token lib
+import { TokenStorageService } from "../../services/token-storage.service";
+
+// Routing
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
+
 @Component({
   selector: "app-home-page",
   templateUrl: "./home-page.component.html",
-  styleUrls: ["./home-page.component.scss"]
+  styleUrls: ["./home-page.component.scss"],
+  providers: [ApiInterfaceService, HttpClient]
 })
 export class HomePageComponent implements OnInit {
   private vendors: any[] = [];
 
-  constructor() {}
+  constructor(private api: ApiInterfaceService) {}
+
+  //retrieves the list of actual vendors from the server
+  retrieveVendors() {
+    this.api.getVendorProfiles().subscribe(vendors => {
+      this.vendors = this.unfavoriteVendors(vendors);
+    });
+  }
+
+  //(un)favorites a vendor (visually)
+  favoriteVendor(e, vendor_idx) {
+    if (e == true) {
+      this.vendors[vendor_idx].favorited = true;
+    } else if (e == false) {
+      this.vendors[vendor_idx].favorited = false;
+    }
+  }
+
+  // DEBUG makes each vendor not favorited by default
+  unfavoriteVendors(vendors) {
+    let new_vendors = [];
+    for (let i: number = 0; i < vendors.length; i++) {
+      let new_vendor = vendors[i];
+      new_vendor.favorited = false;
+      new_vendors.push(new_vendor);
+    }
+    return new_vendors;
+  }
 
   //Generates a list of dummy vendors
   generateDummyVendors(amount: number) {
@@ -49,6 +87,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.vendors = this.generateDummyVendors(10);
+    //this.vendors = this.generateDummyVendors(10);
+    this.retrieveVendors();
   }
 }

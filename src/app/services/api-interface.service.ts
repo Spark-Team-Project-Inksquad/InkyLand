@@ -125,8 +125,20 @@ export class ApiInterfaceService {
 
   // STUB accounts
 
-  //TODO lists vendor profiles
-  getVendorProfiles() {}
+  //NOTE testme
+  //lists vendor profiles
+  getVendorProfiles() {
+    //Define request path
+    let request_path = "/api/profiles/list_vendors/";
+
+    //create observable for api request (GET)
+    let getVendorProfilesObservable: Observable<object> = this.http
+      .get(this.endpoint + request_path)
+      .pipe(share());
+
+    //return observable
+    return getVendorProfilesObservable;
+  }
 
   //Retrieves the User Account
   getProfile(userToken: string) {
