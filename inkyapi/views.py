@@ -142,7 +142,7 @@ class ProfileViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         pass
 
-class FavoriteVendorViewSet(viewsets.ModelViewSet):
+class FavoriteVendorViewSet(viewsets.ViewSet):
     '''
     Viewsets for viewing and editing account instances
     '''
