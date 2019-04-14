@@ -14,8 +14,6 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { map, share, catchError } from "rxjs/operators";
 import { Observable } from "rxjs";
 
-declare var $: any;
-
 @Component({
   selector: "app-home-page",
   templateUrl: "./home-page.component.html",

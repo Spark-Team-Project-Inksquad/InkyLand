@@ -11,8 +11,6 @@ import {
   ChangeDetectionStrategy
 } from "@angular/core";
 
-declare var $: any;
-
 @Component({
   selector: "vendor-card",
   templateUrl: "./vendor-card.component.html",
