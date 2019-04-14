@@ -125,6 +125,9 @@ export class ApiInterfaceService {
 
   // STUB accounts
 
+  //TODO lists vendor profiles
+  getVendorProfiles() {}
+
   //Retrieves the User Account
   getProfile(userToken: string) {
     const httpOptions = {
