@@ -10,6 +10,10 @@ import { TokenStorageService } from "../../services/token-storage.service";
 // Routing
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 
+//rxjs
+import { map, share, catchError } from "rxjs/operators";
+import { Observable } from "rxjs";
+
 @Component({
   selector: "app-home-page",
   templateUrl: "./home-page.component.html",
@@ -18,6 +22,8 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 })
 export class HomePageComponent implements OnInit {
   private vendors: any[] = [];
+  private favorites: any[] = [];
+
   private userToken: string;
 
   constructor(
@@ -26,19 +32,30 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   retrieveAuthToken() {
-    this.tokenStore.getToken().subscribe(data => {
+    let observable = this.tokenStore
+      .getToken()
+
+      .pipe(share());
+
+    observable.subscribe(data => {
       let token = data as string;
       if (data !== null) {
         this.userToken = token;
       }
     });
+
+    return observable;
   }
 
   //retrieves the list of actual vendors from the server
   retrieveVendors() {
-    this.api.getVendorProfiles().subscribe(vendors => {
+    let observable = this.api.getVendorProfiles();
+
+    observable.subscribe(vendors => {
       this.vendors = this.unfavoriteVendors(vendors);
     });
+
+    return observable;
   }
 
   //(un)favorites a vendor (visually)
@@ -68,6 +85,21 @@ export class HomePageComponent implements OnInit {
       new_vendors.push(new_vendor);
     }
     return new_vendors;
+  }
+
+  //retrieves the list of vendor favorites
+  retrieveFavorites() {
+    let observable = this.api
+      .listFavorites(this.userToken)
+
+      .pipe(share());
+
+    observable.subscribe(res => {
+      console.log("vendor favorites");
+      this.favorites = res;
+    });
+
+    return observable;
   }
 
   //Generates a list of dummy vendors
@@ -110,7 +142,27 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     //this.vendors = this.generateDummyVendors(10);
-    this.retrieveAuthToken();
-    this.retrieveVendors();
+
+    this.retrieveAuthToken()
+      .toPromise()
+      .then(_ => {
+        return this.retrieveFavorites().toPromise();
+      })
+      .then(_ => {
+        return this.retrieveVendors().toPromise();
+      })
+      .then(_ => {
+        for (let i = 0; i < this.favorites.length; i++) {
+          let favorite_idx = this.favorites[i].vendor.id;
+
+          var favorite_vendor_idx = this.vendors.findIndex(function(vendor) {
+            return vendor.id == favorite_idx;
+          });
+
+          if (favorite_vendor_idx > -1) {
+            this.vendors[favorite_vendor_idx].favorited = true;
+          }
+        }
+      });
   }
 }

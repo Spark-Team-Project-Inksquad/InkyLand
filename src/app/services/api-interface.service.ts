@@ -715,8 +715,25 @@ export class ApiInterfaceService {
 
   // TODO Favorite functionality
 
-  //TODO lists user favorites
-  listFavorites(authToken: string) {}
+  //lists user favorites
+  listFavorites(userToken: string) {
+    //auth headers
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request path
+    let request_path = "/api/favorite-vendors/list_favorites/";
+
+    //observable to retrieve favorites list (GET)
+    let listFavoritesObservable: Observable<any> = this.http.get(
+      this.endpoint + request_path,
+      httpOptions
+    );
+
+    // return observable
+    return listFavoritesObservable;
+  }
 
   //TODO unfavorites a vendor
   unfavoriteVendor(authToken: string, fav_id: number) {}
