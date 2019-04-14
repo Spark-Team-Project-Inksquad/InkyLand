@@ -36,6 +36,18 @@ class ProfileViewSet(viewsets.ViewSet):
     A viewset for Profile CRUD
     """
 
+    # Lists all the profiles that are vendors
+    @action (detail = False, methods = ['get'])
+    def list_vendors(self, request, pk = None):
+        vendors = Account.objects.all().filter(isVendor = True)
+
+        serialized_profiles = []
+        for vendor in vendors:
+            serialized_profile = ProfileSerializer(vendor, many = False)
+            serialized_profiles.append(serialized_profile.data)
+
+        return Response(serialized_profiles)
+
     def list(self, request):
         users = User.objects.all()
         accounts = Account.objects.all()
