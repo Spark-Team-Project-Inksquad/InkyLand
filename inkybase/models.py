@@ -17,11 +17,20 @@ class Account(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, unique = True)
     # may replace with specific field
     # with validation
+    profile_img = models.ImageField(upload_to = 'media/uploads/', null = True)
     phone_number = models.CharField(blank=True, max_length = 11)
     bio = models.TextField(blank = True)
 
     # is the account a vendor or not?
     isVendor = models.BooleanField(default = False)
+
+    def delete(self, *args, **kwargs):
+        file_path = os.path.join(settings.MEDIA_ROOT, self.uploaded_file.name)
+
+        if (os.path.isfile(file_path)):
+            os.remove(file_path)
+
+        super(Account, self).delete(*args, **kwargs)
 
     def __str__(self):
         return self.user.username + " Account"
@@ -34,7 +43,7 @@ def on_user_save(sender, instance, **kwargs):
         auth_account = Account.objects.get(user = instance)
     except ObjectDoesNotExist as e:
         print ("No account exists. One will be created")
-        new_account = Account(user = instance)
+        new_account = Account(user = instance, profile_img = None)
         new_account.save()
         print ("USER ACCOUNT CREATED")
 
