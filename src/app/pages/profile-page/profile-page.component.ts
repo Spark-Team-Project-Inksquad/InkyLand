@@ -13,7 +13,7 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 @Component({
   selector: "app-profile-page",
   templateUrl: "./profile-page.component.html",
-  styleUrls: ["./profile-page.component.sass"],
+  styleUrls: ["./profile-page.component.scss"],
   providers: [ApiInterfaceService, HttpClient, TokenStorageService]
 })
 export class ProfilePageComponent implements OnInit {

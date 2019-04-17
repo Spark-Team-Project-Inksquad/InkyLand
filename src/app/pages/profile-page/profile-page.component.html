@@ -1,91 +1,50 @@
-<div *ngIf = "profile" class = "container-fluid profile-page">
-  <h1> Hello {{profile.user.username}}</h1>
-  <div class = "profile-details">
-    <p>Username: {{profile.user.username}}</p>
-    <p>Phone: {{profile.phone_number}}</p>
-    <p>Bio: {{profile.bio}}</p>
 
+<div *ngIf = "profile" class = "container-fluid profile-page">
+  <div class = "profile-details">
+    <div class = "text-center profile-picture">
+      <img src = "https://via.placeholder.com/150" class = "img-fluid rounded-circle"/>
+    </div>
+
+    <div class = "profile-type-info info-section">
+      <p class = "info-label">Profile Type:</p>
+      <p *ngIf = "isVendor" class = "info-text">Vendor</p>
+      <p *ngIf = "!isVendor" class = "info-text">Customer</p>
+    </div>
+
+    <div class = "name-info info-section">
+      <p class = "info-label">Name</p>
+      <p class = "info-text">{{profile.user.first_name}} {{profile.user.last_name}}</p>
+      <p *ngIf = "'' == profile.user.first_name + profile.user.last_name" class = "info-text">N/A </p>
+    </div>
+
+    <div class = "username-info info-section">
+      <p class = "info-label">Username:</p>
+      <p class = "info-text"> {{profile.user.username}}</p>
+    </div>
+
+    <div class = "email-info info-section">
+      <p class = "info-label"></p>
+      <p class ="info-text"></p>
+    </div>
+
+    <div class = "phone-info info-section">
+      <p class = "info-label">Phone:</p>
+      <p  class = "info-text"> {{profile.phone_number}}</p>
+      <p *ngIf = "profile.phone_number == ''" class = "info-text">N/A</p>
+    </div>
+
+    <div class = "about-info info-section">
+      <p class = "info-label">About:</p>
+      <p class = "info-text"> {{profile.bio}}</p>
+      <p *ngIf = "profile.bio == ''"  class = "info-text">N/A</p>
+    </div>
+
+
+  <!--
     <a class ="btn btn-info" [routerLink]="['/edit-profile']">
       Edit Profile
     </a>
+  -->
   </div>
-
   <br>
-  <!-- Documents -->
-  <div class = "documents">
-    <h2> Your Documents</h2>
-    <a [routerLink]= "['/new-document']" class = "btn btn-success">New Document</a>
-
-    <div class = "card document-card" *ngFor = "let document of documents">
-      <div class = "card-body">
-        <!-- HARDCODED NOTE -->
-        <button class = "btn btn-primary" (click) = "viewFile(document)">View</button>
-        <br>
-        <p *ngIf = "document.uploaded_file">Name: {{document.uploaded_file.name}}</p>
-        <br>
-        <p *ngIf = "document.document_type">Type: {{document.document_type.name}}</p>
-        <button class = "btn btn-danger" (click) = "deleteDocument(document.id)">Remove</button>
-      </div>
-    </div>
-
-
-  </div>
-
-  <!-- Printing Orders -->
-  <br>
-  <div class = "orders">
-    <div class = 'row'>
-      <div class = "col">
-        <h2 class = "text-center">Your In-Progress Orders</h2>
-
-        <div class = "card order-card" *ngFor = "let order of in_progress_orders">
-          <div class = "card-body">
-            <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
-            <span>{{order.documents.length}} Documents to be printed</span>
-          </div>
-          <div class = "card-footer">
-            <a [routerLink] = "['/view-order/' + order.id]" class = "btn btn-info" href = "#">View</a>
-          </div>
-        </div>
-
-      </div>
-      <div class = "text-center col">
-        <h2 class = "text-center">Your Pending Orders</h2>
-
-        <div class = "card order-card" *ngFor = "let order of pending_orders">
-          <div class = "card-body">
-            <h5 class = "card-title">Order for {{order.printing_offer.printerName}}</h5>
-            <span>{{order.documents.length}} Documents to be printed</span>
-          </div>
-          <div class = "card-footer">
-            <a [routerLink] = "['/view-order/' + order.id]" class = "btn btn-info" href = "#">View</a>
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- TODO list out printing orders -->
-    </div>
-  </div>
-
-  <!-- Printing offers -->
-  <br>
-  <div class = "offers">
-    <h1>Your Offers</h1>
-    <button (click) = "createPrintingOffer()" class = "btn btn-success">Create New Printing Offer</button>
-
-    <!-- Load in the offers here -->
-    <div class = "card offer-card" *ngFor = "let offer of offers">
-      <div class = "card-body">
-
-        <h5 class = "card-title">{{offer.printerName}}</h5>
-        <!-- TODO Put some eye icon or something -->
-        <a href = "/printing-offer/{{offer.id}}">View</a>
-      </div>
-    </div>
-
-  </div>
-
-
 </div>
