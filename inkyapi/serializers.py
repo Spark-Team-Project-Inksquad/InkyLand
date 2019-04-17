@@ -18,7 +18,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    #profile_img = serializers.SerializerMethodField()
 
     class Meta:
         model = Account
