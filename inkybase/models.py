@@ -90,7 +90,7 @@ class DocumentType(models.Model):
 class Document(models.Model):
     owner = models.ForeignKey(Account, on_delete = models.CASCADE)
     document_type = models.ForeignKey(DocumentType, on_delete = models.SET_NULL, null = True)
-    uploaded_file = models.FileField(upload_to = 'media/uploads/')
+    uploaded_file = models.FileField(upload_to = 'uploads')
 
     def delete(self, *args, **kwargs):
         file_path = os.path.join(settings.MEDIA_ROOT, self.uploaded_file.name)

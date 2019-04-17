@@ -40,28 +40,18 @@ class ProfileViewSet(viewsets.ViewSet):
     @action (detail = False, methods = ['get'])
     def list_vendors(self, request, pk = None):
         vendors = Account.objects.all().filter(isVendor = True)
+        serialized_profiles = ProfileSerializer(vendors, many = True)
 
-        serialized_profiles = []
-        for vendor in vendors:
-            serialized_profile = ProfileSerializer(vendor, many = False)
-            serialized_profiles.append(serialized_profile.data)
+        return Response(serialized_profiles.data)
 
-        return Response(serialized_profiles)
 
     def list(self, request):
         users = User.objects.all()
         accounts = Account.objects.all()
 
-        serialized_profiles = []
-        for account in accounts:
-            serialized_profile = ProfileSerializer(account, many = False)
-            #serialized_account = AccountSerializer(account, many = False)
-            #associated_user = account.user
-            #serialized_user = UserSerializer(associated_user, many = False)
-            #serialized_profile = {**serialized_account.data, **serialized_user.data}
-            serialized_profiles.append(serialized_profile.data)
-
-        return Response(serialized_profiles)
+        serialized_profiles = ProfileSerializer(accounts, many = True)
+        print ("List")
+        return Response(serialized_profiles.data)
 
     # POST favorites a vendor
     @action (detail = True, methods = ['post'], permission_classes = [IsAuthenticated])

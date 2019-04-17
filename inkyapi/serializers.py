@@ -3,43 +3,26 @@ import os
 from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
 from django.contrib.auth.models import User
 
+from django.conf import settings
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email')
 
 class AccountSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Account
         fields = ('id', 'user', 'profile_img', 'phone_number', 'bio', 'isVendor')
-
-    # Serializes the file
-    def get_profile_img(self, obj):
-
-        uploaded_file = {
-            'url': obj.profile_img.url,
-            'name': os.path.basename(obj.profile_img.name)
-        }
-
-        return uploaded_file
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    #profile_img = serializers.SerializerMethodField()
 
     class Meta:
         model = Account
         fields = ('id', 'user', 'profile_img', 'phone_number', 'bio', 'isVendor')
-
-    # Serializes the file
-    def get_profile_img(self, obj):
-
-        uploaded_file = {
-            'url': obj.profile_img.url,
-            'name': os.path.basename(obj.profile_img.name)
-        }
-
-        return uploaded_file
-
 
     # Updates the Profile
     def update(self, instance, validated_data):
@@ -81,9 +64,10 @@ class PrintingMediumSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description')
 
 class PrintingOfferSerializer(serializers.ModelSerializer):
-    class Meta:
         model = PrintingOffer
-        fields = ('id', 'owner', 'printerName', 'printer', 'minPrice', 'maxPrice', 'note')
+
+        class Meta:
+            fields = ('id', 'owner', 'printerName', 'printer', 'minPrice', 'maxPrice', 'note')
 
 class PrintingOfferDetailedSerializer(serializers.ModelSerializer):
     printer = PrinterSerializer()
