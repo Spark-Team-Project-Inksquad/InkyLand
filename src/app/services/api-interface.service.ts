@@ -16,6 +16,10 @@ export class ApiInterfaceService {
 
   constructor(private http: HttpClient) {}
 
+  public getEndpoint():string {
+    return this.endpoint;
+  }
+
   // signs the user in and sends back a auth token
   // expects {key: KEY}
   public signIn(username: string, password: string) {

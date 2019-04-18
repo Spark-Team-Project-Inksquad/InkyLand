@@ -2,13 +2,17 @@
 <div *ngIf = "profile" class = "container-fluid profile-page">
   <div class = "profile-details">
     <div class = "text-center profile-picture">
-      <img src = "https://via.placeholder.com/150" class = "img-fluid rounded-circle"/>
+      <img width = "150" *ngIf = "profile.profile_img" src = "{{api.getEndpoint() + profile.profile_img}}" class = "img-fluid rounded-circle"/>
+    </div>
+
+    <div class = "profile-button">
+      <a href = "/edit-profile" class = "btn float-right btn-info">Edit Profile</a>
     </div>
 
     <div class = "profile-type-info info-section">
       <p class = "info-label">Profile Type:</p>
-      <p *ngIf = "isVendor" class = "info-text">Vendor</p>
-      <p *ngIf = "!isVendor" class = "info-text">Customer</p>
+      <p *ngIf = "profile.isVendor" class = "info-text">Vendor</p>
+      <p *ngIf = "!profile.isVendor" class = "info-text">Customer</p>
     </div>
 
     <div class = "name-info info-section">
@@ -20,6 +24,11 @@
     <div class = "username-info info-section">
       <p class = "info-label">Username:</p>
       <p class = "info-text"> {{profile.user.username}}</p>
+    </div>
+
+    <div class = "email-info info-section">
+      <p class = "info-label">Email</p>
+      <p class = "info-text">{{profile.user.email}}</p>
     </div>
 
     <div class = "email-info info-section">
