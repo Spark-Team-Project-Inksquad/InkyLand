@@ -10,10 +10,13 @@ import { TokenStorageService } from "../../services/token-storage.service";
 // Routing
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 
+//Sanitization
+import { DomSanitizer } from '@angular/platform-browser';
+
 @Component({
   selector: "app-edit-profile-page",
   templateUrl: "./edit-profile-page.component.html",
-  styleUrls: ["./edit-profile-page.component.sass"]
+  styleUrls: ["./edit-profile-page.component.scss"]
 })
 export class EditProfilePageComponent implements OnInit {
   /**
@@ -31,14 +34,33 @@ export class EditProfilePageComponent implements OnInit {
 	"isVendor": false
 }**/
   public profile: any = null;
+  public profile_image: any = null;
   public userToken: string;
 
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {}
+
+  getPreviewImage() {
+    return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.profile_image));
+  }
+
+  //retrieves the image file
+  onImageFileChange(e) {
+      if (e.target.files && e.target.files.length) {
+        const [file] = e.target.files;
+        this.profile_image = file;
+
+
+        // DEBUG
+        console.log('file!');
+        console.log(this.profile_image);
+      }
+  }
 
   //updates the profile on the server
   updateProfile() {

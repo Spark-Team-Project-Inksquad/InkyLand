@@ -1,58 +1,88 @@
 <div class ="container-fluid">
-  <form *ngIf = "profile" class = "edit-profile-form" (ngSubmit) = "updateProfile()" #editProfileForm = "ngForm">
+  <form *ngIf = "profile" class = "profile-details edit-profile-form" (ngSubmit) = "updateProfile()" #editProfileForm = "ngForm">
+
+    <!-- Profile Image Upload -->
+    <div class = "edit-info-section form-group">
+
+      <!-- Current user profile -->
+      <div class = "row">
+        <div class = "col-sm-4">
+          <p>Current Profile Picture: <p>
+          <img  src = "{{api.getEndpoint() + profile.profile_img}}" width ="150" *ngIf = "profile.profile_img" class = "img-fluid rounded-circle" />
+          <p *ngIf = "!profile.profile_img">N/A</p>
+        </div>
+
+        <div class = "col-sm-4">
+          <p>New Image Preview: </p>
+          <img width ="150" *ngIf = "profile_image" class = "img-fluid rounded-circle" [src] = "getPreviewImage()"/>
+          <p *ngIf = "!profile_image">N/A</p>  
+        </div>
+      </div>
+
+
+      <!-- Image upload -->
+      <label class = "info-label" for = "profile-image-input">Profile Picture: </label>
+      <input (change) = "onImageFileChange($event)" type="file" class="form-control-file" id="profile-image-input">
+    </div>
 
     <!-- Username -->
-    <div class = "form-group">
-      <label for = "username-input">Username:</label>
+    <div class = "edit-info-section form-group">
+      <label class = "info-label" for = "username-input">Username:</label>
       <input [(ngModel)] = "profile.user.username" class = "form-control" type = "text" name = "username" id = "username-input"/>
     </div>
 
     <!-- Email -->
 
-    <div class = "form-group">
-      <label for = "email-input">Email:</label>
+    <div class = "edit-info-section form-group">
+      <label class = "info-label" for = "email-input">Email:</label>
       <input [(ngModel)] = "profile.user.email" class = "form-control" type = "text" name = "email" id = "email-input"/>
     </div>
 
-    <!-- First Name -->
+    <!-- First + Last Name -->
+    <div class = "edit-info-section-name row">
 
-    <div class = "form-group">
-      <label for = "first-name-input">First Name:</label>
-      <input [(ngModel)] = "profile.user.first_name" class = "form-control" type = "text" name = "first_name" id = "first-name-input"/>
-    </div>
+          <!-- First Name -->
 
-    <!-- Last Name -->
+          <div class = "col-sm-6 form-group">
+            <label class = "info-label" for = "first-name-input">First Name:</label>
+            <input [(ngModel)] = "profile.user.first_name" class = "form-control" type = "text" name = "first_name" id = "first-name-input"/>
+          </div>
 
+          <!-- Last Name -->
+          <div class = "col-sm-6  form-group">
+            <label class = "info-label" for = "last-name-input">Last Name:</label>
+            <input [(ngModel)] = "profile.user.last_name" class = "form-control" type = "text" name = "last_name" id = "last-name-input"/>
+          </div>
 
-    <div class = "form-group">
-      <label for = "last-name-input">Last Name:</label>
-      <input [(ngModel)] = "profile.user.last_name" class = "form-control" type = "text" name = "last_name" id = "last-name-input"/>
-    </div>
+      </div>
+
 
     <!-- Phone Number -->
 
-    <div class = "form-group">
-      <label for = "phone-number-input">Phone Number:</label>
+    <div class = "edit-info-section form-group">
+      <label class = "info-label" for = "phone-number-input">Phone Number:</label>
       <input [(ngModel)] = "profile.phone_number" class = "form-control" type = "text" name = "phone-number" id = "phone-number-input"/>
     </div>
 
     <!-- Bio -->
 
-    <div class = "form-group">
-      <label for = "username-input">Bio:</label>
+    <div class = "edit-info-section form-group">
+      <label class = "info-label" for = "username-input">Bio:</label>
       <textarea [(ngModel)] = "profile.bio" class = "form-control" type = "text" name = "bio" id = "bio-input"></textarea>
     </div>
 
     <!-- Vendor? -->
 
-    <div class = "form-check">
+    <div class = "edit-info-section vendor-check form-check">
       <!-- checkbox -->
       <input [(ngModel)] = "profile.isVendor" class="form-check-input" type = "checkbox" name = "vendor-input" id = "vendor-input"/>
-      <label class="form-check-label" for = "vendor-input">Vendor:</label>
+      <label class="form-check-label info-vendor-check-label" for = "vendor-input">
+        Vendor?
+      </label>
     </div>
 
     <!-- Submit Button -->
-    <button class = "btn btn-primary" type = "submit" class = "btn btn-success">Update</button>
+    <button class = "btn btn-primary btn-edit-profile" type = "submit" class = "btn btn-success">Update</button>
 
   </form>
 </div>
