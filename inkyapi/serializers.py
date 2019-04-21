@@ -63,9 +63,9 @@ class PrintingMediumSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description')
 
 class PrintingOfferSerializer(serializers.ModelSerializer):
-        model = PrintingOffer
 
         class Meta:
+            model = PrintingOffer
             fields = ('id', 'owner', 'printerName', 'printer', 'minPrice', 'maxPrice', 'note')
 
 class PrintingOfferDetailedSerializer(serializers.ModelSerializer):

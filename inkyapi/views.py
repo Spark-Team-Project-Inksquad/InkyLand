@@ -1,5 +1,5 @@
 # Django
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse,JsonResponse
 
 # Rest framework
@@ -21,6 +21,33 @@ from .forms import OrderForm
 
 # API Viewsets
 # NOTE edit the descriptions
+
+class UserViewSet(viewsets.ViewSet):
+    """
+    Viewset for extended User CRUD
+    """
+
+    def list(self, request):
+        return Response({'status': 'N/A'})
+
+    @permission_classes((IsAuthenticated, ))
+    def retrieve(self, request, pk=None):
+
+        auth_user = request.user
+
+        queryset = User.objects.all()
+
+        user = get_object_or_404(queryset, pk=pk)
+
+        if (user.id != auth_user.id):
+            return Response({'message': 'Cannot retrieve user! You do not have permission'}, status = status.HTTP_401_UNAUTHORIZED)
+
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data)
+
+
+
 
 class AccountViewSet(viewsets.ModelViewSet):
     '''
@@ -119,6 +146,7 @@ class ProfileViewSet(viewsets.ViewSet):
                 profile_serializer.save()
                 return JsonResponse(profile_serializer.data)
             else:
+                print (profile_serializer.errors)
                 return JsonResponse(profile_serializer.errors, status=400)
         else:
             # TODO replace with correct response
