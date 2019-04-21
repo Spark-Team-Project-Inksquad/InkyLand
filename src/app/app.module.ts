@@ -28,6 +28,7 @@ import { MessagePageComponent } from "./pages/message-page/message-page.componen
 import { MessageProfileCardComponent } from "./sub-components/message-profile-card/message-profile-card.component";
 import { MessageBubbleComponent } from './sub-components/message-bubble/message-bubble.component';
 import { LoginModalComponent } from './modals/login-modal/login-modal.component';
+import { OrderModalComponent } from './sub-components/order-modal/order-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { LoginModalComponent } from './modals/login-modal/login-modal.component'
     MessagePageComponent,
     MessageProfileCardComponent,
     MessageBubbleComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    OrderModalComponent
   ],
   imports: [
     BrowserModule,
