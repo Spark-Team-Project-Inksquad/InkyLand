@@ -11,7 +11,7 @@ import { TokenStorageService } from "../../services/token-storage.service";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 
 //Sanitization
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-edit-profile-page",
@@ -46,27 +46,28 @@ export class EditProfilePageComponent implements OnInit {
   ) {}
 
   getPreviewImage() {
-    return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.profile_image));
+    return this.sanitizer.bypassSecurityTrustUrl(
+      URL.createObjectURL(this.profile_image)
+    );
   }
 
   //retrieves the image file
   onImageFileChange(e) {
-      if (e.target.files && e.target.files.length) {
-        const [file] = e.target.files;
-        this.profile_image = file;
+    if (e.target.files && e.target.files.length) {
+      const [file] = e.target.files;
+      this.profile_image = file;
 
-
-        // DEBUG
-        console.log('file!');
-        console.log(this.profile_image);
-      }
+      // DEBUG
+      console.log("file!");
+      console.log(this.profile_image);
+    }
   }
 
   //updates the profile on the server
   updateProfile() {
     console.log("updating profile");
-    this.profile['profile_img'] = this.profile_image;
-    
+    this.profile["profile_img"] = this.profile_image;
+
     this.api.updateProfile(this.userToken, this.profile).subscribe({
       next: data => {
         console.log("updated");

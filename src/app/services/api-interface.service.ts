@@ -6,6 +6,7 @@ import { HttpRequest, HttpEventType, HttpResponse } from "@angular/common/http";
 
 // RxJs
 import { map, share, catchError } from "rxjs/operators";
+import { from } from "rxjs";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -16,18 +17,27 @@ export class ApiInterfaceService {
 
   constructor(private http: HttpClient) {}
 
-  public getEndpoint():string {
+  public getEndpoint(): string {
     return this.endpoint;
   }
 
   // Util data methods
   public static buildFormData(formData, data, parentKey) {
-    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+    if (
+      data &&
+      typeof data === "object" &&
+      !(data instanceof Date) &&
+      !(data instanceof File)
+    ) {
       Object.keys(data).forEach(key => {
-        ApiInterfaceService.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+        ApiInterfaceService.buildFormData(
+          formData,
+          data[key],
+          parentKey ? `${parentKey}[${key}]` : key
+        );
       });
     } else {
-      const value = data == null ? '' : data;
+      const value = data == null ? "" : data;
 
       formData.append(parentKey, value);
     }
@@ -36,7 +46,7 @@ export class ApiInterfaceService {
   public static jsonToFormData(data) {
     const formData = new FormData();
 
-    ApiInterfaceService.buildFormData(formData, data);
+    ApiInterfaceService.buildFormData(formData, data, null);
 
     return formData;
   }
@@ -194,17 +204,22 @@ export class ApiInterfaceService {
   //Retrieves the User Account
   updateProfile(userToken: string, newProfile: any) {
     //TODO splitting into 2 sep api requests
-    let account_data = Object.assign({}, newProfile)
-    account_data['profile_img'] = newProfile['profile_img'];
-    account_data['user'] = undefined;
+    let account_data = Object.assign({}, newProfile);
 
-    let user_data = Object.assign({}, newProfile['user']);
+    account_data["profile_img"] = newProfile["profile_img"];
+    account_data["user"] = newProfile["user"]["id"];
+
+    //Convert account data to form data
+    let account_form_data = ApiInterfaceService.jsonToFormData(account_data);
+
+    //We can just keep this as JSON
+    let user_data = Object.assign({}, newProfile["user"]);
 
     //DEBUG displaying seperated account and user data
-    console.log("Account Data:")
+    console.log("Account Data:");
     console.log(account_data);
 
-    console.log("User Data:")
+    console.log("User Data:");
     console.log(user_data);
 
     //user auth
@@ -212,73 +227,35 @@ export class ApiInterfaceService {
       headers: new HttpHeaders({ Authorization: "Token " + userToken })
     };
 
-    //payload form data
-    /**
-    const formData = ApiInterfaceService.jsonToFormData(newProfile);
+    //request paths
+    let update_account_path = "/api/accounts/" + newProfile["id"] + "/";
+    let update_user_path = "/api/users/" + user_data["id"] + "/";
 
-    let request_path = "/api/profiles/" + newProfile.id + "/";
-
-    const updateReq = new HttpRequest(
+    //update account request
+    const updateAccountReq = new HttpRequest(
       "PUT",
-      this.endpoint + request_path,
-      formData,
-      httpOptions
-    );
-    **/
-
-    /** Still testing
-    let updateProfileObservable: Observable<object> = this.http
-      .request(updateReq)
-      .pipe(share());
-    **/
-
-    // EX
-    /**
-    const req = new HttpRequest(
-      "POST",
-      this.endpoint + request_path,
-      formData,
+      this.endpoint + update_account_path,
+      account_form_data,
       httpOptions
     );
 
-    let createDocumentObservable: Observable<any> = this.http
-      .request(req)
+    //update the user first and then the account
+
+    let updateUserObservable: Observable<object> = this.http
+      .put(this.endpoint + update_user_path, user_data, httpOptions)
       .pipe(share());
-    **/
 
-    /**
-    Old code!
-
-    newProfile['profile_img'] = null;
-    console.log('payload')
-    console.log(newProfile);
-
-    let updateProfileObservable: Observable<object> = this.http
-      .put(
-        this.endpoint + "/api/profiles/" + newProfile.id + "/",
-        newProfile,
-        httpOptions
-      )
+    let updateAccountObservable: Observable<object> = this.http
+      .request(updateAccountReq)
       .pipe(share());
-    **/
 
-    // DEBUG code
-    /**
-    updateProfileObservable.subscribe({
-      next: updatedProfile => {
-        console.log("Updated Profile");
-        console.log(updatedProfile);
-      },
-      error: err => {
-        console.error("Unable to update profile");
-      },
-      complete: () => {
-        console.log("update request complete");
-      }
-    });
-
+    let updateProfileObservable = from(
+      Promise.all([
+        updateUserObservable.toPromise(),
+        updateAccountObservable.toPromise()
+      ])
+    );
     return updateProfileObservable;
-    **/
   }
 
   // Printing Offer CRUD TODO
