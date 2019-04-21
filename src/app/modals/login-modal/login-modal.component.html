@@ -21,13 +21,13 @@
           <!-- Userfield field -->
           <div class = "form-group">
             <label for = "usernameInput">Username:</label>
-            <input [(ngModel)] = 'login_model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
+            <input [(ngModel)] = 'login_model.username' id = "usernameInput" class = "input-field form-control" name = "username" type = "text">
           </div>
 
           <!-- Password field -->
           <div class = "form-group">
               <label for = "passwordInput">Password:</label>
-              <input [(ngModel)] = 'login_model.password' id = "passwordInput" class = "form-control" name = "password" type = "password">
+              <input [(ngModel)] = 'login_model.password' id = "passwordInput" class = "input-field form-control" name = "password" type = "password">
           </div>
 
           <p>Don't have an account? <a (click) = "switchMode()" href = "#">Sign Up</a></p>
@@ -36,7 +36,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
         <!-- submit button-->
-        <button type="submit" class="btn btn-primary">Sign In</button>
+        <button type="submit" class="btn btn-submit btn-primary">Sign In</button>
       </div>
     </form>
 
@@ -59,19 +59,19 @@
         <!-- Userfield field -->
         <div class = "form-group">
           <label for = "usernameInput">Username:</label>
-          <input [(ngModel)] = 'signup_model.username' id = "usernameInput" class = "form-control" name = "username" type = "text">
+          <input [(ngModel)] = 'signup_model.username' id = "usernameInput" class = "input-field form-control" name = "username" type = "text">
         </div>
 
         <!-- Password field -->
         <div class = "form-group">
             <label for = "passwordInput">Password:</label>
-            <input [(ngModel)] = 'signup_model.password' id = "passwordInput" class = "form-control" name = "password" type = "password">
+            <input [(ngModel)] = 'signup_model.password' id = "passwordInput" class = "input-field form-control" name = "password" type = "password">
         </div>
 
         <!-- Password field -->
         <div class = "form-group">
             <label for = "passwordConfirmInput">Confirm Password:</label>
-            <input [(ngModel)] = 'signup_model.confirmpassword' id = "passwordConfirmInput" class = "form-control" name = "password_confirm" type = "password">
+            <input [(ngModel)] = 'signup_model.confirmpassword' id = "passwordConfirmInput" class = "input-field form-control" name = "password_confirm" type = "password">
         </div>
 
         <p>Have an account? <a (click) = "switchMode()" href = "#">Log In</a></p>
@@ -81,7 +81,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
         <!-- submit button-->
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-submit btn-primary">Register</button>
       </div>
     </form>
 
