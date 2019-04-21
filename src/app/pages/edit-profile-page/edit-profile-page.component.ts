@@ -65,6 +65,8 @@ export class EditProfilePageComponent implements OnInit {
   //updates the profile on the server
   updateProfile() {
     console.log("updating profile");
+    this.profile['profile_img'] = this.profile_image;
+    
     this.api.updateProfile(this.userToken, this.profile).subscribe({
       next: data => {
         console.log("updated");
