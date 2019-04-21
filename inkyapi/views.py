@@ -26,10 +26,11 @@ class UserViewSet(viewsets.ViewSet):
     """
     Viewset for extended User CRUD
     """
-
+    # Does not do anything
     def list(self, request):
         return Response({'status': 'N/A'})
 
+    # retrieves a specific user
     @permission_classes((IsAuthenticated, ))
     def retrieve(self, request, pk=None):
 
@@ -46,8 +47,25 @@ class UserViewSet(viewsets.ViewSet):
 
         return Response(serializer.data)
 
+    # updates a specific authenticated user
+    @permission_classes((IsAuthenticated, ))
+    def update(self, request, pk=None):
+        auth_user = request.user
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
 
+        if (user.id != auth_user.id):
+            return Response({'message': 'Cannot retrieve user! You do not have permission'}, status = status.HTTP_401_UNAUTHORIZED)
 
+        user_serializer = UserSerializer(user, data = request.data, partial = True)
+
+        if (user_serializer.is_valid()):
+            print ("valid!")
+            user_serializer.save()
+            return JsonResponse(user_serializer.data)
+        else:
+            print (user_serializer.errors)
+            return JsonResponse(user_serializer.errors, status=400)
 
 class AccountViewSet(viewsets.ModelViewSet):
     '''
