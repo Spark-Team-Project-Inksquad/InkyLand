@@ -75,6 +75,32 @@ class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
     queryset = Account.objects.all()
 
+    # updates the account
+    @permission_classes((IsAuthenticated, ))
+    def update(self, request, pk=None):
+        auth_user = request.user
+        queryset = Account.objects.all()
+        account = get_object_or_404(queryset, pk=pk)
+
+        if (account.user.id != auth_user.id):
+            return Response({'message': 'Cannot retrieve account! You do not have permission'}, status = status.HTTP_401_UNAUTHORIZED)
+
+        if not ('user' in request.data):
+            request.data['user'] = account.user.id
+
+        account_serializer = AccountSerializer(account, data = request.data, partial = True)
+
+        if (account_serializer.is_valid()):
+            print ("valid!")
+            account_serializer.save()
+            return JsonResponse(account_serializer.data)
+        else:
+            print (account_serializer.errors)
+            return JsonResponse(account_serializer.errors, status=400)
+
+
+
+
 class ProfileViewSet(viewsets.ViewSet):
 
     """
