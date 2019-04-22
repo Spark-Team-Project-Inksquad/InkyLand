@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-print-type-filter',
+  selector: 'print-type-popup-filter',
   templateUrl: './print-type-filter.component.html',
   styleUrls: ['./print-type-filter.component.scss']
 })

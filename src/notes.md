@@ -15,3 +15,8 @@ https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 # Bugs:
 - [ ] Input field bug on login/signup modals
 - [ ] Buttons sometimes require 2 clicks. IDK why?
+
+
+# code example
+html range with stepper
+https://codepen.io/trevanhetzel/pen/rOVrGK
