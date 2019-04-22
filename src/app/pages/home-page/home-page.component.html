@@ -10,7 +10,7 @@
             Type of Print
           </button>
 
-          <button class = "text-center btn btn-default col-md-2 filter-option color-pink">
+          <button data-toggle="popover" data-container="body" data-placement="bottom" data-html ="true" id = "distance-filter-btn" class = "text-center btn btn-default col-md-2 filter-option color-pink">
             Distance
           </button>
 
@@ -18,7 +18,7 @@
             Shipping
           </button>
 
-          <button class = "text-center btn btn-default col-md-2 filter-option color-black">
+          <button data-toggle="popover" data-container="body" data-placement="bottom" data-html ="true"  id="quantity-filter-btn" class = "text-center btn btn-default col-md-2 filter-option color-black">
             Quantity
           </button>
 
@@ -28,7 +28,8 @@
 
           <!-- Popup content -->
           <price-popup-filter for = "price-filter-btn"></price-popup-filter>
-
+          <quantity-popup-filter for = "quantity-filter-btn"></quantity-popup-filter>
+          <distance-popup-filter for = "distance-filter-btn"></distance-popup-filter>
 
         </div>
       </div>
