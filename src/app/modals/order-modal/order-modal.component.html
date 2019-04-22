@@ -1,7 +1,7 @@
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
   <!-- Order Modal -->
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -11,11 +11,62 @@
       </div>
 
       <div class="modal-body">
+        <div class = "row">
+          <div class = "col-sm-3">
+            <!-- Profile picture -->
+            <img class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
+          </div>
 
+          <div class = "col-sm-6">
+            <!-- Vendor info -->
+            <div class = "vendor-info">
+              <h1>Vendor Name</h1>
+              <div class = "vendor-info-content">
+                <p>- Lorem Ipsum</p>
+                <p>- Lorem Ipsum</p>
+                <p>- Lorem Ipsum</p>
+                <p>- Lorem Ipsum</p>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class = "col-sm-3">
+            <!-- Favorite Button -->
+            <button class = "btn btn-favorite btn-default float-right">
+              <span><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
+              <!--
+              <span *ngIf = "isFavorited == true" ><img  width = "40" src = "/assets/icons/favorited-icon.svg"/></span>
+            -->
+            </button>
+
+            <!-- Order button -->
+            <button class = "btn btn-block btn-default btn-order">Order</button>
+
+          </div>
+
+        </div>
       </div>
 
       <div class="modal-footer">
 
+        <div class = "row">
+          <div class = "col-sm-4">
+            <!-- Distance -->
+
+          </div>
+          <div class = "col-sm-4">
+            <!-- Price -->
+
+          </div>
+
+          <div class = "col-sm-4">
+            <!-- Types of Transport -->
+
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
