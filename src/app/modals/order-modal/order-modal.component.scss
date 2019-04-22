@@ -2,6 +2,12 @@
   width: 700px;
 }
 
+.order-row {
+  width: 100%;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 .btn-order {
   background-color: #39b7ff;
   color: white;
@@ -9,5 +15,33 @@
 }
 
 .btn-favorite {
+  margin-bottom: 8px;
+}
+
+.distance.distance-icon,
+.transport.transport-icon {
+  margin-bottom: 8px;
+}
+
+.distance.miles-away,
+.transport.transport-type,
+.price.cost-per {
+  font-size: 1.2em;
+}
+
+.distance.address,
+.transport.transport-subtitle {
+  font-size: 0.75em;
+}
+
+p.distance,
+p.transport,
+p.price {
+  margin: 0px !important;
+}
+
+.btn-price {
+  background-color: #44f7c8;
+  color: white;
   margin-bottom: 8px;
 }
