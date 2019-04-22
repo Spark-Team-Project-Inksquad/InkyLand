@@ -14,6 +14,10 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { map, share, catchError } from "rxjs/operators";
 import { Observable } from "rxjs";
 
+//element ref + jQuery
+declare var $: any;
+import { ElementRef } from "@angular/core";
+
 @Component({
   selector: "app-home-page",
   templateUrl: "./home-page.component.html",
@@ -39,6 +43,11 @@ export class HomePageComponent implements OnInit {
       .catch(err => {
         return this.retrieveVendors();
       });
+  }
+
+  placeOrder() {
+    var modal: any = $("#orderModal");
+    modal.modal();
   }
 
   retrieveAuthToken() {
@@ -179,6 +188,10 @@ export class HomePageComponent implements OnInit {
           }
         }
       });
+  }
+
+  test() {
+    console.log("why");
   }
 
   ngOnInit() {

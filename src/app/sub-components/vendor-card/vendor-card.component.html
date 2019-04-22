@@ -1,4 +1,4 @@
-<div class="card card-vendor {{colorClass}}">
+ <div (click) = "favoriteOrUnFavoriteVendor($event)" class="card card-vendor {{colorClass}}">
     <div class="card-body">
       <div class = "row">
         <div class = "col-3">
@@ -23,12 +23,12 @@
         </div>
 
         <div class = "col-3">
-          <button *ngIf = "mode != 'favorite' && isFavorited != undefined" class = "float-right btn btn-light" (click) = "favoriteOrUnFavoriteVendor()" >
+          <button *ngIf = "mode != 'favorite' && isFavorited != undefined" class = "float-right btn btn-light" (click) = "favoriteOrUnFavoriteVendor($event);" >
             <span  *ngIf = "isFavorited == false" ><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
             <span *ngIf = "isFavorited == true" ><img  width = "40" src = "/assets/icons/favorited-icon.svg"/></span>
 
           </button>
-          <button class = "text-center vendor-price-button {{mode}}">Price</button>
+          <button (click) = "placeOrder()" class = "text-center vendor-price-button {{mode}}">Price</button>
         </div>
       </div>
     </div>

@@ -8,8 +8,11 @@ import {
   Output,
   EventEmitter,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ViewChild
 } from "@angular/core";
+
+declare var $: any;
 
 @Component({
   selector: "vendor-card",
@@ -22,7 +25,10 @@ export class VendorCardComponent implements OnInit {
   @Input() vendorInfo: any;
   @Input() mode: string;
   @Input() isFavorited: boolean;
+  @Input() placeOrder: any;
   @Output() favoriteStatusChange = new EventEmitter<boolean>();
+
+  @ViewChild("favoritebutton") favoriteButton;
 
   private colorClass: string;
 
@@ -35,6 +41,7 @@ export class VendorCardComponent implements OnInit {
       this.colorClass = "card-pink";
     }
   }
+  ngAfterViewInit() {}
 
   //favorites or unfavorites vendor
   favoriteOrUnFavoriteVendor() {
