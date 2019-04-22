@@ -22,20 +22,13 @@
             Quantity
           </button>
 
-          <button data-toggle="popover" data-container="body" data-placement="right" data-html ="true"  id="price-filter-btn" class = "text-center btn btn-default col-md-2 filter-option color-turquoise">
+          <button data-toggle="popover" data-container="body" data-placement="bottom" data-html ="true"  id="price-filter-btn" class = "text-center btn btn-default col-md-2 filter-option color-turquoise">
             Price
           </button>
 
-          <!-- Popup Content -->
-          <div style = "display: none; " id="popover-content-price-filter-btn">
-            <form class="form-inline" role="form">
-              <div class="form-group">
-                <input class="headerSearch search-query" id="str" name="str" type="text" placeholder="Search..." />
-                <span class="glyphicon glyphicon-search" style="margin:3px 8px 0 -20px;"></span>
-                <input class="btn btn-primary btn-xs" id="phSearchButton" type="submit" value="Search" />
-              </div>
-            </form>
-          </div>
+          <!-- Popup content -->
+          <price-popup-filter for = "price-filter-btn"></price-popup-filter>
+
 
         </div>
       </div>
