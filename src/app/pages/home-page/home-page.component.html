@@ -5,21 +5,38 @@
     <div class = "filter-options">
       <div class = "container-fluid">
         <div class = "row">
-          <div class = "text-center col-md-2 filter-option color-blue">
+
+          <button class = "text-center btn btn-default col-md-2 filter-option color-blue">
             Type of Print
-          </div>
-          <div class = "text-center col-md-2 filter-option color-pink">
+          </button>
+
+          <button class = "text-center btn btn-default col-md-2 filter-option color-pink">
             Distance
-          </div>
-          <div class = "text-center col-md-2 filter-option color-yellow">
+          </button>
+
+          <button class = "text-center btn btn-default col-md-2 filter-option color-yellow">
             Shipping
-          </div>
-          <div class = "text-center col-md-2 filter-option color-black">
+          </button>
+
+          <button class = "text-center btn btn-default col-md-2 filter-option color-black">
             Quantity
-          </div>
-          <div class = "text-center col-md-2 filter-option color-turquoise">
+          </button>
+
+          <button data-toggle="popover" data-container="body" data-placement="right" data-html ="true"  id="price-filter-btn" class = "text-center btn btn-default col-md-2 filter-option color-turquoise">
             Price
+          </button>
+
+
+          <div style = "display: none; " id="popover-content-price-filter-btn" class="hide">
+            <form class="form-inline" role="form">
+              <div class="form-group">
+                <input class="headerSearch search-query" id="str" name="str" type="text" placeholder="Search..." />
+                <span class="glyphicon glyphicon-search" style="margin:3px 8px 0 -20px;"></span>
+                <input class="btn btn-primary btn-xs" id="phSearchButton" type="submit" value="Search" />
+              </div>
+            </form>
           </div>
+
         </div>
       </div>
     </div>
