@@ -30,6 +30,13 @@ import { MessageBubbleComponent } from "./sub-components/message-bubble/message-
 import { LoginModalComponent } from "./modals/login-modal/login-modal.component";
 import { OrderModalComponent } from "./modals/order-modal/order-modal.component";
 
+//filter component 
+import { PrintTypeFilterComponent } from './sub-components/filter-popovers/print-type-filter/print-type-filter.component';
+import { DistanceFilterComponent } from './sub-components/filter-popovers/distance-filter/distance-filter.component';
+import { ShippingFilterComponent } from './sub-components/filter-popovers/shipping-filter/shipping-filter.component';
+import { QuantityFilterComponent } from './sub-components/filter-popovers/quantity-filter/quantity-filter.component';
+import { PriceFilterComponent } from './sub-components/filter-popovers/price-filter/price-filter.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +61,12 @@ import { OrderModalComponent } from "./modals/order-modal/order-modal.component"
     MessageProfileCardComponent,
     MessageBubbleComponent,
     LoginModalComponent,
-    OrderModalComponent
+    OrderModalComponent,
+    PrintTypeFilterComponent,
+    DistanceFilterComponent,
+    ShippingFilterComponent,
+    QuantityFilterComponent,
+    PriceFilterComponent
   ],
   imports: [
     BrowserModule,
