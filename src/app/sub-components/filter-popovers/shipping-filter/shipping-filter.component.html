@@ -2,7 +2,42 @@
 
   <div class = "filter-content">
 
-    <h5>What is your distance preference?</h5>
+    <h5>How do you want to receive your order?</h5>
+
+    <form>
+      <!-- Multiple choice -->
+
+      <div class = "form-check">
+        <input class = "form-check-input" type = "radio" id = "shipping-radio-option" name = "shipping-radio-option"/>
+        <label for = "shipping-radio-option">
+          Shipping
+        </label>
+      </div>
+
+      <div class = "form-check">
+        <input class = "form-check-input" type = "radio" id = "pickup-radio-option" name = "shipping-radio-option"/>
+        <label for = "pickup-radio-option">
+          Pickup
+        </label>
+      </div>
+
+      <div class = "form-check">
+            <input class = "form-check-input" id = "either-radio-option" type = "radio" name = "shipping-radio-option"/>
+            <label for = "either-radio-option">
+              Either
+            </label>
+          </div>
+
+      <!-- Day range -->
+
+      <label for="dayRange">How many days do you want you order to take?</label>
+      <input type="range" class="custom-range" min = "1" max = "7" step = "1" id="dayRange">
+
+      <!-- Day view -->
+
+
+    </form>
+
 
   </div>
 
