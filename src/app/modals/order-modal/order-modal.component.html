@@ -42,7 +42,7 @@
             </button>
 
             <!-- Order button -->
-            <button class = "btn btn-block btn-default btn-order">Order</button>
+            <button (click) = "placeOrder()" class = "btn btn-block btn-default btn-order">Order</button>
 
           </div>
 
@@ -95,3 +95,5 @@
       </div>
     </div>
   </div>
+
+  <place-order-modal></place-order-modal>

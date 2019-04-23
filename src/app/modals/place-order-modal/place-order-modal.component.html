@@ -1,17 +1,50 @@
 <div class="modal fade" id="placeOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
   <!-- Order Modal -->
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Place Order</h2>
+        <h5 class="modal-title" id="exampleModalLabel">Place Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
 
       <div class="modal-body">
 
-      </div>
+        <form class = "text-center">
 
-      <div class="modal-footer">
+          <!-- Quantity -->
+          <h3>Quantity of Order</h3>
+          <div>
+
+            <!-- Sub button -->
+
+            <button class = "btn btn-sub btn-default">
+              <img src = "/assets/icons/sub.svg"/>
+            </button>
+
+            <!-- Input Field -->
+            <input class = "text-field" type = "number" name = 'order-quantity'/>
+
+            <!-- Add button -->
+            <button class = "btn btn-add btn-default">
+              <img src = "/assets/icons/add.svg"/>
+            </button>
+
+          </div>
+
+          <div class = "upload-file-container">
+            <h3>Upload File(s)</h3>
+            <!-- Upload button -->
+            <button class = "btn btn-default btn-upload">
+              <img src = "/assets/icons/upload.svg"/>
+            </button>
+
+          </div>
+          <!-- Submit button-->
+          <button class = "btn btn-block btn-default btn-submit" type = "submit">Submit</button>
+        </form>
 
       </div>
 
