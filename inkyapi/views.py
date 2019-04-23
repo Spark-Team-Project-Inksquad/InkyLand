@@ -12,8 +12,8 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 # Models + Serializers
-from .serializers import ProfileSerializer, DetailedFavoriteVendorSerializer, OrderDetailedSerializer, PrintingOfferDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, PrintingOfferSerializer, PrintingMediumSerializer, DocumentTypeSerializer, PrinterSerializer, OrderSerializer, DocumentDetailedSerializer, DocumentSerializer, VendorReviewSerializer, OfferSpecSerializer
-from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
+from .serializers import ProfileSerializer, DetailedFavoriteVendorSerializer, OrderDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, OrderSerializer, DocumentDetailedSerializer, DocumentSerializer, VendorReviewSerializer
+from inkybase.models import Account, FavoriteVendor, Order, Document,VendorReview
 from django.contrib.auth.models import User
 
 # forms
@@ -243,146 +243,6 @@ class FavoriteVendorViewSet(viewsets.ViewSet):
             # If so, destroy the offer
             selected_favorite.delete()
             return Response({'status': 'deleted', 'message': 'favorite vendor Deleted'})
-
-class PrintingOfferViewSet(viewsets.ModelViewSet):
-    '''
-    Viewsets for viewing and editing account instances
-    '''
-
-    serializer_class = PrintingOfferSerializer
-    queryset = PrintingOffer.objects.all()
-
-    # Places an order for a printing offer
-    @action(detail = True, methods = ['post'], permission_classes = [IsAuthenticated])
-    def place_order(self, request, pk = None):
-        printing_offer = self.get_object()
-        auth_user = request.user
-
-        # Checks if the user is logged in correctly
-        # If not shoot an error
-        if (str(auth_user) == "AnonymousUser"):
-            return Response({'status': 'must be logged in!'})
-
-        orderer = auth_user.account
-        new_order = Order(orderer = orderer)
-        form = OrderForm(request.data, instance = new_order)
-
-        if (form.is_valid()):
-            form.save()
-            print ("success")
-            serializer = OrderSerializer(new_order, many = False)
-            return Response(serializer.data)
-        else:
-            print ("ERRROR")
-            print (form.errors)
-            return Response({'status': 'unable to create order'})
-
-
-    @permission_classes((IsAuthenticated, ))
-    def destroy(self, request, pk = None):
-        printing_offer = self.get_object()
-        auth_user = request.user
-
-        # Checks if the user is logged in correctly
-        # If not shoot an error
-        if (str(auth_user) == "AnonymousUser"):
-            return Response({'status': 'must be logged in!'})
-
-        # Checks if the selected printing offer is part of the logged in users account
-        if (printing_offer.owner == auth_user.account):
-            # If so, destroy the offer
-            printing_offer.delete()
-            return Response({'status': 'deleted', 'message': 'Offer Deleted'})
-
-        return Response({'status': 'Something went wrong'})
-
-    # List of all printing offers, but more detailed
-    # NOTE could potential optimize
-    @action(detail = False, methods= ['get'])
-    def detailed_list(self, request):
-        serializer = PrintingOfferDetailedSerializer(self.queryset, many = True)
-        return Response(serializer.data)
-
-    # Single detailed printing offer
-    # NOTE could potential optimize
-    @action(detail = True, methods = ['get'])
-    def detailed(self, request, pk = None):
-        printing_offer = self.get_object()
-        serializer = PrintingOfferDetailedSerializer(printing_offer, many = False)
-        return Response(serializer.data)
-
-    @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
-    def get_auth_printing_offers(self, request):
-        auth_user = request.user
-        printing_offers = PrintingOffer.objects.all().filter(owner = auth_user.account)
-        serializer = PrintingOfferSerializer(printing_offers, many = True)
-        return Response(serializer.data)
-
-    # NOTE could potential optimize
-    @action(detail = False, methods = ['get'], permission_classes = [IsAuthenticated])
-    def get_auth_detailed_printing_offers(self, request):
-        auth_user = request.user
-        printing_offers = PrintingOffer.objects.all().filter(owner = auth_user.account)
-        serializer = PrintingOfferDetailedSerializer(printing_offers, many = True)
-        return Response(serializer.data)
-
-    @action(detail = True, methods = ['get'])
-    def offer_specs(self, request, pk = None):
-        offer_specs = OfferSpec.objects.all().filter(printing_offer = pk)
-        serializer = OfferSpecSerializer(offer_specs, many = True)
-        return Response(serializer.data)
-
-class OfferSpecViewSet(viewsets.ModelViewSet):
-    '''
-    Viewsets for viewing and editing account instances
-    '''
-
-    serializer_class = OfferSpecSerializer
-    queryset = OfferSpec.objects.all()
-
-    @permission_classes((IsAuthenticated, ))
-    def destroy(self, request, pk = None):
-        offer_spec = self.get_object()
-        printing_offer = PrintingOffer.objects.get(pk = offer_spec.printing_offer.id)
-        auth_user = request.user
-
-        # Checks if the user is logged in correctly
-        # If not shoot an error
-        if (str(auth_user) == "AnonymousUser"):
-            return Response({'status': 'must be logged in!'})
-
-        # Checks if the selected printing offer is part of the logged in users account
-        if (printing_offer.owner == auth_user.account):
-            # If so, destroy the offer
-            offer_spec.delete()
-            return Response({'status': 'deleted', 'message': 'Offer Spec Deleted'})
-
-        return Response({'status': 'Something went wrong'})
-
-
-class PrintingMediumViewSet(viewsets.ModelViewSet):
-    '''
-    Viewsets for viewing and editing account instances
-    '''
-
-    serializer_class = PrintingMediumSerializer
-    queryset = PrintingMedium.objects.all()
-
-class DocumentTypeViewSet(viewsets.ModelViewSet):
-    '''
-    Viewsets for viewing and editing account instances
-    '''
-
-    serializer_class = DocumentTypeSerializer
-    queryset = DocumentType.objects.all()
-
-class PrinterViewSet(viewsets.ModelViewSet):
-    '''
-    Viewsets for viewing and editing account instances
-    '''
-
-    serializer_class = PrinterSerializer
-    queryset = Printer.objects.all()
 
 class OrderViewSet(viewsets.ModelViewSet):
     '''

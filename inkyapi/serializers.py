@@ -1,6 +1,6 @@
 from rest_framework import serializers
 import os
-from inkybase.models import Account, FavoriteVendor, PrintingOffer, PrintingMedium, DocumentType, Printer, Order, Document, VendorReview, OfferSpec
+from inkybase.models import Account, FavoriteVendor, Order, Document, VendorReview
 from django.contrib.auth.models import User
 
 from django.conf import settings
@@ -40,6 +40,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class VendorReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VendorReview
+        fields = ('id', 'author', 'reviewed_vendor', 'score')
+
 class FavoriteVendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = FavoriteVendor
@@ -52,55 +57,15 @@ class DetailedFavoriteVendorSerializer(serializers.ModelSerializer):
     class Meta(FavoriteVendorSerializer.Meta):
         pass
 
-class PrinterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Printer
-        fields = ('id', 'name', 'manufacturer', 'upc')
-
-class PrintingMediumSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PrintingMedium
-        fields = ('id', 'name', 'description')
-
-class PrintingOfferSerializer(serializers.ModelSerializer):
-
-        class Meta:
-            model = PrintingOffer
-            fields = ('id', 'owner', 'printerName', 'printer', 'minPrice', 'maxPrice', 'note')
-
-class PrintingOfferDetailedSerializer(serializers.ModelSerializer):
-    printer = PrinterSerializer()
-
-    class Meta(PrintingOfferSerializer.Meta):
-        pass
-
-    def to_representation(self, instance):
-        ret = super().to_representation(instance)
-        ret['specs'] = OfferSpecDetailedSerializer(OfferSpec.objects.all().filter(printing_offer = instance.id),many = True).data
-        return ret
-
-
-class DocumentTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DocumentType
-        fields = ('id', 'name', 'extension', 'info', 'printing_medium')
-
-
-
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = ('id', 'address', 'orderer', 'documents', 'lat', 'lon', 'pickup', 'shipping', 'printing_offer')
 
 class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ('id', 'owner', 'document_type', 'uploaded_file')
+        fields = ('id', 'owner', 'uploaded_file')
 
 
 class DocumentDetailedSerializer(serializers.ModelSerializer):
-    document_type = DocumentTypeSerializer(many = False)
     uploaded_file = serializers.SerializerMethodField()
 
     class Meta(DocumentSerializer.Meta):
@@ -116,29 +81,13 @@ class DocumentDetailedSerializer(serializers.ModelSerializer):
 
         return uploaded_file
 
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'address', 'orderer', 'documents', 'lat', 'lon', 'pickup', 'shipping', 'printing_offer')
 
 class OrderDetailedSerializer(serializers.ModelSerializer):
-    printing_offer = PrintingOfferSerializer(many = False)
     documents = DocumentSerializer(many = True)
 
     class Meta(OrderSerializer.Meta):
-        pass
-
-
-class VendorReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = VendorReview
-        fields = ('id', 'author', 'reviewed_vendor', 'score')
-
-class OfferSpecSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = OfferSpec
-        fields = ('id', 'printing_offer', 'description', 'printing_mediums', 'document_types')
-
-class OfferSpecDetailedSerializer(serializers.ModelSerializer):
-    printing_mediums = PrintingMediumSerializer(many = True)
-    document_types = DocumentTypeSerializer(many = True)
-
-
-    class Meta(OfferSpecSerializer.Meta):
         pass

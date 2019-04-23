@@ -59,37 +59,9 @@ class VendorReview(models.Model):
 
     score = models.IntegerField(default = 0)
 
-# Printer that a vendor could potential own
-class Printer(models.Model):
-    name = models.CharField(max_length = 200)
-    manufacturer = models.CharField(max_length = 200)
-    upc = models.CharField(max_length = 12)
-
-    def __str__(self):
-        return self.name
-
-# medium of printing (2D, 3D, etc)
-class PrintingMedium(models.Model):
-    name = models.CharField(max_length = 100)
-    description = models.TextField(blank = True)
-
-    def __str__(self):
-        return self.name
-
-# Type of Document
-class DocumentType(models.Model):
-    name = models.CharField(max_length = 150)
-    extension = models.CharField(max_length = 10)
-    info = models.TextField(blank = True)
-    printing_medium = models.ForeignKey(PrintingMedium, on_delete = models.SET_NULL, null = True)
-
-    def __str__(self):
-        return self.name
-
 # Document itself
 class Document(models.Model):
     owner = models.ForeignKey(Account, on_delete = models.CASCADE)
-    document_type = models.ForeignKey(DocumentType, on_delete = models.SET_NULL, null = True)
     uploaded_file = models.FileField(upload_to = 'uploads')
 
     def delete(self, *args, **kwargs):
@@ -100,34 +72,6 @@ class Document(models.Model):
 
         super(Document, self).delete(*args, **kwargs)
 
-# Offer for printing documents with conditions
-class PrintingOffer(models.Model):
-    owner = models.ForeignKey(Account, on_delete = models.CASCADE)
-    printerName = models.CharField(max_length = 100)
-    printer = models.ForeignKey(Printer, on_delete = models.SET_NULL, related_name = "offers", null = True)
-    minPrice = models.DecimalField(max_digits = 10, decimal_places = 2, null = True)
-    maxPrice = models.DecimalField(max_digits = 10, decimal_places = 2, null = True)
-    note = models.TextField(blank = True)
-
-    def __str__(self):
-        return self.printerName
-
-class OfferSpec(models.Model):
-    printing_offer = models.ForeignKey(PrintingOffer, on_delete = models.CASCADE)
-    description = models.TextField()
-    printing_mediums = models.ManyToManyField(PrintingMedium, blank = True)
-    document_types = models.ManyToManyField(DocumentType, blank = True)
-
-# Order that has been placed on a specific offer
+# Order model
 class Order(models.Model):
-    address = models.TextField(blank = True)
-    orderer = models.ForeignKey(Account, on_delete = models.CASCADE, related_name = "orders")
-    documents = models.ManyToManyField(Document)
-    lat = models.FloatField(blank = True, null = True)
-    lon = models.FloatField(blank = True, null = True)
-    pickup = models.BooleanField(default = False)
-    shipping = models.BooleanField(default = False)
-    printing_offer = models.ForeignKey(PrintingOffer, on_delete = models.CASCADE, related_name = "orders")
-
-    def __str__(self):
-        return 'Order for ' + str(self.printing_offer) + ' print'
+    pass
