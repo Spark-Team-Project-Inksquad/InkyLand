@@ -10,16 +10,9 @@ import { AppComponent } from "./app.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { NavigationComponent } from "./sub-components/navigation/navigation.component";
 import { LoginPageComponent } from "./pages/login-page/login-page.component";
-import { RegisterPageComponent } from "./pages/register-page/register-page.component";
 import { ProfilePageComponent } from "./pages/profile-page/profile-page.component";
 import { EditProfilePageComponent } from "./pages/edit-profile-page/edit-profile-page.component";
-import { OfferPageComponent } from "./pages/offer-page/offer-page.component";
-import { CreatePrintingOfferPageComponent } from "./pages/create-printing-offer-page/create-printing-offer-page.component";
-import { CreateOfferSpecPageComponent } from "./pages/create-offer-spec-page/create-offer-spec-page.component";
-import { SearchOffersPageComponent } from "./pages/search-offers-page/search-offers-page.component";
-import { ViewOrderPageComponent } from "./pages/view-order-page/view-order-page.component";
-import { NewDocumentPageComponent } from "./pages/new-document-page/new-document-page.component";
-import { PlaceOrderPageComponent } from "./pages/place-order-page/place-order-page.component";
+
 import { VendorCardComponent } from "./sub-components/vendor-card/vendor-card.component";
 import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
 import { OrderCardComponent } from "./sub-components/order-card/order-card.component";
@@ -47,17 +40,8 @@ import { PriceFilterComponent } from "./sub-components/filter-popovers/price-fil
     AppComponent,
     HomePageComponent,
     NavigationComponent,
-    LoginPageComponent,
-    RegisterPageComponent,
     ProfilePageComponent,
     EditProfilePageComponent,
-    OfferPageComponent,
-    CreatePrintingOfferPageComponent,
-    CreateOfferSpecPageComponent,
-    SearchOffersPageComponent,
-    ViewOrderPageComponent,
-    NewDocumentPageComponent,
-    PlaceOrderPageComponent,
     VendorCardComponent,
     OrdersPageComponent,
     OrderCardComponent,

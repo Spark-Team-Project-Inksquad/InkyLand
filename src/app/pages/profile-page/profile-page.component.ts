@@ -19,11 +19,6 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 export class ProfilePageComponent implements OnInit {
   public userToken: string;
   public profile: any = null;
-  public offers: any[] = [];
-  public documents: any[] = [];
-
-  public pending_orders: any = [];
-  public in_progress_orders: any = [];
 
   // DEBUG dummy order
   /**
@@ -47,27 +42,6 @@ export class ProfilePageComponent implements OnInit {
         }
     }
   **/
-  // Dummy order for DEBUG
-  public dummy_order: any = {
-    id: 6,
-    address: "",
-    orderer: 9,
-    documents: [],
-    lat: null,
-    lon: null,
-    pickup: false,
-    shipping: false,
-    printing_offer: {
-      id: 6,
-      owner: 10,
-      printerName: "Test Printer",
-      printer: 1,
-      minPrice: "0.00",
-      maxPrice: "100.00",
-      note: "I don't like little kid drawings to print"
-    }
-  };
-
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
@@ -85,10 +59,6 @@ export class ProfilePageComponent implements OnInit {
       if (data !== null) {
         this.userToken = token;
         this.getProfile();
-        this.getDocuments();
-        this.getAuthOffers();
-        this.getPendingOrders();
-        this.getProgressOrders();
       }
     });
   }
@@ -103,52 +73,5 @@ export class ProfilePageComponent implements OnInit {
     this.api.getProfile(this.userToken).subscribe(profile => {
       this.profile = profile;
     });
-  }
-
-  //retrieves a list of documents that the user has
-  getDocuments() {
-    this.api.getUserDocuments(this.userToken).subscribe(documents => {
-      this.documents = documents;
-      console.log("DOCUMENTS");
-      console.log(this.documents);
-    });
-  }
-
-  //deletes the selected document
-  deleteDocument(document_id: number) {
-    this.api.deleteDocument(this.userToken, document_id).subscribe(res => {
-      this.getDocuments();
-    });
-  }
-
-  //retrieves all the offers of this specific user
-  getAuthOffers() {
-    this.api.getPrintingOffersForUser(this.userToken, true).subscribe(data => {
-      console.log(data);
-      this.offers = <any[]>data;
-    });
-  }
-
-  //retrieves all the pending orders that the owner has yet to fulfill
-  getPendingOrders() {
-    this.api.getPendingOrders(this.userToken).subscribe(data => {
-      console.log("pending orders");
-      console.log(data);
-      this.pending_orders = <any[]>data;
-    });
-  }
-  //retrieves all the in progress orders that the owner is waiting on
-  getProgressOrders() {
-    this.api.getInProgressOrders(this.userToken).subscribe(data => {
-      console.log("in progress orders");
-      console.log(data);
-      this.in_progress_orders = <any[]>data;
-    });
-  }
-
-  //creates a printing offer
-  createPrintingOffer() {
-    //redirect to the printing offer creation page
-    this.router.navigate(["/printing-offer/create"]);
   }
 }
