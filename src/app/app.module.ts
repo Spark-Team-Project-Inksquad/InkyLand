@@ -24,18 +24,23 @@ import { VendorCardComponent } from "./sub-components/vendor-card/vendor-card.co
 import { OrdersPageComponent } from "./pages/orders-page/orders-page.component";
 import { OrderCardComponent } from "./sub-components/order-card/order-card.component";
 import { FavoritesPageComponent } from "./pages/favorites-page/favorites-page.component";
+
+//Chat
 import { MessagePageComponent } from "./pages/message-page/message-page.component";
 import { MessageProfileCardComponent } from "./sub-components/message-profile-card/message-profile-card.component";
 import { MessageBubbleComponent } from "./sub-components/message-bubble/message-bubble.component";
+
+//Modals
 import { LoginModalComponent } from "./modals/login-modal/login-modal.component";
 import { OrderModalComponent } from "./modals/order-modal/order-modal.component";
+import { PlaceOrderModalComponent } from "./modals/place-order-modal/place-order-modal.component";
 
-//filter component 
-import { PrintTypeFilterComponent } from './sub-components/filter-popovers/print-type-filter/print-type-filter.component';
-import { DistanceFilterComponent } from './sub-components/filter-popovers/distance-filter/distance-filter.component';
-import { ShippingFilterComponent } from './sub-components/filter-popovers/shipping-filter/shipping-filter.component';
-import { QuantityFilterComponent } from './sub-components/filter-popovers/quantity-filter/quantity-filter.component';
-import { PriceFilterComponent } from './sub-components/filter-popovers/price-filter/price-filter.component';
+//filter component
+import { PrintTypeFilterComponent } from "./sub-components/filter-popovers/print-type-filter/print-type-filter.component";
+import { DistanceFilterComponent } from "./sub-components/filter-popovers/distance-filter/distance-filter.component";
+import { ShippingFilterComponent } from "./sub-components/filter-popovers/shipping-filter/shipping-filter.component";
+import { QuantityFilterComponent } from "./sub-components/filter-popovers/quantity-filter/quantity-filter.component";
+import { PriceFilterComponent } from "./sub-components/filter-popovers/price-filter/price-filter.component";
 
 @NgModule({
   declarations: [
@@ -66,7 +71,8 @@ import { PriceFilterComponent } from './sub-components/filter-popovers/price-fil
     DistanceFilterComponent,
     ShippingFilterComponent,
     QuantityFilterComponent,
-    PriceFilterComponent
+    PriceFilterComponent,
+    PlaceOrderModalComponent
   ],
   imports: [
     BrowserModule,
