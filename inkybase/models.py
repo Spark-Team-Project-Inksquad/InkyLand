@@ -72,6 +72,22 @@ class Document(models.Model):
 
         super(Document, self).delete(*args, **kwargs)
 
-# Order model
+# Vendor Spec
+class VendorSpec(models.Model):
+    owner = models.ForeignKey(Account, on_delete = models.CASCADE)
+    type_of_print = models.CharField(max_length = 255)
+    material = models.CharField(max_length = 255)
+    transport = models.CharField(max_length = 255)
+    price_per = models.DecimalField(max_digits = 5, decimal_places = 2)
+    additional_info = models.TextField()
+
+# TODO Order model
 class Order(models.Model):
+
+    pass
+
+class Chat(models.Model):
+    pass
+
+class ChatMessage(models.Model):
     pass
