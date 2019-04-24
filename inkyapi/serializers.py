@@ -1,6 +1,6 @@
 from rest_framework import serializers
 import os
-from inkybase.models import Account, FavoriteVendor, Order, Document, VendorReview
+from inkybase.models import Account, VendorSpec, Chat, ChatMessage, FavoriteVendor, Order, Document, VendorReview
 from django.contrib.auth.models import User
 
 from django.conf import settings
@@ -62,7 +62,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ('id', 'owner', 'uploaded_file')
+        fields = ('id', 'order', 'uploaded_file')
 
 
 class DocumentDetailedSerializer(serializers.ModelSerializer):
@@ -84,10 +84,25 @@ class DocumentDetailedSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id', 'address', 'orderer', 'documents', 'lat', 'lon', 'pickup', 'shipping', 'printing_offer')
+        fields = ('id', 'completed', 'progression', 'quantity', 'vendor_spec', 'vendor', 'customer')
 
 class OrderDetailedSerializer(serializers.ModelSerializer):
     documents = DocumentSerializer(many = True)
 
     class Meta(OrderSerializer.Meta):
         pass
+
+class VendorSpecSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VendorSpec
+        fields = ('id', 'owner', 'type_of_print', 'material', 'transport', 'price_per', 'additional_info')
+
+class ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ('id', 'order', 'customer', 'vendor')
+
+class ChatMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatMessage
+        fields = ('id', 'from_account', 'to_account', 'message')
