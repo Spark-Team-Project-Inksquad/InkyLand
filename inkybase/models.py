@@ -34,7 +34,7 @@ class Account(models.Model):
         super(Account, self).delete(*args, **kwargs)
 
     def __str__(self):
-        return self.user.username + " Account"
+        return self.user.username + " Account " + "(" + str(self.id) + ")";
 
 # Create an Account if a user is created
 @receiver(post_save, sender=User)
