@@ -59,9 +59,39 @@ class VendorReview(models.Model):
 
     score = models.IntegerField(default = 0)
 
+# Vendor Spec
+class VendorSpec(models.Model):
+    owner = models.ForeignKey(Account, on_delete = models.CASCADE)
+    type_of_print = models.CharField(max_length = 255)
+    material = models.CharField(max_length = 255)
+    transport = models.CharField(max_length = 255)
+    price_per = models.DecimalField(max_digits = 5, decimal_places = 2)
+    additional_info = models.TextField(blank = True, null = True)
+
+# TODO Order model
+class Order(models.Model):
+    completed = models.BooleanField(default = False)
+    progression = models.IntegerField(default = 1)
+    quantity = models.IntegerField(default = 1)
+    vendor_spec = models.ForeignKey(VendorSpec, on_delete = models.CASCADE)
+    vendor = models.ForeignKey(Account, on_delete = models.CASCADE, related_name ="vendor_orders")
+    customer = models.ForeignKey(Account, on_delete = models.CASCADE, related_name = "customer_orders")
+
+
+class Chat(models.Model):
+    order = models.ForeignKey(Order, on_delete = models.CASCADE)
+    customer = models.ForeignKey(Account, on_delete = models.CASCADE, related_name = "customer_chats")
+    vendor = models.ForeignKey(Account, on_delete = models.CASCADE, related_name = "vendor_chats")
+
+class ChatMessage(models.Model):
+    from_account = models.ForeignKey(Account, on_delete = models.CASCADE, related_name = "messages_sent")
+    to_account = models.ForeignKey(Account, on_delete = models.CASCADE, related_name = "messages_recieved")
+    message = models.TextField(blank = True, null = True)
+
+
 # Document itself
 class Document(models.Model):
-    owner = models.ForeignKey(Account, on_delete = models.CASCADE)
+    order = models.ForeignKey(Order, on_delete = models.CASCADE)
     uploaded_file = models.FileField(upload_to = 'uploads')
 
     def delete(self, *args, **kwargs):
@@ -71,23 +101,3 @@ class Document(models.Model):
             os.remove(file_path)
 
         super(Document, self).delete(*args, **kwargs)
-
-# Vendor Spec
-class VendorSpec(models.Model):
-    owner = models.ForeignKey(Account, on_delete = models.CASCADE)
-    type_of_print = models.CharField(max_length = 255)
-    material = models.CharField(max_length = 255)
-    transport = models.CharField(max_length = 255)
-    price_per = models.DecimalField(max_digits = 5, decimal_places = 2)
-    additional_info = models.TextField()
-
-# TODO Order model
-class Order(models.Model):
-
-    pass
-
-class Chat(models.Model):
-    pass
-
-class ChatMessage(models.Model):
-    pass
