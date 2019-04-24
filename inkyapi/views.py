@@ -12,8 +12,8 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 # Models + Serializers
-from .serializers import ProfileSerializer, DetailedFavoriteVendorSerializer, OrderDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, OrderSerializer, DocumentDetailedSerializer, DocumentSerializer, VendorReviewSerializer
-from inkybase.models import Account, FavoriteVendor, Order, Document,VendorReview
+from .serializers import ProfileSerializer, VendorSpecSerializer, DetailedFavoriteVendorSerializer, OrderDetailedSerializer, UserSerializer, AccountSerializer, FavoriteVendorSerializer, OrderSerializer, DocumentDetailedSerializer, DocumentSerializer, VendorReviewSerializer
+from inkybase.models import Account, FavoriteVendor, Order, Document,VendorReview, VendorSpec
 from django.contrib.auth.models import User
 
 # forms
@@ -244,6 +244,7 @@ class FavoriteVendorViewSet(viewsets.ViewSet):
             selected_favorite.delete()
             return Response({'status': 'deleted', 'message': 'favorite vendor Deleted'})
 
+# NOTE rework
 class OrderViewSet(viewsets.ModelViewSet):
     '''
     Viewsets for viewing and editing order instances
@@ -361,6 +362,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         serializer = OrderDetailedSerializer(orders, many = True)
         return Response(serializer.data)
 
+# Rework
 class DocumentViewSet(viewsets.ModelViewSet):
     '''
     Viewsets for viewing and editing account instances
@@ -385,3 +387,42 @@ class VendorReviewViewSet(viewsets.ModelViewSet):
 
     serializer_class = VendorReviewSerializer
     queryset = VendorReview.objects.all()
+
+
+class VendorSpecViewset(viewsets.ModelViewSet):
+    '''
+    Viewset that handles CRUD for vendor specs
+    '''
+
+    serializer_class = VendorSpecSerializer
+    queryset = VendorSpec.objects.all()
+
+    # Creation of Vendor Spec for (AUTH) Vendor
+    @permission_classes((IsAuthenticated, ))
+    def create(self, request):
+
+
+        pass
+
+    # Deletion of Vendor Spec for (AUTH Vendor
+    @permission_classes((IsAuthenticated, ))
+    def destroy(self, request, pk=None):
+        auth_user = request.user
+        vendor_spec = self.get_object()
+
+        # check permissions
+        if (vendor_spec.owner.id != auth_user.account.id):
+            return Response({'message': 'Not Authorized!'}, status = status.HTTP_401_UNAUTHORIZED)
+
+        vendorSerialized = VendorSpecSerializer(vendor_spec)
+        vendor_spec.delete()
+        return Response({'message':'spec deleted'}, status = status.HTTP_200_OK)
+
+
+    # Viewing Vendor Spec
+    # Implemented as part of spec
+
+
+    # Editting Vendor Spec (AUTH)
+    def update(self, request, pk=None):
+        pass

@@ -7,6 +7,7 @@ from rest_framework.routers import SimpleRouter, DefaultRouter
 
 router = DefaultRouter()
 router.register(r'accounts', views.AccountViewSet)
+router.register(r'vendorspecs', views.VendorSpecViewset)
 router.register(r'users', views.UserViewSet, base_name = "User")
 router.register(r'profiles', views.ProfileViewSet, base_name="Profile")
 router.register(r'favorite-vendors', views.FavoriteVendorViewSet)
