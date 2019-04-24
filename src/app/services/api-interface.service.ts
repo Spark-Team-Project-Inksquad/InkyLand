@@ -258,6 +258,22 @@ export class ApiInterfaceService {
     return updateProfileObservable;
   }
 
+  //VendorSpec CRUD
+
+  //Vendor Spec retrieval
+  getVendorSpecs() {
+
+    //api request path
+    let request_path = "/api/vendorspecs/";
+
+    //create the http observable (GET)
+    let getVendorSpecObservable = this.http
+      .get(this.endpoint + request_path)
+      .pipe(share());
+
+    //return the completed request async
+    return getVendorSpecObservable;
+  }
 
   // Orders CRUD
   getOrder(userToken: string, order_id: number) {
@@ -514,4 +530,6 @@ export class ApiInterfaceService {
     //return observable
     return favoriteVendorObservable;
   }
+
+
 }

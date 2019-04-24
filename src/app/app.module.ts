@@ -9,7 +9,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { NavigationComponent } from "./sub-components/navigation/navigation.component";
-import { LoginPageComponent } from "./pages/login-page/login-page.component";
 import { ProfilePageComponent } from "./pages/profile-page/profile-page.component";
 import { EditProfilePageComponent } from "./pages/edit-profile-page/edit-profile-page.component";
 
@@ -35,6 +34,11 @@ import { ShippingFilterComponent } from "./sub-components/filter-popovers/shippi
 import { QuantityFilterComponent } from "./sub-components/filter-popovers/quantity-filter/quantity-filter.component";
 import { PriceFilterComponent } from "./sub-components/filter-popovers/price-filter/price-filter.component";
 
+//Vendor Spec
+import { VendorSpecViewComponent } from './pages/vendor-spec-view/vendor-spec-view.component';
+import { VendorSpecCardComponent } from './sub-components/vendor-spec-card/vendor-spec-card.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +60,9 @@ import { PriceFilterComponent } from "./sub-components/filter-popovers/price-fil
     ShippingFilterComponent,
     QuantityFilterComponent,
     PriceFilterComponent,
-    PlaceOrderModalComponent
+    PlaceOrderModalComponent,
+    VendorSpecViewComponent,
+    VendorSpecCardComponent
   ],
   imports: [
     BrowserModule,

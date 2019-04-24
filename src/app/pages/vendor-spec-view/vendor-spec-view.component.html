@@ -1,0 +1,13 @@
+<div class = "vendor-spec-view container-fluid">
+
+  <!-- Add Vendor specification button -->
+  <div *ngIf = 'auth_profile' class = "vendor-spec-add">
+    <button *ngIf = "auth_profile.id == vendor_id" class = "btn btn-success">Add Vendor Spec</button>
+  </div>
+
+  <!-- Render vendor specs -->
+  <div class = "vendor-spec-list">
+
+  </div>
+
+</div>

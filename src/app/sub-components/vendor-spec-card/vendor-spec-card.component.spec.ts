@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterPageComponent } from './register-page.component';
+import { VendorSpecCardComponent } from './vendor-spec-card.component';
 
-describe('RegisterPageComponent', () => {
-  let component: RegisterPageComponent;
-  let fixture: ComponentFixture<RegisterPageComponent>;
+describe('VendorSpecCardComponent', () => {
+  let component: VendorSpecCardComponent;
+  let fixture: ComponentFixture<VendorSpecCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterPageComponent ]
+      declarations: [ VendorSpecCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterPageComponent);
+    fixture = TestBed.createComponent(VendorSpecCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

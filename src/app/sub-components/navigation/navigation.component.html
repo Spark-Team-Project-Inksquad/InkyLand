@@ -57,9 +57,10 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Profile
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/profile">View</a>
             <a class = "dropdown-item" href = "/edit-profile">Edit</a>
+            <a *ngIf = "profile.isVendor" class = "dropdown-item" href = "/vendor-specs/{{profile.id}}">Your Vendor Specs</a>
             <a class="dropdown-item" href="#" (click) = "logOutAction()">Log Out</a>
           </div>
         </li>
