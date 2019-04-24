@@ -7,7 +7,9 @@
 
   <!-- Render vendor specs -->
   <div class = "vendor-spec-list">
-
+    <div *ngFor = "vendor_spec in vendor_specs">
+      <vendor-spec-card></vendor-spec-card>
+    </div>
   </div>
 
 </div>
