@@ -400,9 +400,13 @@ class VendorSpecViewset(viewsets.ModelViewSet):
     # Creation of Vendor Spec for (AUTH) Vendor
     @permission_classes((IsAuthenticated, ))
     def create(self, request):
+        vendorSpecSerialized = VendorSpecSerializer(data=request.data)
 
-
-        pass
+        if (vendorSpecSerialized.is_valid()):
+            vendorSpecSerialized.save()
+            return Response(vendorSpecSerialized.data, status = status.HTTP_201_CREATED)
+        else:
+            return Response(vendorSpecSerialized.errors, status = status.HTTP_400_BAD_REQUEST)
 
     # Deletion of Vendor Spec for (AUTH Vendor
     @permission_classes((IsAuthenticated, ))
@@ -422,7 +426,23 @@ class VendorSpecViewset(viewsets.ModelViewSet):
     # Viewing Vendor Spec
     # Implemented as part of spec
 
-
     # Editting Vendor Spec (AUTH)
     def update(self, request, pk=None):
+        auth_user = request.user
+        vendor_spec = self.get_object()
+
+        # check permissions
+        if (vendor_spec.owner.id != auth_user.account.id):
+            return Response({'message': 'Not Authorized!'}, status = status.HTTP_401_UNAUTHORIZED)
+
+        vendorspec_serializer = VendorSpecSerializer(vendor_spec, data = request.data, partial = True)
+
+        if (vendorspec_serializer.is_valid()):
+            print ("valid!")
+            vendorspec_serializer.save()
+            return JsonResponse(vendorspec_serializer.data)
+        else:
+            print (vendorspec_serializer.errors)
+            return JsonResponse(vendorspec_serializer.errors, status=400)
+
         pass
