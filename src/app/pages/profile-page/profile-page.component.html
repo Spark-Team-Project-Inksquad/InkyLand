@@ -15,15 +15,22 @@
       <p *ngIf = "!profile.isVendor" class = "info-text">Customer</p>
     </div>
 
+
+    <div class = "username-info info-section">
+      <p class = "info-label">Username:</p>
+      <p class = "info-text"> {{profile.user.username}}</p>
+    </div>
+
     <div class = "name-info info-section">
       <p class = "info-label">Name</p>
       <p class = "info-text">{{profile.user.first_name}} {{profile.user.last_name}}</p>
       <p *ngIf = "'' == profile.user.first_name + profile.user.last_name" class = "info-text">N/A </p>
     </div>
 
-    <div class = "username-info info-section">
-      <p class = "info-label">Username:</p>
-      <p class = "info-text"> {{profile.user.username}}</p>
+    <div class = "address-info info-section">
+      <p class = "info-label">Address</p>
+      <p class = "info-text">{{profile.address}}</p>
+      <p *ngIf = "'' == profile.address" class = "info-text">N/A </p>
     </div>
 
     <div class = "email-info info-section">

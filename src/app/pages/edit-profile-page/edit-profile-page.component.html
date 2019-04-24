@@ -15,7 +15,7 @@
         <div class = "col-sm-4">
           <p>New Image Preview: </p>
           <img width ="150" *ngIf = "profile_image" class = "img-fluid rounded-circle" [src] = "getPreviewImage()"/>
-          <p *ngIf = "!profile_image">N/A</p>  
+          <p *ngIf = "!profile_image">N/A</p>
         </div>
       </div>
 
@@ -31,31 +31,39 @@
       <input [(ngModel)] = "profile.user.username" class = "form-control" type = "text" name = "username" id = "username-input"/>
     </div>
 
+
+    <!-- First + Last Name -->
+    <div class = "edit-info-section-name row">
+
+        <!-- First Name -->
+
+        <div class = "col-sm-6 form-group">
+          <label class = "info-label" for = "first-name-input">First Name:</label>
+          <input [(ngModel)] = "profile.user.first_name" class = "form-control" type = "text" name = "first_name" id = "first-name-input"/>
+        </div>
+
+        <!-- Last Name -->
+        <div class = "col-sm-6  form-group">
+          <label class = "info-label" for = "last-name-input">Last Name:</label>
+          <input [(ngModel)] = "profile.user.last_name" class = "form-control" type = "text" name = "last_name" id = "last-name-input"/>
+        </div>
+
+    </div>
+
+
+
+    <!-- Address -->
+    <div class = "edit-info-section form-group">
+      <label class = "info-label" for = "address-input">Address: </label>
+      <input [(ngModel)] = "profile.address" class = "form-control" type = "text" name = "address" id = "address-input"/>
+    </div>
+
     <!-- Email -->
 
     <div class = "edit-info-section form-group">
       <label class = "info-label" for = "email-input">Email:</label>
       <input [(ngModel)] = "profile.user.email" class = "form-control" type = "text" name = "email" id = "email-input"/>
     </div>
-
-    <!-- First + Last Name -->
-    <div class = "edit-info-section-name row">
-
-          <!-- First Name -->
-
-          <div class = "col-sm-6 form-group">
-            <label class = "info-label" for = "first-name-input">First Name:</label>
-            <input [(ngModel)] = "profile.user.first_name" class = "form-control" type = "text" name = "first_name" id = "first-name-input"/>
-          </div>
-
-          <!-- Last Name -->
-          <div class = "col-sm-6  form-group">
-            <label class = "info-label" for = "last-name-input">Last Name:</label>
-            <input [(ngModel)] = "profile.user.last_name" class = "form-control" type = "text" name = "last_name" id = "last-name-input"/>
-          </div>
-
-      </div>
-
 
     <!-- Phone Number -->
 
