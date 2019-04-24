@@ -14,14 +14,14 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ('id', 'user', 'profile_img', 'phone_number', 'bio', 'isVendor')
+        fields = ('id', 'user', 'profile_img', 'address', 'phone_number', 'bio', 'isVendor')
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
         model = Account
-        fields = ('id', 'user', 'profile_img', 'phone_number', 'bio', 'isVendor')
+        fields = ('id', 'user', 'profile_img', 'address', 'phone_number', 'bio', 'isVendor')
 
     # Updates the Profile
     def update(self, instance, validated_data):

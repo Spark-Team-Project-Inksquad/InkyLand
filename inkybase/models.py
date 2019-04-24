@@ -19,6 +19,7 @@ class Account(models.Model):
     # with validation
     profile_img = models.ImageField(upload_to = 'media/uploads/', null = True)
     phone_number = models.CharField(blank=True, max_length = 11)
+    address = models.CharField(blank = True, max_length = 255)
     bio = models.TextField(blank = True)
 
     # is the account a vendor or not?
