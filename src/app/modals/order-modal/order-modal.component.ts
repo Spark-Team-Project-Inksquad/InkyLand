@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output } from "@angular/core";
 
+//api
+import { HttpClient } from "@angular/common/http";
+import { ApiInterfaceService } from "../../services/api-interface.service";
+
+//jquery
 declare var $: any;
 
 @Component({
@@ -10,7 +15,7 @@ declare var $: any;
 export class OrderModalComponent implements OnInit {
   @Input() vendorInfo: any;
 
-  constructor() {}
+  constructor(private api: ApiInterfaceService) {}
 
   ngOnInit() {}
 

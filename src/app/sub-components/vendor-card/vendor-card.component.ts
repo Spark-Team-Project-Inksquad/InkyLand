@@ -54,6 +54,7 @@ export class VendorCardComponent implements OnInit {
 
     //dummy data functions
     this.bestRetVendorSpec();
+    this.vendorInfo["distance"] = this.distance;
   }
 
   ngAfterViewInit() {}

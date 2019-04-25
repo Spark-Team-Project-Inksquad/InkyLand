@@ -4,7 +4,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{vendorInfo}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -14,20 +14,20 @@
         <div class = "row">
           <div class = "col-sm-3">
             <!-- Profile picture -->
-            <img class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
+            <img *ngIf = "!vendorInfo.profile_img" class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
+            <img *ngIf = "vendorInfo.profile_img" class = "rounded-circle img-fluid" src = "{{api.getEndpoint() + vendorInfo.profile_img}}"/>
           </div>
 
           <div class = "col-sm-6">
             <!-- Vendor info -->
             <div class = "vendor-info">
-              <h1>Vendor Name</h1>
+              <h1>{{vendorInfo.user.username}}</h1>
               <div class = "vendor-info-content">
-                <p>- Lorem Ipsum</p>
-                <p>- Lorem Ipsum</p>
-                <p>- Lorem Ipsum</p>
-                <p>- Lorem Ipsum</p>
-
-              </div>
+                <p>- {{vendorInfo.best_spec.material}} Material</p>
+                <p>
+                  {{vendorInfo.additional_info}}
+                </p>
+                </div>
             </div>
 
           </div>
@@ -60,8 +60,8 @@
             <img class = "distance distance-icon img-fluid" width = "50"  src = "/assets/icons/place-icon.svg" />
 
             <!-- Extra Info -->
-            <p class = "distance miles-away">Miles away</p>
-            <p class = "distance address">address</p>
+            <p class = "distance miles-away"> {{vendorInfo.distance}} Miles away</p>
+            <p class = "distance address">{{vendorInfo.address}}</p>
 
           </div>
           <div class = "text-center col-sm-4">
@@ -71,7 +71,7 @@
             <button class = "btn btn-lg btn-block  btn-default btn-price">Price</button>
 
             <!-- Material Price -->
-            <p class = "price cost-per">$0.00/material</p>
+            <p class = "price cost-per">${{vendorInfo.best_spec.price_per}} / piece</p>
 
           </div>
 
@@ -84,11 +84,12 @@
 
 
             <!-- Type of transport -->
-            <p class = "transport transport-type">Type of Transportation</p>
+            <p class = "transport transport-type">{{vendorInfo.best_spec.transport}}</p>
 
             <!-- Subtitle -->
+            <!--
             <p class = "transport transport-subtitle">Subtitle</p>
-
+          -->
           </div>
 
         </div>
