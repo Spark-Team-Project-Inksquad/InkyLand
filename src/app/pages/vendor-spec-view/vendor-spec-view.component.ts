@@ -15,6 +15,9 @@ import { map, share, catchError } from "rxjs/operators";
 import { from } from "rxjs";
 import { Observable } from "rxjs";
 
+//Jquery
+declare var $: any;
+
 @Component({
   selector: "app-vendor-spec-view",
   templateUrl: "./vendor-spec-view.component.html",

@@ -274,6 +274,26 @@ export class ApiInterfaceService {
     return getVendorSpecObservable;
   }
 
+  //creates the vendor spec
+  createVendorSpec(userToken: string, vendor_spec_payload: any) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request path
+    let request_path = "http://localhost:8000/api/vendorspecs/";
+
+    //observable (POST)
+    //observable API request (POST)
+    let createVendorSpecObservable: Observable<any> = this.http
+      .post(this.endpoint + request_path, vendor_spec_payload, httpOptions)
+      .pipe(share());
+
+    //return observable for use
+    return createVendorSpecObservable;
+  }
+
   //deletes the vendor spec
   deleteVendorSpec(userToken: string, vendor_spec_id: number) {
     //auth headers config
