@@ -54,4 +54,5 @@
   </div>
 
 </div>
-<order-modal [vendorInfo] = 'this.selected_vendor'></order-modal>
+
+<order-modal *ngIf = "this.selected_vendor" [vendorInfo] = 'this.selected_vendor'></order-modal>

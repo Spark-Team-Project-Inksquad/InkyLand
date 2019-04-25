@@ -140,6 +140,7 @@ export class HomePageComponent implements OnInit {
         .subscribe(res => {
           console.log(res);
           this.updateVendorData();
+          location.reload(true);
         });
     } else if (e == false) {
       //retrieve the favorite vendor
@@ -156,6 +157,7 @@ export class HomePageComponent implements OnInit {
         .subscribe(res => {
           console.log(res);
           this.updateVendorData();
+          location.reload(true);
         });
     }
   }
