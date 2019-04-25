@@ -26,8 +26,44 @@ export class OrdersPageComponent implements OnInit {
   private orders: any;
   private vendors: any;
   private vendorSpecs: any;
+  private profile: any;
+  private userToken: any;
 
-  constructor(private api: ApiInterfaceService) {}
+
+  constructor(private api: ApiInterfaceService, private tokenStore: TokenStorageService) {}
+
+
+  authenticateAndRetrieveProfile() {
+      //gets the user token
+      console.log("TOKEN");
+
+      let promise = new Promise((resolve, reject) => {
+
+        this.tokenStore.getToken().subscribe(data => {
+          let token = data as string;
+          if (data !== null) {
+            this.userToken = token;
+            let nex = this.getProfile();
+            nex.toPromise().then (()=> {
+              resolve(true);
+            })
+          }
+        });
+      })
+
+      return promise;
+
+  }
+
+  //retrieves the account from the backend server
+  getProfile() {
+    let observable = this.api.getProfile(this.userToken).pipe(share());
+    observable.subscribe(profile => {
+      this.profile = profile;
+    });
+    return observable;
+  }
+
 
   getOrders() {
     let observable = this.api.getOrders().pipe(share());
@@ -64,7 +100,8 @@ export class OrdersPageComponent implements OnInit {
     var allOfThem = [
       this.getOrders().toPromise(),
       this.getVendors().toPromise(),
-      this.getVendorSpecs().toPromise()
+      this.getVendorSpecs().toPromise(),
+      this.authenticateAndRetrieveProfile()
     ];
 
     //adding additional info
@@ -83,7 +120,16 @@ export class OrdersPageComponent implements OnInit {
         });
       });
 
-      console.log(this.orders);
+      this.orders = this.orders.filter((order) => {
+        let orderValid = false;
+
+        if (order.customer == this.profile.id) {
+          orderValid = true;
+        }
+
+        return orderValid;
+      })
+
     });
   }
 }
