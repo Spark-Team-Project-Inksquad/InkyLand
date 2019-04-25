@@ -326,6 +326,17 @@ export class ApiInterfaceService {
     return placeOrderObservable;
   }
 
+  getOrders() {
+    //request_path
+    let request_path = "/api/orders/";
+
+    let getOrdersObservable: Observable<any> = this.http
+      .get(this.endpoint + request_path)
+      .pipe(share());
+
+    return getOrdersObservable;
+  }
+
   //Document CRUD
 
   //returns the document link for a given document

@@ -1,3 +1,11 @@
 <div class = "container">
-  <order-card></order-card>
+
+  <div class = "orders-list">
+
+    <div  *ngFor = "let order of orders;">
+
+      <order-card [order] = 'order'></order-card>
+
+    </div>
+  </div>
 </div>

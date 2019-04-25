@@ -11,21 +11,24 @@
       <!-- Header -->
       <div class = "tracking-progress">
         <span class = "display-large"><b>Tracking Progress</b></span><br>
-        <span class = "display-sub">Progress Description</span>
+        <span class = "display-sub"></span>
       </div>
 
       <div class = "row">
         <div class = "col-sm-2">
-            <img class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
+            <img *ngIf = '!order.vendorInfo.profile_img' class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
+            <img *ngIf = 'order.vendorInfo.profile_img' class = "rounded-circle img-fluid" src = "{{api.getEndpoint() + order.vendorInfo.profile_img}}"/>
+
         </div>
 
         <div class = "col-sm-7">
           <div class = "vendor-info">
-            <span>Vendor Name</span>
+            <span>Vendor: {{order.vendorInfo.user.username}}</span>
             <br>
-            <span>Other Specs</span>
+            <span>Transport: {{order.specInfo.transport}}</span>
+            <span>{{order.specInfo.additional_info}}</span>
             <br>
-            <span>Price</span>
+            <span>Price: ${{order.specInfo.price_per}} / item</span>
           </div>
         </div>
 

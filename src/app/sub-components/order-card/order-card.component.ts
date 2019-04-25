@@ -1,4 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, Output } from "@angular/core";
+
+// Api lib
+import { HttpClient } from "@angular/common/http";
+import { ApiInterfaceService } from "../../services/api-interface.service";
 
 @Component({
   selector: "order-card",
@@ -6,7 +10,9 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./order-card.component.scss"]
 })
 export class OrderCardComponent implements OnInit {
-  constructor() {}
+  @Input() order;
+
+  constructor(private api: ApiInterfaceService) {}
 
   ngOnInit() {}
 }
