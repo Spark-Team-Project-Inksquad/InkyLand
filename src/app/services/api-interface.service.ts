@@ -282,7 +282,7 @@ export class ApiInterfaceService {
     };
 
     //request path
-    let request_path = "http://localhost:8000/api/vendorspecs/";
+    let request_path = "/api/vendorspecs/";
 
     //observable (POST)
     //observable API request (POST)

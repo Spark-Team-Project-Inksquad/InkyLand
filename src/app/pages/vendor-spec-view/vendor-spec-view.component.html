@@ -2,14 +2,19 @@
 
   <!-- Add Vendor specification button -->
   <div *ngIf = 'auth_profile' class = "vendor-spec-add">
-    <button *ngIf = "auth_profile.id == vendor_id" class = "btn btn-success">Add Vendor Spec</button>
+    <button (click) = 'startVendorSpecModal()' *ngIf = "auth_profile.id == vendor_id" class = "btn btn-success">Add Vendor Spec</button>
   </div>
 
   <!-- Render vendor specs -->
   <div class = "vendor-spec-list">
     <div *ngFor = "let vendor_spec of vendor_specs">
       <vendor-spec-card (deleteVendorSpecEmitter) = 'deleteVendorSpec($event, vendor_spec.id)' [isAuth] = 'auth_profile.id == vendor_id' [vendor_spec] = 'vendor_spec'></vendor-spec-card>
+      <br>
     </div>
   </div>
 
+</div>
+
+<div *ngIf = 'auth_profile'>
+  <create-vendor-spec-modal (vendorSpecCreationEmitter) = 'createVendorSpec($event)' [auth_profile] = 'auth_profile'></create-vendor-spec-modal>
 </div>

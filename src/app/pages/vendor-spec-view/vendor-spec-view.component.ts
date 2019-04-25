@@ -112,4 +112,29 @@ export class VendorSpecViewComponent implements OnInit {
         }
       });
   }
+
+  startVendorSpecModal() {
+    var modal: any = $("#createSpecModal");
+    modal.modal();
+  }
+
+  //TODO creates the vendor spec
+  createVendorSpec(e) {
+    let new_vendor_spec_payload = e;
+
+    this.api
+      .createVendorSpec(this.token as string, new_vendor_spec_payload as any)
+      .subscribe({
+        next: data => {
+          console.log("CREATE success");
+
+          //refresh the page
+          location.reload(true);
+        },
+        error: err => {
+          console.log(err);
+          console.log("unable to create vendor spec");
+        }
+      });
+  }
 }

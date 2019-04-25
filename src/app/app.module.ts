@@ -26,6 +26,7 @@ import { MessageBubbleComponent } from "./sub-components/message-bubble/message-
 import { LoginModalComponent } from "./modals/login-modal/login-modal.component";
 import { OrderModalComponent } from "./modals/order-modal/order-modal.component";
 import { PlaceOrderModalComponent } from "./modals/place-order-modal/place-order-modal.component";
+import { CreateVendorSpecModalComponent } from "./modals/create-vendor-spec-modal/create-vendor-spec-modal.component";
 
 //filter component
 import { PrintTypeFilterComponent } from "./sub-components/filter-popovers/print-type-filter/print-type-filter.component";
@@ -35,9 +36,8 @@ import { QuantityFilterComponent } from "./sub-components/filter-popovers/quanti
 import { PriceFilterComponent } from "./sub-components/filter-popovers/price-filter/price-filter.component";
 
 //Vendor Spec
-import { VendorSpecViewComponent } from './pages/vendor-spec-view/vendor-spec-view.component';
-import { VendorSpecCardComponent } from './sub-components/vendor-spec-card/vendor-spec-card.component';
-
+import { VendorSpecViewComponent } from "./pages/vendor-spec-view/vendor-spec-view.component";
+import { VendorSpecCardComponent } from "./sub-components/vendor-spec-card/vendor-spec-card.component";
 
 @NgModule({
   declarations: [
@@ -62,7 +62,8 @@ import { VendorSpecCardComponent } from './sub-components/vendor-spec-card/vendo
     PriceFilterComponent,
     PlaceOrderModalComponent,
     VendorSpecViewComponent,
-    VendorSpecCardComponent
+    VendorSpecCardComponent,
+    CreateVendorSpecModalComponent
   ],
   imports: [
     BrowserModule,

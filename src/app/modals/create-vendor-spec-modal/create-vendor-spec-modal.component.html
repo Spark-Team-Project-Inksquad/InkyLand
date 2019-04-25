@@ -1,0 +1,77 @@
+<div class="modal fade" id="createSpecModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <!-- Order Modal -->
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Spec</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- Creation form -->
+        <form class = "vendor-spec-form" (ngSubmit) = "submitVendorSpec()" #vendorSpecForm="ngForm">
+
+          <!-- Price Per Material -->
+          <div class = "form-group">
+            <label class = "info-label" for = "price-per-input">Price Per Material ($):</label>
+            <input type = "number" [(ngModel)] = "vendor_spec_model.price_per" class = "style-input form-control"  name = "price_per" id = "price-per-input"/>
+          </div>
+
+          <!-- Print Type -->
+
+          <div class = "form-group">
+            <label class = "info-label" for = "type-of-print-input">Print Type:</label>
+            <select [(ngModel)] = "vendor_spec_model.type_of_print" class = "style-input form-control" type = "text" name = "type_of_print" id = "type-of-print-input">
+              <option value = "2D">2D</option>
+              <option value = "3D">3D</option>
+            </select>
+          </div>
+
+          <!-- Material -->
+
+          <div class = "form-group">
+            <label class = "info-label" for = "material-input">Material:</label>
+            <select *ngIf = "vendor_spec_model.type_of_print == '2D'" [(ngModel)] = "vendor_spec_model.material" class = "style-input form-control" type = "text" name = "material" id = "material-input">
+
+                <option value = "B&W">B&W</option>
+                <option value = "Color">Color</option>
+
+            </select>
+
+            <select *ngIf = "vendor_spec_model.type_of_print == '3D'" [(ngModel)] = "vendor_spec_model.material" class = "style-input form-control" type = "text" name = "material" id = "material-input">
+                <option value = "PLA">PLA</option>
+                <option value = "PVA">PVA</option>
+            </select>
+
+          </div>
+
+          <!-- Transport -->
+
+          <div class = "form-group">
+            <label class = "info-label" for = "transport-input">Transport:</label>
+            <select  [(ngModel)] = "vendor_spec_model.transport" class = "style-input form-control" type = "text" name = "transport" id = "transport-input">
+              <option value = "Pickup">Pickup</option>
+              <option value = "Shipping">Shipping</option>
+              <option value = "Either">Either</option>
+            </select>
+          </div>
+
+          <!-- Addition Info -->
+          <div class = "form-group">
+            <label class = "info-label" for = "additional_info-input">Additional Info:</label>
+            <textarea [(ngModel)] = "vendor_spec_model.additional_info" class = "style-input form-control" type = "text" name = "additional_info" id = "additional_info_input"></textarea>
+          </div>
+
+
+          <button type = "submit" class = "btn btn-success btn-submit">Submit</button>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
