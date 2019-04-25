@@ -1,35 +1,44 @@
 <div class = 'card card-vendor-spec '>
   <div class="card-body">
-    <div class = "row">
-      <div class = "col-3">
-        <img class = "rounded-circle img-fluid" src = "https://via.placeholder.com/150"/>
-      </div>
+    <div class = "vendor-spec-info">
 
-      <div class = "col-6 vendor-info">
-        <h3><b>{{vendorInfo.user.username}}</b></h3>
-        <div class = "vendor-specs ">
-          <p>
-            <span><img src = "/assets/icons/place-icon.svg" /> miles away</span>
-            <br>
-            <span>
-              <img *ngIf = "mode != 'favorite'" src = "/assets/icons/car-icon.svg" />
-              <img *ngIf = "mode == 'favorite'" src = "/assets/icons/favorite-car-icon.svg" />
-              types of transportation
-            </span>
-            <br>
-            <span>other specs</span>
-          </p>
+      <div class = "row">
+
+        <div class = "info col-sm-3 info-price">
+          <p class = "info-label">Price Per Material:</p>
+          <p class = "info-text">${{vendor_spec.price_per}}</p>
         </div>
+
+        <div class = "info col-sm-3 info-material">
+            <p class = "info-label">Material Type:</p>
+            <p class = "info-text">{{vendor_spec.material}}</p>
+        </div>
+
+        <div class = "info col-sm-3 info-transport">
+            <p class = "info-label">Transport Type:</p>
+            <p class = "info-text">{{vendor_spec.transport}}</p>
+        </div>
+
+        <div class = "info col-sm-3 info-print-type">
+            <p class = "info-label">Print Type:</p>
+            <p class = "info-text">{{vendor_spec.type_of_print}}</p>
+        </div>
+
+
       </div>
 
-      <div class = "col-3">
-        <button *ngIf = "mode != 'favorite' && isFavorited != undefined" class = "float-right btn btn-light" (click) = "favoriteOrUnFavoriteVendor($event);" >
-          <span  *ngIf = "isFavorited == false" ><img width = "40" src = "/assets/icons/favorite-icon.svg"/></span>
-          <span *ngIf = "isFavorited == true" ><img  width = "40" src = "/assets/icons/favorited-icon.svg"/></span>
-
-        </button>
-        <button (click) = "placeOrder()" class = "text-center vendor-price-button {{mode}}">Price</button>
+      <div class = "info info-additional-info">
+        <p class = "info-label">Additional Info:</p>
+        <p class = "info-text">
+          {{vendor_spec.additional_info}}
+        </p>
       </div>
+
     </div>
+
+    <div *ngIf = "isAuth" class = "vendor-spec-actions">
+      <button (click) = "deleteVendorSpec()" class = "btn float-right btn-danger">Delete</button>
+    </div>
+
   </div>
 </div>

@@ -262,7 +262,6 @@ export class ApiInterfaceService {
 
   //Vendor Spec retrieval
   getVendorSpecs() {
-
     //api request path
     let request_path = "/api/vendorspecs/";
 
@@ -273,6 +272,25 @@ export class ApiInterfaceService {
 
     //return the completed request async
     return getVendorSpecObservable;
+  }
+
+  //deletes the vendor spec
+  deleteVendorSpec(userToken: string, vendor_spec_id: number) {
+    //auth headers config
+    const httpOptions = {
+      headers: new HttpHeaders({ Authorization: "Token " + userToken })
+    };
+
+    //request string
+    let request_path = "/api/vendorspecs/" + vendor_spec_id + "/";
+
+    // api request observable (DELETE)
+    let deleteVendorSpecObservable: Observable<any> = this.http
+      .delete(this.endpoint + request_path, httpOptions)
+      .pipe(share());
+
+    // return observable
+    return deleteVendorSpecObservable;
   }
 
   // Orders CRUD
@@ -352,7 +370,6 @@ export class ApiInterfaceService {
     return updateOrderObservable;
   }
 
-
   // cancels a order
   cancelOrder(userToken: string, order_id: number) {
     // auth headers
@@ -392,7 +409,6 @@ export class ApiInterfaceService {
     //return observable
     return getOrderDocumentsObservable;
   }
-
 
   //returns the document link for a given document
   viewDocumentLink(document: any) {
@@ -530,6 +546,4 @@ export class ApiInterfaceService {
     //return observable
     return favoriteVendorObservable;
   }
-
-
 }

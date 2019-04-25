@@ -7,8 +7,8 @@
 
   <!-- Render vendor specs -->
   <div class = "vendor-spec-list">
-    <div *ngFor = "vendor_spec in vendor_specs">
-      <vendor-spec-card></vendor-spec-card>
+    <div *ngFor = "let vendor_spec of vendor_specs">
+      <vendor-spec-card (deleteVendorSpecEmitter) = 'deleteVendorSpec($event, vendor_spec.id)' [isAuth] = 'auth_profile.id == vendor_id' [vendor_spec] = 'vendor_spec'></vendor-spec-card>
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 // Api lib
 import { HttpClient } from "@angular/common/http";
@@ -15,41 +15,42 @@ import { map, share, catchError } from "rxjs/operators";
 import { from } from "rxjs";
 import { Observable } from "rxjs";
 
-
 @Component({
-  selector: 'app-vendor-spec-view',
-  templateUrl: './vendor-spec-view.component.html',
-  styleUrls: ['./vendor-spec-view.component.scss']
+  selector: "app-vendor-spec-view",
+  templateUrl: "./vendor-spec-view.component.html",
+  styleUrls: ["./vendor-spec-view.component.scss"]
 })
 //View for looking at your vendor specs
 export class VendorSpecViewComponent implements OnInit {
-
   //vendor id for specs to retrieve
-  public vendor_id:number = undefined;
+  public vendor_id: number = undefined;
 
   public vendor_specs: any[] = [];
 
-  public auth_profile:any = undefined;
-  public token:string = "";
+  public auth_profile: any = undefined;
+  public token: string = "";
 
-  constructor(private api: ApiInterfaceService, private route: ActivatedRoute,  private tokenStore: TokenStorageService, private router: Router) {
-
-  }
+  constructor(
+    private api: ApiInterfaceService,
+    private route: ActivatedRoute,
+    private tokenStore: TokenStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.vendor_id = parseInt(this.route.snapshot.paramMap.get('id')) as number;
+    this.vendor_id = parseInt(this.route.snapshot.paramMap.get("id")) as number;
 
     this.retrieveVendorSpecs();
 
     this.retrieveAuthToken()
       .toPromise()
-      .then (() => {
+      .then(() => {
         console.log(this.token);
         this.getAuthProfile();
-      }).catch ((err) => {
-        console.log(err)
       })
-
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //retrieves the account from the backend server
@@ -60,9 +61,7 @@ export class VendorSpecViewComponent implements OnInit {
   }
 
   retrieveAuthToken() {
-    let observable = this.tokenStore
-      .getToken()
-      .pipe(share());
+    let observable = this.tokenStore.getToken().pipe(share());
 
     observable.subscribe(data => {
       let token = data as string;
@@ -76,22 +75,38 @@ export class VendorSpecViewComponent implements OnInit {
 
   //retrieves the vendor specs for the specific vendor
   retrieveVendorSpecs() {
-    this.api.getVendorSpecs()
-      .subscribe({
-        next: data => {
-          let all_vendor_specs = data as any[];
+    this.api.getVendorSpecs().subscribe({
+      next: data => {
+        let all_vendor_specs = data as any[];
 
-          let filtered_vendor_specs =all_vendor_specs.filter((spec) => {
-            return spec.owner == this.vendor_id;
-          })
+        let filtered_vendor_specs = all_vendor_specs.filter(spec => {
+          return spec.owner == this.vendor_id;
+        });
 
-          this.vendor_specs = filtered_vendor_specs;
-          console.log(this.vendor_specs);
-        },
-        error: err => {
-          console.log(err);
-        }
-      })
+        this.vendor_specs = filtered_vendor_specs;
+        console.log(this.vendor_specs);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 
+  //deletes the vendor spec
+  deleteVendorSpec(e, vendor_spec_id) {
+    //delete the vendor spec
+    this.api
+      .deleteVendorSpec(this.token as string, vendor_spec_id as number)
+      .subscribe({
+        next: data => {
+          console.log("success!");
+
+          //refresh the page
+          location.reload(true);
+        },
+        error: err => {
+          console.log("unable to delete vendor spec");
+        }
+      });
+  }
 }
