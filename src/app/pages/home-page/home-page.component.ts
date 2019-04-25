@@ -26,26 +26,70 @@ import { ElementRef } from "@angular/core";
 })
 export class HomePageComponent implements OnInit {
   private vendors: any = [];
+  public selected_vendor: any = false;
   private favorites: any = [];
-
+  private vendorSpecs: any = [];
+  private loggedIn: boolean = true;
   private userToken: string;
+
+  ngOnInit() {}
 
   constructor(
     private api: ApiInterfaceService,
     private tokenStore: TokenStorageService,
     private router: Router
   ) {
+    //grab specs function
+    let grab_specs = () => {
+      //give them no specs to start with
+      this.vendors.forEach(vendor => {
+        vendor["specs"] = [];
+      });
+
+      this.vendors = this.vendors.filter(vendor => {
+        let has_spec = false;
+
+        this.vendorSpecs.forEach(spec => {
+          if (has_spec == false && spec.owner == vendor.id) {
+            has_spec = true;
+            vendor["specs"].push(spec);
+          }
+        });
+
+        return has_spec;
+      });
+
+      console.log(this.vendors);
+    };
+
+    //grab all the vendors first
+    let vendor_promise = null;
+
+    //actual retrieval of data
     this.retrieveAuthToken()
       .toPromise()
       .then(_ => {
+        vendor_promise = this.updateVendorData();
         return this.updateVendorData();
       })
+      //then grab the vendor promise
+      .then(_ => {
+        return this.retrieveVendorSpecs().toPromise();
+      })
+      .then(grab_specs)
       .catch(err => {
-        return this.retrieveVendors();
+        vendor_promise = this.retrieveVendors().toPromise();
+        this.loggedIn = false;
+        vendor_promise
+          .then(_ => {
+            return this.retrieveVendorSpecs().toPromise();
+          })
+          .then(grab_specs);
       });
   }
 
-  placeOrder() {
+  placeOrder(selected_vendor) {
+    this.selected_vendor = selected_vendor;
     var modal: any = $("#orderModal");
     modal.modal();
   }
@@ -72,6 +116,16 @@ export class HomePageComponent implements OnInit {
 
     observable.subscribe(vendors => {
       this.vendors = vendors;
+    });
+
+    return observable;
+  }
+
+  retrieveVendorSpecs() {
+    let observable = this.api.getVendorSpecs().pipe(share());
+
+    observable.subscribe(specs => {
+      this.vendorSpecs = specs;
     });
 
     return observable;
@@ -189,15 +243,4 @@ export class HomePageComponent implements OnInit {
         }
       });
   }
-
-  test() {
-    console.log("why");
-  }
-
-  ngOnInit() {
-    //DEBUG this.vendors = this.generateDummyVendors(10);
-    //retrieve the auth token then update the vendor data
-  }
-
-  ngOnChanges(changes) {}
 }

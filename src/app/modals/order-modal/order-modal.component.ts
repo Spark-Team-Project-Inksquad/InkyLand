@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, Output } from "@angular/core";
 
 declare var $: any;
 
@@ -8,6 +8,8 @@ declare var $: any;
   styleUrls: ["./order-modal.component.scss"]
 })
 export class OrderModalComponent implements OnInit {
+  @Input() vendorInfo: any;
+
   constructor() {}
 
   ngOnInit() {}
