@@ -23,6 +23,7 @@ import { Observable } from "rxjs";
 export class FavoritesPageComponent implements OnInit {
   private favoriteVendors: any[] = [];
   private userToken: string = undefined;
+  private vendorSpecs: any = [];
 
   constructor(
     private api: ApiInterfaceService,

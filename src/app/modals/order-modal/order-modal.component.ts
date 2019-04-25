@@ -14,6 +14,7 @@ declare var $: any;
 })
 export class OrderModalComponent implements OnInit {
   @Input() vendorInfo: any;
+  @Input() profile: any;
 
   constructor(private api: ApiInterfaceService) {}
 

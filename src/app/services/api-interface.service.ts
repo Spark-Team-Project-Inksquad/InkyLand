@@ -313,122 +313,20 @@ export class ApiInterfaceService {
     return deleteVendorSpecObservable;
   }
 
-  // Orders CRUD
-  getOrder(userToken: string, order_id: number) {
-    //auth headers config
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-    //request string
-    let request_path = "/api/orders/" + order_id;
+  //Order CRUD
+  placeOrderReq(payload: any) {
+    //request path
+    let request_path = "/api/orders/";
 
-    //observable API request (GET)
-    let getOrderObservable: Observable<any> = this.http
-      .get(this.endpoint + request_path, httpOptions)
-      .pipe(share());
-
-    //return observable
-    return getOrderObservable;
-  }
-
-  //retrieves a specific order that is related to the user
-  getDetailedOrder(userToken: string, order_id: number) {
-    //auth headers config
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-    //request string
-    let request_path = "/api/orders/" + order_id + "/detailed_order";
-
-    //observable API request (GET)
-    let getDetailedOrderObservable: Observable<any> = this.http
-      .get(this.endpoint + request_path, httpOptions)
-      .pipe(share());
-
-    //return observable
-    return getDetailedOrderObservable;
-  }
-
-  // places a new order
-  placeOrder(userToken: string, order_payload: any) {
-    //auth headers config
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-
-    let printing_offer_id = order_payload["printing_offer"];
-
-    //request string
-    let request_path =
-      "/api/printing-offers/" + printing_offer_id + "/place_order/";
-
-    //observable API request (POST)
+    //create obseravable (POST)
     let placeOrderObservable: Observable<any> = this.http
-      .post(this.endpoint + request_path, order_payload, httpOptions)
+      .post(this.endpoint + request_path, payload, {})
       .pipe(share());
 
-    //return observable
     return placeOrderObservable;
   }
 
-  // places a new order
-  updateOrder(userToken: string, order_id: number, order_payload: any) {
-    //auth headers config
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-
-    //request string
-    let request_path = "/api/orders/" + order_id + "/";
-
-    //observable API request (POST)
-    let updateOrderObservable: Observable<any> = this.http
-      .put(this.endpoint + request_path, order_payload, httpOptions)
-      .pipe(share());
-
-    //return observable
-    return updateOrderObservable;
-  }
-
-  // cancels a order
-  cancelOrder(userToken: string, order_id: number) {
-    // auth headers
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-
-    // request path
-    let request_path = "/api/orders/" + order_id + "/cancel_order";
-
-    // api request observable (DELETE)
-    let cancelOrderObservable: Observable<any> = this.http
-      .delete(this.endpoint + request_path, httpOptions)
-      .pipe(share());
-
-    // return observable
-    return cancelOrderObservable;
-  }
-
   //Document CRUD
-
-  //retrieves the documents associated with a specific order
-  getOrderDocuments(userToken: string, order_id: number) {
-    //user auth
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-
-    //request path
-    let request_path: string = "/api/orders/" + order_id + "/documents/";
-
-    //observable api request (GET)
-    let getOrderDocumentsObservable: Observable<any> = this.http
-      .get(this.endpoint + request_path, httpOptions)
-      .pipe(share());
-
-    //return observable
-    return getOrderDocumentsObservable;
-  }
 
   //returns the document link for a given document
   viewDocumentLink(document: any) {
@@ -437,12 +335,7 @@ export class ApiInterfaceService {
   }
 
   //uploads a new document
-  createDocument(userToken: string, user_id: any, payload: any) {
-    // auth headers
-    const httpOptions = {
-      headers: new HttpHeaders({ Authorization: "Token " + userToken })
-    };
-
+  createDocument(userToken: string, order_id: any, payload: any) {
     //form data
     let formData: FormData = new FormData();
 
@@ -450,11 +343,7 @@ export class ApiInterfaceService {
     formData.append("uploaded_file", file, file.name);
 
     //NOTE can potentially optimize
-    formData.append("owner", user_id);
-
-    if (payload["document_type"] != null) {
-      formData.append("document_type", payload["document_type"]);
-    }
+    formData.append("order", order_id);
 
     //request path
     let request_path: string = "/api/document/";
@@ -465,7 +354,7 @@ export class ApiInterfaceService {
       "POST",
       this.endpoint + request_path,
       formData,
-      httpOptions
+      {}
     );
 
     let createDocumentObservable: Observable<any> = this.http

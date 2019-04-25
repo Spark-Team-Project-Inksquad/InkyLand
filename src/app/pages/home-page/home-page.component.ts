@@ -27,6 +27,7 @@ import { ElementRef } from "@angular/core";
 export class HomePageComponent implements OnInit {
   private vendors: any = [];
   public selected_vendor: any = false;
+  public profile: any;
   private favorites: any = [];
   private vendorSpecs: any = [];
   private loggedIn: boolean = true;
@@ -77,6 +78,9 @@ export class HomePageComponent implements OnInit {
         return this.retrieveVendorSpecs().toPromise();
       })
       .then(grab_specs)
+      .then(_ => {
+        this.getProfile();
+      })
       .catch(err => {
         vendor_promise = this.retrieveVendors().toPromise();
         this.loggedIn = false;
@@ -92,6 +96,13 @@ export class HomePageComponent implements OnInit {
     this.selected_vendor = selected_vendor;
     var modal: any = $("#orderModal");
     modal.modal();
+  }
+
+  //retrieves the account from the backend server
+  getProfile() {
+    this.api.getProfile(this.userToken).subscribe(profile => {
+      this.profile = profile;
+    });
   }
 
   retrieveAuthToken() {

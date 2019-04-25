@@ -12,7 +12,7 @@
 
       <div class="modal-body">
 
-        <form class = "text-center">
+        <form *ngIf = "!order_placed" class = "order-form" (ngSubmit) = "placeOrder()" #orderForm="ngForm" class = "text-center">
 
           <!-- Quantity -->
           <h3>Quantity of Order</h3>
@@ -20,35 +20,36 @@
 
             <!-- Sub button -->
 
-            <button class = "btn btn-sub btn-default">
+            <a (click) = "decreaseQuant()" class = "btn btn-sub btn-default">
               <img src = "/assets/icons/sub.svg"/>
-            </button>
+            </a>
 
             <!-- Input Field -->
-            <input class = "text-field" type = "number" name = 'order-quantity'/>
+            <input [(ngModel)] = 'order_model.quantity' class = "text-field" type = "number" name = 'order-quantity'/>
 
             <!-- Add button -->
-            <button class = "btn btn-add btn-default">
+            <a (click) = "increaseQuant()" class = "btn btn-add btn-default">
               <img src = "/assets/icons/add.svg"/>
-            </button>
+            </a>
 
           </div>
 
           <div class = "upload-file-container">
             <h3>Upload File(s)</h3>
+            <h5>Upload zip for multiple</h5>
             <!-- Upload button -->
-            <button class = "btn btn-default btn-upload">
-              <img src = "/assets/icons/upload.svg"/>
-            </button>
+            <div class = 'form-group'>
+              <input (change) = "onFileChange($event)" type = "file" id = "customFile">
+            </div>
 
           </div>
           <!-- Submit button-->
           <button class = "btn btn-block btn-default btn-submit" type = "submit">Submit</button>
         </form>
 
-        <div style = "display: none;">
+        <div *ngIf = "order_placed">
           <p>
-            Your order has been sent. You can not chat with your vendor in the messages section.
+            Your order has been sent. You can now chat with your vendor in the messages section.
           </p>
         </div>
 
