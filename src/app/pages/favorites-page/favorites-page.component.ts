@@ -42,10 +42,21 @@ export class FavoritesPageComponent implements OnInit {
     return observable;
   }
 
+  retrieveVendorSpecs() {
+    let observable = this.api.getVendorSpecs().pipe(share());
+
+    observable.subscribe(specs => {
+      this.vendorSpecs = specs;
+    });
+
+    return observable;
+  }
+
   //retrieves list of favorite vendors
   retrieveFavoriteVendors() {
     //ask server for user favorite vendors
-    this.api.listFavorites(this.userToken).subscribe(vendors => {
+    let observable = this.api.listFavorites(this.userToken).pipe(share());
+    observable.subscribe(vendors => {
       let uniqueVendors = [];
 
       //load in initial unique vendors without their id
@@ -68,6 +79,7 @@ export class FavoritesPageComponent implements OnInit {
       //sets the favorite vendors component variable
       this.favoriteVendors = uniqueVendors.map(v => v.vendor);
     });
+    return observable;
   }
 
   //Generates a list of dummy vendors
@@ -113,8 +125,32 @@ export class FavoritesPageComponent implements OnInit {
   ngOnInit() {
     let authPromise = this.retrieveAuthToken().toPromise();
 
-    authPromise.then(_ => {
-      this.retrieveFavoriteVendors();
-    });
+    authPromise
+      .then(_ => {
+        return this.retrieveFavoriteVendors().toPromise();
+      })
+      .then(_ => {
+        return this.retrieveVendorSpecs().toPromise();
+      })
+      .then(_ => {
+        //give them no specs to start with
+        this.favoriteVendors.forEach(vendor => {
+          console.log(vendor);
+          vendor["specs"] = [];
+        });
+
+        this.favoriteVendors = this.favoriteVendors.filter(vendor => {
+          let has_spec = false;
+
+          this.vendorSpecs.forEach(spec => {
+            if (has_spec == false && spec.owner == vendor.id) {
+              has_spec = true;
+              vendor["specs"].push(spec);
+            }
+          });
+
+          return has_spec;
+        });
+      });
   }
 }

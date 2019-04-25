@@ -19,7 +19,7 @@
     <div *ngFor = "let vendor_row of getVendorGrid(2)" class = "row">
       <div class = "col-md-2"></div>
       <div *ngFor = "let vendor of vendor_row" class = "col-md-4">
-          <vendor-card [vendorInfo] = 'vendor' mode = "favorite"></vendor-card>
+          <vendor-card [vendorSpecs] = 'vendor.specs' [vendorInfo] = 'vendor' mode = "favorite"></vendor-card>
       </div>
       <div class = "col-md-2"></div>
     </div>
